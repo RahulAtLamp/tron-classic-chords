@@ -1,0 +1,22 @@
+.player-main {
+  width: 90%;
+  margin: 0 auto;
+  padding-top:60px;
+}
+
+.piano-label {
+  position: absolute;
+  background-color: white;
+  margin-top: -15px;
+  margin-left: 30px;
+  width: 100px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.piano-holder {
+  border: 1px solid #746cfe;
+  border-radius: 20px;
+  min-height: 400px;
+  padding: 30px;
+}

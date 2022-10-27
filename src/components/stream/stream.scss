@@ -1,0 +1,94 @@
+$gradient-color: linear-gradient(
+  90deg,
+  #242132,#746cfe, #ae8cfe
+);
+
+.cs {
+  margin: auto;
+  min-height: 80vh;
+  width: 80%;
+  max-width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  //   padding: 30px;
+
+  .cs-left-container {
+    min-width: 60%;
+    padding-top: 30px;
+    video.cs-video {
+      width: 700px;
+    }
+
+    button.cs-button {
+      margin: 0.7rem 0.5rem;
+      background: $gradient-color;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      background-size: 600% 200%;
+      animation: gradient 4s linear infinite;
+      animation-direction: alternate;
+    }
+    button.cs-button:hover {
+      cursor: pointer;
+    }
+  }
+  .cs-right-container {
+    padding: 30px;
+    text-align: left;
+    .space-to-upload-image {
+      width: 100%;
+      height: auto;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      svg {
+        fill: #746cfe;
+        height: 2rem;
+        width: 3rem;
+      }
+    }
+    input.cs-input {
+      width: 100%;
+      background: #292929;
+      outline: none;
+      border: 2px solid #292929;
+      border-radius: 10px;
+      padding: 4% 20px;
+      color: #ffffff;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      font-size: 0.5rem;
+    }
+
+    textarea.cs-textarea {
+      width: 100%;
+      background: #292929;
+      outline: none;
+      border: 2px solid #292929;
+      border-radius: 10px;
+      padding: 4% 20px;
+      color: #ffffff;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      font-size: 0.5rem;
+    }
+    .cs-label {
+      padding-bottom: 4%;
+      font-size: 1rem;
+    }
+    input[type="radio"]:checked {
+      background-color: red;
+      border: 2px solid red;
+    }
+    img.cs-uploaded-image {
+      height: 10rem;
+      width: 20rem;
+    }
+  }
+}
