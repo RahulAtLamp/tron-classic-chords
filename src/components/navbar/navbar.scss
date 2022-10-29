@@ -8,12 +8,13 @@
     z-index: 100;
     transition: top 0.6s;
     background: rgb(116,108,254);
-    background: linear-gradient(90deg, rgba(116,108,254,1) 50%, rgba(174,140,254,1) 100%);
+    // background: linear-gradient(90deg, rgba(116,108,254,1) 50%, rgba(174,140,254,1) 100%);
   }
   
   .nav-logo {
     text-decoration: none;
     color: white;
+    display: none;
   }
   
   .nav-links {
@@ -45,21 +46,21 @@
     font-weight: 900;
     color: #fefcff;
     padding: 5px 10px;
-    -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+    // -webkit-animation: glow 1s ease-in-out infinite alternate;
+    // -moz-animation: glow 1s ease-in-out infinite alternate;
+    // animation: glow 1s ease-in-out infinite alternate;
   }
 
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-        0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-    }
-    to {
-      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-        0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-    }
-  }
+  // @keyframes glow {
+  //   from {
+  //     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+  //       0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  //   }
+  //   to {
+  //     text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+  //       0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  //   }
+  // }
   
   .nav-link:hover {
     color: red;

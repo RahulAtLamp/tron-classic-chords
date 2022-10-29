@@ -10,9 +10,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -37,9 +39,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -58,9 +62,9 @@
   align-items: center;
   text-align: center;
   margin-top: -10px;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  /* -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;*/
 }
 
 .home-content {
@@ -113,9 +117,11 @@
   0% {
     transform: translateY(-5px);
   }
+
   50% {
     transform: translateY(10px);
   }
+
   100% {
     transform: translateY(-5px);
   }
@@ -148,6 +154,7 @@
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
       0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
   }
+
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
       0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
@@ -158,11 +165,9 @@
   height: 600px;
   width: 400px;
   background: rgb(116, 108, 254);
-  background: linear-gradient(
-    180deg,
-    rgba(116, 108, 254, 1) 0%,
-    rgba(174, 140, 254, 1) 50%
-  );
+  background: linear-gradient(180deg,
+      rgba(116, 108, 254, 1) 0%,
+      rgba(174, 140, 254, 1) 50%);
   border-radius: 20px;
   align-items: center;
   margin: 0 auto;
@@ -231,14 +236,17 @@
     transform: scale(1) translate(0, 0);
     opacity: 0;
   }
+
   50% {
     opacity: 1;
     transform: scale(1.5) translate(50%, -50%);
   }
+
   80% {
     opacity: 0;
     transform: scale(1.5) translate(100%, -100%);
   }
+
   100% {
     transform: scale(1.5) translate(100%, -100%);
     opacity: 0;
@@ -337,11 +345,9 @@
   height: 300px;
   width: 300px;
   background: rgb(116, 108, 254);
-  background: linear-gradient(
-    180deg,
-    rgba(116, 108, 254, 1) 0%,
-    rgba(174, 140, 254, 1) 50%
-  );
+  background: linear-gradient(180deg,
+      rgba(116, 108, 254, 1) 0%,
+      rgba(174, 140, 254, 1) 50%);
   border-radius: 20px;
   align-items: center;
   margin: 0 auto;
