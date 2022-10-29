@@ -22,20 +22,22 @@ const Home = () => {
       <div className="outerbg">
         <div className="innerbg">
           <div className="home-left">
-            <div className="home-logo">Classic Chords</div>
+            <div className="home-left-inner">
+              <div className="home-logo">Classic Chords</div>
 
-            <div className="home-content">
-              Unleash The Artist In You, & Make Your Own Web3 Music
-            </div>
-            <div className="home-button-div">
-              <button
-                onClick={() => {
-                  onClick();
-                }}
-                className="home-button"
-              >
-                Play Now
-              </button>
+              <div className="home-content">
+                Unleash The Artist In You, & Make Your Own Web3 Music
+              </div>
+              <div className="home-button-div">
+                <button
+                  onClick={() => {
+                    onClick();
+                  }}
+                  className="home-button"
+                >
+                  Play Now
+                </button>
+              </div>
             </div>
           </div>
           <div className="home-right">
@@ -48,9 +50,9 @@ const Home = () => {
             <img className="home-img" src={HomeImg} />
           </div>
         </div>
-        <div className="inst-header">Instructions</div>
+        <div className="inst-header">Instruction</div>
         <div className="inst-main">
-          <ParallaxHover borderRadius={20} scale={5} width={400} height={600}>
+          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
             <div className="inst-bg">
               <div className="inst-content">
                 <ul>
@@ -78,7 +80,7 @@ const Home = () => {
             </div>
           </ParallaxHover>
 
-          <ParallaxHover borderRadius={20} scale={5} width={400} height={600}>
+          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
             <div className="inst-bg">
               <div className="inst-content">
                 <ul>
@@ -109,7 +111,7 @@ const Home = () => {
             </div>
           </ParallaxHover>
 
-          <ParallaxHover borderRadius={20} scale={5} width={400} height={600}>
+          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
             <div className="inst-bg">
               <div className="inst-content">
                 <ul>
