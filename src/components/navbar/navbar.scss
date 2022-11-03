@@ -13,7 +13,7 @@
   background-color: #251843;
 }
 
-.nav-ham-menu{
+.nav-ham-menu {
   display: none;
 }
 
@@ -26,7 +26,7 @@
 .nav-links {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-gap: 20px;
+  grid-gap: 8px;
   list-style: none;
 }
 
@@ -43,7 +43,6 @@ ul.nav-links {
   display: flex;
   align-items: center !important;
   align-content: center !important;
-  margin: none !important;
 }
 
 .navtextstyle {
@@ -68,10 +67,6 @@ ul.nav-links {
 //   }
 // }
 
-.nav-link:hover {
-  color: red;
-}
-
 .nav-icon {
   display: none;
   font-size: 2rem;
@@ -79,8 +74,69 @@ ul.nav-links {
   color: white;
 }
 
-.mobile-menu{
+.mobile-menu {
   display: none;
+}
+
+.nav-button {
+  width: 145px;
+  border-radius: 10px;
+  padding: 3px;
+  font-family: 'FontsFree';
+  cursor: pointer;
+  color: #ffffff;
+  border: 0px;
+  font-weight: 800;
+  animation: login-color-changer 10s ease infinite;
+}
+
+.nav-disconnect {
+  width: 180px;
+  border-radius: 10px;
+  padding: 3px;
+  font-family: 'FontsFree';
+  cursor: pointer;
+  color: #000;
+  border: 0px;
+  font-weight: 800;
+  background-color: #a886fb;
+  // animation: logout-color-changer 10s ease infinite;
+}
+
+@keyframes login-color-changer {
+  0% {
+    background-color: #a886fb;
+  }
+
+  25% {
+    background-color: #793ad8;
+  }
+
+  75% {
+    background-color: #8e59be;
+  }
+
+  100% {
+    background-color: #a886fb;
+  }
+}
+
+@keyframes logout-color-changer {
+  0% {
+    background-color: #a886fb;
+  }
+
+  25% {
+    background-color: #793ad8;
+  }
+
+  75% {
+    background-color: #8e59be;
+  }
+
+  100% {
+    background-color: #a886fb;
+  }
 }
 
 @media only screen and (max-width: 500px) {
@@ -131,7 +187,7 @@ ul.nav-links {
 
 @media(max-width: 800px) {
 
-  .navbar{
+  .navbar {
     display: block;
   }
 
@@ -143,21 +199,22 @@ ul.nav-links {
     display: none !important;
   }
 
-  .nav-ham-menu{
+  .nav-ham-menu {
     display: block !important;
     top: 20px;
     right: 30px;
     position: absolute;
   }
 
-  .mobile-menu{
+  .mobile-menu {
     display: block;
     position: fixed;
     top: 0px;
     padding: 30px;
+    z-index: 3000;
   }
 
-  .mobile-menu ul{
+  .mobile-menu ul {
     font-size: 50px;
     list-style: none;
     background-color: #ffffff;

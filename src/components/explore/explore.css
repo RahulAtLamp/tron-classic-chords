@@ -1,8 +1,16 @@
+.exp{
+  background: linear-gradient(130deg, #251b43 55%, #746cfe);
+  min-height: 250vh;
+}
 .exp-header {
   font-size: xx-large;
   text-align: center;
   font-family: "FontsFree";
-  margin-top: 100px;
+  padding-top: 100px;
+  color: aliceblue;
+  padding-top: 100px;
+  text-shadow: 0 0 2px #ffff, 0 0 10px #a886fb, 0 0 2px #fff,
+    0 0 10px #a886fb, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
 }
 
 .exp-main {
@@ -22,32 +30,53 @@
 }
 
 .exp-bg {
-  height: 400px;
-  width: 600px;
-  background: rgb(116, 108, 254);
-  background: linear-gradient(
-    180deg,
-    rgba(116, 108, 254, 1) 0%,
-    rgba(174, 140, 254, 1) 50%
-  );
+  width: 300px;
+  height: 350px;
+  max-height: 100%;
+  /* background: rgb(116, 108, 254); */
+  background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
   border-radius: 20px;
   align-items: center;
   margin: 0 auto;
   flex: 0 0 20%;
+  flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.3) 5px 8px 12px;
+  padding: 5px 0;
+}
+
+.exp-img {
+  width: inherit;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding-top: 20px;
+  overflow: hidden;
 }
 
 .exp-nft {
-  height: 200px;
-  width: 200px;
-  margin-left: 47px;
-  margin-top: 20px;
+  height: inherit;
+  max-width: 260px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
-.exp-txt {
-  margin-left: 47px;
+.exp-name {
+  margin-top: 20px;
+  padding: 0 20px;
+  color: #fefcff;
+  font-size: 20px;
+  font-family: "Gilmer-Light";
+  font-weight: 700;
+}
+
+.exp-album {
+  padding: 0 20px;
   margin-top: 20px;
   color: #fefcff;
   font-size: 20px;
   font-family: "Gilmer-Light";
+  font-weight: 500;
 }

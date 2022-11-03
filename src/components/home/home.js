@@ -8,12 +8,12 @@ import Zora from "../../images/zora.svg";
 import Polygon from "../../images/polygon.svg";
 import NftStorage from "../../images/nftstorage.svg";
 import LivePeer from "../../images/livepeer.svg";
-import Lit from "../../images/lit.svg";
+// import Lit from "../../images/lit.svg";
 
 const Home = () => {
   const [newButton, setNewButton] = useState({ hidden: false });
   const navigate = new useNavigate();
-  const onClick = () => {
+  const takeToPlayer = () => {
     setNewButton({ hidden: true });
     setTimeout(navigate("/player"), 3000);
   };
@@ -31,7 +31,7 @@ const Home = () => {
               <div className="home-button-div">
                 <button
                   onClick={() => {
-                    onClick();
+                    takeToPlayer();
                   }}
                   className="home-button"
                 >
@@ -52,91 +52,91 @@ const Home = () => {
         </div>
         <div className="inst-header">Instruction</div>
         <div className="inst-main">
-          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
-            <div className="inst-bg">
-              <div className="inst-content">
-                <ul>
-                  <li>
-                    As soon as you enter the homepage, you can find the PLAY
-                    NOW.
-                  </li>
-                  <br />
-                  <li> You'll be redirected to your instruments page.</li>
-                  <br />
-                  <li>Play your music → Generate art.</li>
-                  <br />
-                  <li> You can choose either to mint your art or not.</li>
-                  <br />
-                  <li>
-                    Note to Artists <br /> Only those with the NTF can access
-                    the premium streams that you'll host.
-                  </li>
-                  <br />
-                  <li>
-                    The NFTs by default will be available to browse by the user.
-                  </li>
-                </ul>
-              </div>
+          {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
+          <div className="inst-bg">
+            <div className="inst-content">
+              <ul>
+                <li>
+                  As soon as you enter the homepage, you can find the PLAY
+                  NOW.
+                </li>
+                <br />
+                <li> You'll be redirected to your instruments page.</li>
+                <br />
+                <li>Play your music → Generate art.</li>
+                <br />
+                <li> You can choose either to mint your art or not.</li>
+                <br />
+                <li>
+                  Note to Artists <br /> Only those with the NTF can access
+                  the premium streams that you'll host.
+                </li>
+                <br />
+                <li>
+                  The NFTs by default will be available to browse by the user.
+                </li>
+              </ul>
             </div>
-          </ParallaxHover>
+          </div>
+          {/* </ParallaxHover> */}
 
-          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
-            <div className="inst-bg">
-              <div className="inst-content">
-                <ul>
-                  <li>Go to the STREAM option from the homepage.</li>
-                  <br />
-                  <li>
-                    Choose either Create a Stream or General Stream options.
-                  </li>
-                  <br />
-                  <li>
-                    On the General Stream page, can browse for live streams
-                    happening at present across the globe.
-                  </li>
-                  <br />
-                  <li>
-                    Artists can Create a Stream right before you go live. Choose
-                    to either record one or not.
-                  </li>
-                  <br />
-                  <li>
-                    All live recordings can be downloaded and shared by the
-                    artist.
-                  </li>
-                  <br />
-                  <li>A premium stream will be available soon.</li>
-                </ul>
-              </div>
+          {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
+          <div className="inst-bg">
+            <div className="inst-content">
+              <ul>
+                <li>Go to the STREAM option from the homepage.</li>
+                <br />
+                <li>
+                  Choose either Create a Stream or General Stream options.
+                </li>
+                <br />
+                <li>
+                  On the General Stream page, can browse for live streams
+                  happening at present across the globe.
+                </li>
+                <br />
+                <li>
+                  Artists can Create a Stream right before you go live. Choose
+                  to either record one or not.
+                </li>
+                <br />
+                <li>
+                  All live recordings can be downloaded and shared by the
+                  artist.
+                </li>
+                <br />
+                <li>A premium stream will be available soon.</li>
+              </ul>
             </div>
-          </ParallaxHover>
+          </div>
+          {/* </ParallaxHover> */}
 
-          <ParallaxHover borderRadius={50} scale={5} width={400} height={600}>
-            <div className="inst-bg">
-              <div className="inst-content">
-                <ul>
-                  <li>
-                    Only when you start playing your music, your Generate Art
-                    button will be available.
-                  </li>
-                  <br />
-                  <li>
-                    You can choose to generate art by clicking on the Generate
-                    Art button.
-                  </li>
-                  <br />
-                  <li>Once done, a pop-up will ask if you want to mint it.</li>
-                  <br />
-                  <li>Press MINT NFT and avail the art.</li>
-                  <br />
-                  <li>
-                    You can choose to mint and pay the Gas fee through your
-                    MetaMask account.
-                  </li>
-                </ul>
-              </div>
+          {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
+          <div className="inst-bg">
+            <div className="inst-content">
+              <ul>
+                <li>
+                  Only when you start playing your music, your Generate Art
+                  button will be available.
+                </li>
+                <br />
+                <li>
+                  You can choose to generate art by clicking on the Generate
+                  Art button.
+                </li>
+                <br />
+                <li>Once done, a pop-up will ask if you want to mint it.</li>
+                <br />
+                <li>Press MINT NFT and avail the art.</li>
+                <br />
+                <li>
+                  You can choose to mint and pay the Gas fee through your
+                  MetaMask account.
+                </li>
+              </ul>
             </div>
-          </ParallaxHover>
+          </div>
+          {/* </ParallaxHover> */}
         </div>
         <section className="footer">
           <section className="footer-header">

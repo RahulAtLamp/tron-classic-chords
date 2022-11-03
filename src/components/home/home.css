@@ -7,6 +7,16 @@
   z-index: 150;
 }
 
+.outerbg::after {
+  content: "";
+  background-color: blue;
+  position: absolute;
+  top: 0;
+  z-index: 155;
+  height: inherit;
+  width: 100vw;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -152,12 +162,15 @@
 
 .inst-main {
   position: relative;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 3fr)); */
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 3fr));
+  height: inherit;
+  /* width: 100%; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
   justify-content: center;
-  gap: 70px;
+  /* flex: 0 0 20%; */
+  gap: 0;
   margin-top: 100px;
 }
 
@@ -176,16 +189,18 @@
 .inst-bg {
   height: 600px;
   width: 400px;
-  background: rgb(116, 108, 254);
-  background: linear-gradient(150deg,
-      #251b43 20%,
+  /* background: rgb(116, 108, 254); */
+  /* background: linear-gradient(150deg,
+      #793ad8 20%,
       #8e59be 40%,
-      #251b43);
+      #793ad8); */
+  background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
   border-radius: 50px;
   align-items: center;
   margin: 0 auto;
   flex: 0 0 25%;
   box-shadow: rgba(0, 0, 0, 0.3) 5px 8px 12px;
+  overflow: auto;
 }
 
 .inst-content {
