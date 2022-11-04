@@ -12,13 +12,13 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 const Navbar = () => {
   // const [error, setError] = useState();
   let navigate = useNavigate();
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const { connect } = useConnect({
-    connector: new InjectedConnector(),
+    connector: new InjectedConnector()
   })
   const { disconnect } = useDisconnect()
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(true);
   const [connected, setConnection] = useState(false);
 
@@ -52,7 +52,8 @@ const Navbar = () => {
       {/* <div onClick={handleClick} className="nav-icon">
         {open ? <FiX /> : <FiMenu />}
       </div> */}
-      <ul className={open ? "nav-links" : "nav-links active"}>
+      {/* <ul className={open ? "nav-links" : "nav-links active"}> */}
+      <ul className="nav-links">
         <li className="nav-item">
           <Link to="/" className="nav-link">
             <div className="navtextstyle">Home</div>
@@ -63,20 +64,20 @@ const Navbar = () => {
             <div className="navtextstyle">Player</div>
           </Link>
         </li>
-        <li className="nav-item">
+        <li className="nav-item" style={{ flexGrow:1 }}>
           <Link to="/explore" className="nav-link">
             <div className="navtextstyle">Explore</div>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/streaming" className="nav-link">
-            <div className="navtextstyle">Stream</div>
           </Link>
         </li>
         {
           connected
             ?
             <>
+              <li className="nav-item">
+                <Link to="/streaming" className="nav-link">
+                  <div className="navtextstyle">Stream</div>
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">
                   <div className="navtextstyle">Profile</div>
@@ -109,17 +110,17 @@ const Navbar = () => {
               <li>
                 <span onClick={() => { navigate("/explore") }}>Explore</span>
               </li>
-              <li>
-                <span onClick={() => { navigate("/streaming") }}>Stream</span>
-              </li>
               {
                 connected
                   ?
                   <>
                     <li>
+                      <span onClick={() => { navigate("/streaming") }}>Stream</span>
+                    </li>
+                    <li>
                       <span onClick={() => { navigate("/profile") }}>Profile</span>
                     </li>
-                    <button className="nav-button" onClick={() => { disconnect() }}>Disconnect</button>
+                    <button className="nav-button" onClick={() => { disconnect(); }}>Disconnect</button>
                   </>
                   :
                   <button className="nav-button" onClick={() => { connectWallet() }}>Connect</button>

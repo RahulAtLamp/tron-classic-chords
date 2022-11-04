@@ -1,6 +1,6 @@
 import React from "react";
 // import { ParallaxHover } from "react-parallax-hover";
-import "./explore.css";
+import "./explore.scss";
 // import NFT1 from "../../images/nft1.png";
 // import NFT2 from "../../images/nft2.png";
 // import NFT3 from "../../images/nft3.png";
@@ -9,7 +9,7 @@ import "./explore.css";
 // import NFT6 from "../../images/nft6.png";
 // import NFT7 from "../../images/nft7.png";
 // import NFT8 from "../../images/nft8.png";
-
+import { Link } from "react-router-dom";
 import { Artists } from "./artist-dummy";
 
 const Explore = () => {
@@ -30,15 +30,17 @@ const Explore = () => {
         </div> */}
         {
           Artists.map((artist, i) => (
-            <div className="exp-pa" key={i}>
-              <div className="exp-bg">
-                <div className="exp-img">
-                  <img className="exp-nft" src={artist.image} />
+            <Link key={i} to="/artist/1">
+              <div className="exp-pa">
+                <div className="exp-bg">
+                  <div className="exp-img">
+                    <img className="exp-nft" src={artist.image} />
+                  </div>
+                  <div className="exp-name" title={artist.name}>{artist.name}</div>
+                  <p className="exp-description">{artist.description}</p>
                 </div>
-                <div className="exp-name">{artist.name}</div>
-                <div className="exp-album">{artist.album_name}</div>
               </div>
-            </div>
+            </Link>
           ))
         }
         {/* <div className="exp-pa">

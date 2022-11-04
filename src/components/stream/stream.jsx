@@ -4,8 +4,13 @@ import { Client } from "@livepeer/webrtmp-sdk";
 import Livepeer from "livepeer-nodejs";
 import { create, CID } from "ipfs-http-client";
 import "./stream.scss";
+import { useAccount } from "wagmi";
+import { useNavigate } from "react-router-dom";
 
 function Streaming({ account, contract }) {
+  const { isConnected } = useAccount();
+  const navigate = useNavigate();
+
   const videoEl = useRef(null);
   const stream = useRef(null);
   const [session, setSession] = useState("");
@@ -24,7 +29,9 @@ function Streaming({ account, contract }) {
   const [des, setDes] = useState("");
   const [add, setAdd] = useState("");
   const [record, setRecord] = useState("");
-
+  const [heroImage, setHeroImage] = useState();
+  const [uploaded_image, setUploadedImage] = useState();
+  
   useEffect(() => {
     (async () => {
       videoEl.current.volume = 0;
@@ -38,8 +45,30 @@ function Streaming({ account, contract }) {
       videoEl.current.play();
     })();
   });
-  const [heroImage, setHeroImage] = useState();
-  const [uploaded_image, setUploadedImage] = useState();
+
+  // useEffect(()=>{
+  //   const disableCamera = async() => {
+  //     await navigator.mediaDevices.getUserMedia({
+  //       video: false,
+  //       audio: false,
+  //     });
+  //   }
+  //   disableCamera();
+  // });
+
+  useEffect(() => {
+    if (!isConnected) {
+      navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isConnected) {
+      navigate("/");
+    }
+  }, [isConnected]);
+
+
   async function UploadImage(e) {
     const file = e.target.files[0];
     console.log(file);
@@ -212,7 +241,7 @@ function Streaming({ account, contract }) {
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 1000 1000"
-                      enable-background="new 0 0 1000 1000"
+                      enableBackground="new 0 0 1000 1000"
                     >
                       <metadata>
                         {" "}

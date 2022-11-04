@@ -1,16 +1,22 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-    const [isConnected, setIsConnected] = useState(true);
-    // const {ethereum} = window.ethereum;
-    useState(() => {
-        if (!window.ethereum) {
-            console.log("No wallet installed.");
-            setIsConnected(false);
-        } else {
-            setIsConnected(true);
+    const { isConnected } = useAccount();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isConnected) {
+            navigate("/");
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (!isConnected) {
+            navigate("/");
+        }
+    }, [isConnected]);
 
 
     return (
@@ -18,19 +24,6 @@ const Profile = () => {
             <div>
                 Welcome to Profile
             </div>
-            {
-                !isConnected
-                ?
-                    <div className="no-wallet-box">
-                        <div className="no-wallet-box-main">
-                            <div className="message">
-                                Please connect to a web3 wallet to use our service.
-                            </div>
-                        </div>
-                    </div>
-                :
-                null
-            }
         </div>
     )
 }
