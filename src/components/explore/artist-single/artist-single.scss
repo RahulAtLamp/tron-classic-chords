@@ -1,0 +1,64 @@
+.artist-main {
+    background: linear-gradient(130deg, #251b43 55%, #746cfe);
+    min-height: 250vh;
+    font-family: "FontsFree";
+    font-size: large;
+    color: aliceblue;
+
+    .artist-card-holder {
+        padding: 50px 80px;
+
+        .artist-card {
+            max-width: 800px;
+            width: 80%;
+            padding: 40px;
+            // padding: 50px 30px 30px 30px;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            margin: 0 auto;
+            background-color: gray;
+            border-radius: 20px;
+            height: 300px;
+            overflow: hidden;
+
+            .artist-detail {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 400px;
+
+                .artist-name {
+                    font-size: larger;
+                }
+
+                .artist-description {
+                    font-family: "Gilmer-Light";
+                    width: inherit;
+                    height: 200px;
+                    overflow: auto;
+                }
+
+                .artist-instrument {
+                    font-family: "Gilmer-Light";
+                    width: inherit;
+                }
+            }
+
+            .artist-image-container {
+                // overflow: hidden;
+                max-height: 200px;
+                width: inherit;
+                margin: 10px;
+
+                .artist-image {
+                    height: 360px;
+                    width: 360px;
+                    text-align: center;
+                    padding: 20px;
+                }
+            }
+        }
+    }
+
+}

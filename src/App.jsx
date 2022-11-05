@@ -9,7 +9,7 @@ import Streaming from "./components/stream/stream";
 import Profile from "./components/profile/Profile";
 import { WagmiConfig, createClient } from 'wagmi'
 import { getDefaultProvider } from 'ethers'
-import ArtistSingle from "./components/explore/artist-single";
+import ArtistSingle from "./components/explore/artist-single/artist-single";
 import Error404 from "./components/error404/error404";
 
 const client = createClient({
