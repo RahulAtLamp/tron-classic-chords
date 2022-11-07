@@ -43,7 +43,8 @@ a{
 
 body::-webkit-scrollbar{
   width: 5px;
-  background: linear-gradient(180deg, #251b43 70%, #746cfe);
+  /* background: linear-gradient(180deg, #251b43 70%, #746cfe); */
+  background-color: #ffffff;
 }
 
 /* body::-webkit-scrollbar-track {
@@ -51,7 +52,8 @@ body::-webkit-scrollbar{
 } */
 
 body::-webkit-scrollbar-thumb {
-  background-color: #251b43;
+  /* background-color: #251b43; */
+  background: linear-gradient(90deg, #746cfe 10%, #251b43 70%, #746cfe);
   outline: 3px solid #251b43;
   border-radius: 10px;
 }

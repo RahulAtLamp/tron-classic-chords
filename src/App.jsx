@@ -11,6 +11,7 @@ import { WagmiConfig, createClient } from 'wagmi'
 import { getDefaultProvider } from 'ethers'
 import ArtistSingle from "./components/explore/artist-single/artist-single";
 import Error404 from "./components/error404/error404";
+import CollectionSingle from "./components/explore/artist-single/collections/collection-single";
 
 const client = createClient({
   autoConnect: true,
@@ -32,6 +33,7 @@ const App = () => {
                 <Route path="/streaming" element={<Streaming />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/artist/:id" element={<ArtistSingle />} />
+                <Route path="/artist/:id/collections/:id" element={<CollectionSingle />} />
                 <Route path="/*" element={<Error404 />} />
               </Routes>
             </div>

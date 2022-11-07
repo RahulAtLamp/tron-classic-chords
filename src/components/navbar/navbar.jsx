@@ -19,7 +19,7 @@ const Navbar = () => {
   const { disconnect } = useDisconnect()
 
   // const [open, setOpen] = useState(false);
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
   const [connected, setConnection] = useState(false);
 
   const connectWallet = () => {
