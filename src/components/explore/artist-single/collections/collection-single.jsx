@@ -1,9 +1,9 @@
 import React from 'react';
-import "./collections.scss";
+import "./collection-single.scss";
 import { Collections } from '../collection_dummy';
 
 function CollectionSingle() {
-    const collection = Collections[0];
+    const collection = Collections[3];
     return (
         <div className='collection-main'>
             <h2 className="collection-name">{collection.name}</h2>
@@ -11,8 +11,8 @@ function CollectionSingle() {
                 <div className="collection-image-holder">
                     <img className='collection-image' src={collection.image} alt={collection.image} />
                 </div>
-                <div className="collection-details">
-                    <p className="collection-descripton">
+                <div className="collection-sub">
+                    <p className="collection-description">
                         {collection.description}
                     </p>
                     <p className="collection-price">

@@ -1,0 +1,70 @@
+.collection-main {
+    min-height: 250vh;
+    background: linear-gradient(130deg, #251b43 55%, #746cfe);
+
+    .collection-name {
+        font-size: xx-large;
+        text-align: center;
+        font-family: "FontsFree";
+        padding-top: 100px;
+        color: #ffffff;
+        margin: 0;
+        text-shadow: 0 0 2px #ffff, 0 0 10px #a886fb, 0 0 2px #fff,
+            0 0 10px #a886fb, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
+    }
+
+    .collection-detail-holder {
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        padding-top: 100px;
+        flex-direction: column;
+        gap: 30px;
+
+        .collection-image-holder {
+            width: 400px;
+            overflow: hidden;
+            height: 400px;
+            padding: 30px;
+            // background-color: rgba(255, 255, 255, 0.6);
+            background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            border-radius: 20px;
+
+
+            .collection-image {
+                max-width: 100%;
+                max-height: fit-content;
+            }
+        }
+
+        .collection-sub {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            width: calc(100% - 300px);
+            flex-direction: column;
+            height: fit-content;
+            color: #ffffff;
+            font-family: "Gilmer-Light";
+
+            p {
+                &.collection-description {
+                    font-size: 20px;
+                    text-align: center;
+                    width: 600px;
+                }
+
+                &.collection-price{
+                    display: inline-flex;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}

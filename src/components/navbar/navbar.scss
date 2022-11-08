@@ -49,11 +49,13 @@ ul.nav-links {
   display: flex;
   align-items: center;
   align-content: center;
-  li{
+
+  li {
     padding: 0 10px;
     border-right: 1px solid #ffffff;
   }
-  :last-child{
+
+  :last-child {
     padding: 0 10px;
     border-right: none;
   }
@@ -115,6 +117,72 @@ ul.nav-links {
   font-weight: 800;
   background-color: #a886fb;
   // animation: logout-color-changer 10s ease infinite;
+}
+
+.connection-options-container {
+  position: absolute;
+
+  .connection-options {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(168, 134, 251, 0.4);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    color: #ffffff;
+
+    .options-holder {
+      width: 25%;
+      height: 200px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #a886fb 50%, #793ad8);
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 20px;
+
+      .options-heading {
+        text-align: center;
+
+        h2 {
+          font-family: 'FontsFree';
+          font-size: 11px;
+        }
+      }
+
+      .options-container {
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        align-content: center;
+        margin-top: 30px;
+
+        .wallets {
+          width: 100%;
+          text-align: center;
+
+          .wallet-image {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      // .metamask {
+      //   width:50%;
+      //   text-align: center;
+
+      //   .mm {
+      //     width: 100px;
+      //     height: 100px;
+      //     cursor: pointer;
+      //   }
+      // }
+    }
+  }
 }
 
 @keyframes login-color-changer {
