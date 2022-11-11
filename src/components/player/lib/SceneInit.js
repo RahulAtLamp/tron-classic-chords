@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
 export default class SceneInit {
-  constructor(canvasID, camera, scene, stats, controls, renderer, fov = 36) {
+  constructor(divId,canvasID, camera, scene, stats, controls, renderer, fov = 36) {
     this.fov = fov;
     this.scene = scene;
     this.stats = stats;
@@ -11,6 +11,7 @@ export default class SceneInit {
     this.controls = controls;
     this.renderer = renderer;
     this.canvasID = canvasID;
+    this.divId = divId;
   }
 
   initScene() {
@@ -46,12 +47,12 @@ export default class SceneInit {
     });
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.renderer.domElement);
+    document.getElementById(this.divId).appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-    this.stats = Stats();
-    document.body.appendChild(this.stats.dom);
+    // this.stats = Stats();
+    // document.getElementById(this.divId).appendChild(this.stats.dom);
 
     // ambient light which is for the whole scene
     let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -73,7 +74,7 @@ export default class SceneInit {
     // requestAnimationFrame(this.animate.bind(this));
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
-    this.stats.update();
+    // this.stats.update();
     this.controls.update();
   }
 

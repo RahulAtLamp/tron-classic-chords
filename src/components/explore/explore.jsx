@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { ParallaxHover } from "react-parallax-hover";
 import "./explore.scss";
 // import NFT1 from "../../images/nft1.png";
@@ -11,9 +11,9 @@ import "./explore.scss";
 // import NFT8 from "../../images/nft8.png";
 import { Link } from "react-router-dom";
 import { Artists } from "./artist-dummy";
+import { GUI } from 'dat.gui';
 
-const Explore = () => {
-
+const Explore = ({temp}) => {
   return (
     <div className="exp">
       <div className="exp-header">All Artists</div>

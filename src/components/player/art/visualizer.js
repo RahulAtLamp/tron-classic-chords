@@ -85,9 +85,7 @@ export default class Visualizer extends React.Component {
     recorder.stop();
     const file = recorder.save();
     this.state.file = URL.createObjectURL(file);
-    alert(file);
 
-    const myFile_ = new File([file], "demo.mp4", { type: "video/webm" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(file);
     link.setAttribute("download", `FileName.mp4`);
@@ -203,10 +201,9 @@ export default class Visualizer extends React.Component {
 
           <canvas id="canvas" ref={this.selectorRef} />
           <video src={this.file} controls />
-
+          <button onClick={this.startRecording} id="startR">Start Recording</button>
+          <button onClick={this.stopRecording} id="stopR">Stop Recording</button>
         </div>
-        <button onClick={this.startRecording}>Start Recording</button>
-        <button onClick={this.stopRecording}>Stop Recording</button>
         {/* {recordV} */}
       </>
     );

@@ -8,22 +8,25 @@ import Piano from './lib/Piano';
 import MIDISounds from 'midi-sounds-react';
 import { useState, useRef } from 'react';
 import Visualizer from "./art/visualizer";
+import './player.css'
 
 function Player() {
   const [selectedInstrument, setSelectedInstrument] = useState(31);
   const p = new Piano();
   const gui = new GUI();
+  gui.domElement.id = 'gui';
 
 
   let items = null;
   const midiSounds = useRef(null);
   useEffect(() => {
-    const test = new SceneInit('pianoCanvas');
+    const test = new SceneInit('pianoHolder','pianoCanvas');
     test.initScene();
     test.animate();
     // midiSounds.cacheInstrument(selectedInstrument);
 
     test.scene.add(p.getPianoGroup());
+
 
 
     const fontLoader = new FontLoader();
@@ -38,7 +41,6 @@ function Player() {
 
     const cameraFolder = gui.addFolder('Camera');
     cameraFolder.add(test.camera.position, 'z', 100, 250);
-    cameraFolder.open();
 
     // NOTE: UI bug caused by importing tailwind css.
     const pianoFolder = gui.addFolder('Piano');
@@ -53,6 +55,14 @@ function Player() {
           p.hideText();
         }
       });
+
+      var obj = { Start_Recording:function(){ document.getElementById('startR').click();}};
+
+      pianoFolder.add(obj,'Start_Recording');
+  
+      var obj_2 = { Stop_Recording:function(){ document.getElementById('stopR').click(); }};
+
+      pianoFolder.add(obj_2,'Stop_Recording');
 
 
       const createSelectItems = () => {
@@ -84,25 +94,10 @@ function Player() {
     pianoFolder.open();
 
 
-    // NOTE: Play piano with mouse.
-    // const mouse = new THREE.Vector2();
-    // const raycaster = new THREE.Raycaster();
-    // function onMouseDown(event) {
-    //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //   raycaster.setFromCamera(mouse, test.camera);
-    //   const intersects = raycaster.intersectObjects(pianoObject.children);
-    //   console.log(intersects);
-    //   if (intersects.length > 0) {
-    //     intersects.forEach((note) =>
-    //       console.log((note.object.position.z = -10))
-    //     );
-    //   }
-    // }
-  },);
+  },[]);
 
   useEffect(() => {
-    const test = new SceneInit('pianoCanvas');
+    const test = new SceneInit('pianoHolder','pianoCanvas');
     test.initScene();
     test.animate();
     // midiSounds.cacheInstrument(selectedInstrument);
@@ -153,7 +148,9 @@ function Player() {
   }, [selectedInstrument])
 
   return (
-    <div>
+    <>
+    <div id="gui"></div>
+    <div id="pianoHolder">
       <canvas id="pianoCanvas"></canvas>
 
       <div style={{display:'none'}}>
@@ -166,6 +163,7 @@ function Player() {
       <Visualizer />
 
     </div>
+    </>
   );
 }
 

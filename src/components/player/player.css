@@ -20,3 +20,17 @@
   min-height: 400px;
   padding: 30px;
 }
+
+#gui{
+  top: 65x;
+}
+
+.dg.a{
+  margin-top: 65px;
+  opacity: 1;
+}
+
+.dg {
+  /*background-color: magenta;*/
+  /*background-color: #f0f;*/
+}
