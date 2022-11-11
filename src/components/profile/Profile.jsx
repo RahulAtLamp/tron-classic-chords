@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAccount } from "wagmi";
 import { useNavigate } from "react-router-dom";
 import "./profile.scss";
@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
     const { isConnected, address } = useAccount();
+    const [profileWindow, showProfileWindow] = useState(false);
+    const fileRef = useRef(null);
     const navigate = useNavigate();
 
-    const firstFive = Collections.slice(0,5);
+    const firstFive = Collections.slice(0, 5);
     const lastFive = Collections.slice(-5);
 
     useEffect(() => {
@@ -105,6 +107,26 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            {
+                profileWindow
+                    ?
+                    <div className="edit-user-popup-main">
+                        <div className="edit-user-popup">
+                            <div className="edit-user-p-header">
+                                Edit Profile
+                            </div>
+                            <div className="profile-information">
+                                <input type="file" ref={fileRef} hidden />
+                                <div className="update-profile-pic">
+                                    <img src="images/man.png" alt="profile pic preview" onClick={()=>{ fileRef.current.click() }} className="profile-pic-preview" />
+                                </div>
+                                <input type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
         </div>
     )
 }

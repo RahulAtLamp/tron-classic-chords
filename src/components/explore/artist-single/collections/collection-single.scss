@@ -47,11 +47,14 @@
             display: flex;
             align-items: center;
             align-content: center;
-            width: calc(100% - 300px);
+            width: 900px;
             flex-direction: column;
             height: fit-content;
             color: #ffffff;
             font-family: "Gilmer-Light";
+            background: linear-gradient(-45deg, #793ad8 50%, #a886fb);
+            padding: 30px 10px;
+            border-radius: 30px;
 
             p {
                 &.collection-description {
@@ -60,11 +63,70 @@
                     width: 600px;
                 }
 
-                &.collection-price{
+                &.total-minted {
+                    background-color: #251b43;
                     display: inline-flex;
                     font-size: 25px;
+                    margin-top: 30px;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                }
+            }
+
+            .collection-buy-button {
+                width: 200px;
+                margin: 0 auto;
+                padding: 10px;
+                border-radius: 10px;
+                border: 0;
+                font-family: "FontsFree";
+                cursor: pointer;
+                // background: linear-gradient(120deg, #251b43 40%, #793ad8);
+                pointer-events: auto;
+                display: flex;
+                align-items: center;
+                align-content: center;
+                margin-top: 30px;
+                animation-name: change-color;
+                animation-duration: 20s;
+                animation-iteration-count:infinite;
+
+                .buy-button-tag {
+                    flex-grow: 1;
+                    width: '80px';
+                    text-align: left;
+                }
+
+                &:hover {
+                    transform: scale(1.2);
                 }
             }
         }
+    }
+}
+
+
+@keyframes change-color {
+    0% {
+        background-color: #ffffff;
+    }
+
+    25% {
+        background-color: #a886fb;
+        color: #ffffff;
+    }
+
+    50% {
+        background-color: #251b43;
+        color: #ffffff;
+    }
+
+    75% {
+        background-color: #a886fb;
+        color: #ffffff;
+    }
+
+    100% {
+        background-color: #ffffff;
     }
 }
