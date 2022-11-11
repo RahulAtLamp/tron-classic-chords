@@ -3,7 +3,6 @@ import butterchurnPresets from "butterchurn-presets";
 import Selection from "./songselection";
 import recorder from '../react-canvas-recorder';
 import React, { useCallback } from 'react'
-import RecordView from "./recorder";
 import Minting from "../minting/Minting"
 
 export default class Visualizer extends React.Component {
@@ -105,8 +104,7 @@ export default class Visualizer extends React.Component {
     this.state.file_url = URL.createObjectURL(file);
     this.state.link = link;
     console.log("in");
-    this.toggleModal();
-    // Do something with the file
+    this.setState(state => ({open: !state.open}));
   }
 
   resize = () => {
@@ -215,7 +213,7 @@ export default class Visualizer extends React.Component {
           <button onClick={this.stopRecording} id="stopR">Stop Recording</button>
 
         </div>
-        <Minting opened={this.state.open} toggleModal={this.toggleModal} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
+        <Minting opened={this.state.open} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
 
         {/* {recordV} */}
       </>

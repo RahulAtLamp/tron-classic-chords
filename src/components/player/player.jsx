@@ -123,7 +123,7 @@ function Player() {
     }
 
     const onKeyDown = (event) => {
-      if(event.key == 'h'){
+      if(event.key === 'h' || event.key === 'H'){
         gui.__proto__.constructor.toggleHide();
       }
       if (event.repeat) {

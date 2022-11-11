@@ -71,8 +71,9 @@ var CanvasRecorder = function CanvasRecorder() {
     });
   }
 
-  function stopRecording() {
+  async function stopRecording() {
     mediaRecorder.stop();
+    await navigator.mediaDevices.getUserMedia({audio: true, video: false});
   }
 
   function download(file_name) {
