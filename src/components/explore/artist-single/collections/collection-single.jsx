@@ -15,15 +15,15 @@ function CollectionSingle() {
                     <p className="collection-description">
                         {collection.description}
                     </p>
-                    <p className="collection-price">
-                        {collection.price}
+                    <p className="total-minted">
+                        Total Minted / Remaining
                     </p>
                     <p className="total-minted">
-                        {collection.total_minted}
+                        {collection.total_minted}/{collection.remaining}
                     </p>
-                    <p className="remaining">
-                        {collection.remaining}
-                    </p>
+                    <button className="collection-buy-button">
+                        <span className='buy-button-tag'>BUY</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span>
+                    </button>
                 </div>
             </div>
         </div>

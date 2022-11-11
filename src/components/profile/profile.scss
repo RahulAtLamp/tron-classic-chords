@@ -14,9 +14,9 @@
             background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
             width: 100%;
 
-            .profile-background{
+            .profile-background {
                 width: 100%;
-                object-fit:fill;
+                object-fit: fill;
                 height: 400px;
             }
         }
@@ -42,6 +42,7 @@
     .edit-profile {
         width: 100%;
         text-align: right;
+        cursor: pointer;
 
         .edit-profile-button {
             width: 30px;
@@ -217,6 +218,35 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    .edit-user-popup-main {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        .edit-user-popup {
+            height: 500px;
+            width: 100%;
+            max-width: 500px;
+            background-color: black;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+
+            .edit-user-p-header {
+                font-family: "FontsFree";
+                color: #ffffff;
+                text-align: center;
+                padding: 10px;
+                font-size: 20px;
             }
         }
     }
