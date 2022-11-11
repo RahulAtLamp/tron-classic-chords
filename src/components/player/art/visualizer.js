@@ -4,6 +4,7 @@ import Selection from "./songselection";
 import recorder from '../react-canvas-recorder';
 import React, { useCallback } from 'react'
 import RecordView from "./recorder";
+import Minting from "../minting/Minting"
 
 export default class Visualizer extends React.Component {
   state = {
@@ -13,8 +14,14 @@ export default class Visualizer extends React.Component {
     width: "",
     height: "",
     fullscreen: false,
-    file: null,
+    file_url: null,
+    file:null,
+    open: false,
+    link:null
   };
+
+  toggleModal =() => this.setState(state => ({open: !state.open}))
+
 
   constructor(props) {
     super(props);
@@ -84,7 +91,6 @@ export default class Visualizer extends React.Component {
   stopRecording = () => {
     recorder.stop();
     const file = recorder.save();
-    this.state.file = URL.createObjectURL(file);
 
     const link = document.createElement("a");
     link.href = URL.createObjectURL(file);
@@ -93,9 +99,13 @@ export default class Visualizer extends React.Component {
     // Append to html link element page
     document.body.appendChild(link);
 
-    // Start download
-    link.click();
-
+    // // Start download
+    // link.click();
+    this.state.file = file;
+    this.state.file_url = URL.createObjectURL(file);
+    this.state.link = link;
+    console.log("in");
+    this.toggleModal();
     // Do something with the file
   }
 
@@ -103,8 +113,8 @@ export default class Visualizer extends React.Component {
     let { canvas, visualizer, width, height, fullscreen } = this.state;
 
     //get width height
-    let newwidth = 300;
-    let newheight = 200;
+    let newwidth = 700;
+    let newheight = 400;
 
     //compare size
     const total = newwidth + newheight;
@@ -198,12 +208,15 @@ export default class Visualizer extends React.Component {
             />
           ) : null}
 
-
+``
           <canvas id="canvas" ref={this.selectorRef} />
           <video src={this.file} controls />
           <button onClick={this.startRecording} id="startR">Start Recording</button>
           <button onClick={this.stopRecording} id="stopR">Stop Recording</button>
+
         </div>
+        <Minting opened={this.state.open} toggleModal={this.toggleModal} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
+
         {/* {recordV} */}
       </>
     );

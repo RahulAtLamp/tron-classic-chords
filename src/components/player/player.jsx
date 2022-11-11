@@ -14,7 +14,6 @@ function Player() {
   const [selectedInstrument, setSelectedInstrument] = useState(31);
   const p = new Piano();
   const gui = new GUI();
-  gui.domElement.id = 'gui';
 
 
   let items = null;
@@ -24,7 +23,8 @@ function Player() {
     test.initScene();
     test.animate();
     // midiSounds.cacheInstrument(selectedInstrument);
-
+    gui.domElement.id = 'gui';
+  
     test.scene.add(p.getPianoGroup());
 
 
@@ -117,7 +117,6 @@ function Player() {
     test.camera.position.y = 30;
 
 
-    console.log(selectedInstrument);
     if (selectedInstrument) {
       midiSounds.current.selectedInstrument = selectedInstrument;
       midiSounds.current.cacheInstrument(selectedInstrument);
