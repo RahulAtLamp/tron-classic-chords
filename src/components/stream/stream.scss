@@ -5,20 +5,27 @@ $gradient-color: linear-gradient(
 
 .cs {
   margin: auto;
-  min-height: 80vh;
-  width: 80%;
-  max-width: 80%;
-  display: flex;
+  min-height: 150vh;
+  width: 100%;
+  display: inline-flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-start;
+  background: linear-gradient(130deg, #251b43 55%, #746cfe);
   //   padding: 30px;
 
   .cs-left-container {
-    min-width: 60%;
+    max-width: 1080px;
+    width: 100%;
     padding-top: 30px;
+    margin: 0 auto;
+    text-align: center;
+
     video.cs-video {
-      width: 700px;
+      width: 95%;
+      max-width: 1080px;
+      height: 400px;
+      border-radius: 20px;
     }
 
     button.cs-button {
@@ -41,6 +48,8 @@ $gradient-color: linear-gradient(
   .cs-right-container {
     padding: 30px;
     text-align: left;
+    width: calc(100% - 1080px);
+
     .space-to-upload-image {
       width: 100%;
       height: auto;

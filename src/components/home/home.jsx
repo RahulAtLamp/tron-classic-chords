@@ -155,7 +155,7 @@ const Home = () => {
                 >
                   <div className="footer-img-bg">
                     <div className="footer-img-i">
-                      <img className="zora-img" src={Zora} />
+                      <img className="zora-img" src="images/tron.png" />
                     </div>
                   </div>
                 </ParallaxHover>

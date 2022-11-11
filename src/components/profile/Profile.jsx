@@ -9,6 +9,7 @@ const Profile = () => {
     const { isConnected, address } = useAccount();
     const [profileWindow, showProfileWindow] = useState(false);
     const fileRef = useRef(null);
+    const editUserPopup = useRef(null);
     const navigate = useNavigate();
 
     const firstFive = Collections.slice(0, 5);
@@ -19,6 +20,20 @@ const Profile = () => {
             navigate("/");
         }
     }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (editUserPopup.current && !editUserPopup.current.contains(event.target)) {
+                showProfileWindow(false);
+            }
+        }
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [editUserPopup])
 
     useEffect(() => {
         if (!isConnected) {
@@ -40,7 +55,7 @@ const Profile = () => {
                 </div>
             </div>
             <div className="edit-profile">
-                <img className="edit-profile-button" src="images/edit-btn.svg" onClick={() => { }} />
+                <img className="edit-profile-button" src="images/edit-btn.svg" onClick={() => { showProfileWindow(true) }} />
             </div>
             <div className="profile-user-details">
                 <div className="profile-details-holder">
@@ -111,16 +126,18 @@ const Profile = () => {
                 profileWindow
                     ?
                     <div className="edit-user-popup-main">
-                        <div className="edit-user-popup">
+                        <div className="edit-user-popup" ref={editUserPopup}>
                             <div className="edit-user-p-header">
                                 Edit Profile
                             </div>
                             <div className="profile-information">
                                 <input type="file" ref={fileRef} hidden />
-                                <div className="update-profile-pic">
-                                    <img src="images/man.png" alt="profile pic preview" onClick={()=>{ fileRef.current.click() }} className="profile-pic-preview" />
+                                <div className="update-profile-pic" onClick={() => { fileRef.current.click() }}>
+                                    <img src="images/man.png" alt="profile pic preview" className="profile-pic-preview" />
                                 </div>
-                                <input type="text" />
+                                <input className="profile-username" type="text" placeholder="Username" />
+                                <textarea className="profile-bio" placeholder="Add your bio here..."></textarea>
+                                <button className="user-update-btn">Update Details</button>
                             </div>
                         </div>
                     </div>

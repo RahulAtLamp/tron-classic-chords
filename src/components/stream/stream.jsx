@@ -13,6 +13,8 @@ function Streaming({ account, contract }) {
 
   const videoEl = useRef(null);
   const stream = useRef(null);
+  const mounted = useRef(false);
+  const hero_Image = useRef(null);
   const [session, setSession] = useState("");
   const [url, setUrl] = useState("");
   const livepeerObject = new Livepeer("d72d5808-9b46-4bdf-9cb6-d703ca3e0acc");
@@ -31,7 +33,7 @@ function Streaming({ account, contract }) {
   const [record, setRecord] = useState("");
   const [heroImage, setHeroImage] = useState();
   const [uploaded_image, setUploadedImage] = useState();
-  
+
   useEffect(() => {
     (async () => {
       videoEl.current.volume = 0;
@@ -56,11 +58,19 @@ function Streaming({ account, contract }) {
   //   disableCamera();
   // });
 
-  useEffect(() => {
-    if (!isConnected) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isConnected) {
+  //     navigate("/");
+  //   }
+
+  //   mounted.current = true;
+
+  //   return () => {
+  //     window.location.reload();
+  //     mounted.current = false;
+  //   }
+
+  // }, []);
 
   useEffect(() => {
     if (!isConnected) {
@@ -166,7 +176,13 @@ function Streaming({ account, contract }) {
   const closeStream = async () => {
     session.close();
   };
-  const hero_Image = useRef(null);
+
+  useEffect(() => {
+    if (!mounted) {
+      closeStream();
+    }
+  }, [mounted])
+
   return (
     <>
       <section className="cs">

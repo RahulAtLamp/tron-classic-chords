@@ -42,12 +42,12 @@
     .edit-profile {
         width: 100%;
         text-align: right;
-        cursor: pointer;
 
         .edit-profile-button {
             width: 30px;
             height: 30px;
             padding: 10px;
+            cursor: pointer;
         }
     }
 
@@ -231,6 +231,7 @@
         display: flex;
         align-items: center;
         align-content: center;
+        
 
         .edit-user-popup {
             height: 500px;
@@ -240,6 +241,7 @@
             margin: 0 auto;
             border-radius: 20px;
             overflow: hidden;
+            background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
 
             .edit-user-p-header {
                 font-family: "FontsFree";
@@ -247,6 +249,59 @@
                 text-align: center;
                 padding: 10px;
                 font-size: 20px;
+            }
+
+            .profile-information {
+                text-align: center;
+
+                .update-profile-pic {
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 auto;
+                    overflow: hidden;
+                    margin-top: 30px;
+                    cursor: pointer;
+
+                    .profile-pic-preview {
+                        max-width: 100%;
+                    }
+                }
+
+                .profile-username {
+                    font-size: 20px;
+                    margin-top: 20px;
+                    max-width: 400px;
+                    width: 100%;
+                    font-family: "Gilmer-Light";
+
+                    &::placeholder {
+                        font-size: 20px;
+                    }
+                }
+
+                .profile-bio {
+                    font-size: 20px;
+                    margin-top: 20px;
+                    max-width: 400px;
+                    width: 100%;
+                    height: 150px;
+                    font-family: "Gilmer-Light";
+                    resize: none;
+
+                    &::placeholder {
+                        font-size: 20px;
+                    }
+                }
+
+                .user-update-btn {
+                    margin-top: 30px;
+                    font-size: 20px;
+                    font-family: "FontsFree";
+                    border-radius: 20px;
+                    padding: 0 10px;
+                    background-color: #251b43;
+                    color: #ffffff;
+                }
             }
         }
     }

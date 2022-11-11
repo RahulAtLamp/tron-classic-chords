@@ -185,6 +185,28 @@ ul.nav-links {
   }
 }
 
+ul.nav-sub-menu {
+  position: absolute;
+  padding: 20px !important;
+  background-color: #251843;
+  border-radius: 20px;
+  display: none;
+
+  li{
+    padding: 20px !important;
+    border-right: none;
+    font-family: "FontsFree";
+    font-size: 15px;
+    background-color: #793ad8;
+    font-weight: 700;
+    margin: 10px 10px;
+
+    a{
+      color: #ffffff;
+    }
+  }
+}
+
 @keyframes login-color-changer {
   0% {
     background-color: #a886fb;

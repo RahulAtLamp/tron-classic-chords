@@ -142,6 +142,14 @@ const Navbar = () => {
                   <Link to="/streaming" className="nav-link">
                     <div className="navtextstyle">Stream</div>
                   </Link>
+                  <ul className="nav-sub-menu">
+                    <li>
+                      <Link to="/streaming" className="nav-sub-menu-link">Go Live</Link>
+                    </li>
+                    <li>
+                      <Link to="/" className="nav-sub-menu-link">All Streams</Link>
+                      </li>
+                  </ul>
                 </li>
                 <li className="nav-item">
                   <Link to="/profile" className="nav-link">
