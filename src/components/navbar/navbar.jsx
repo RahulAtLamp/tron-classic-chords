@@ -102,11 +102,11 @@ const Navbar = () => {
     };
   }, [walletOptions]);
 
-  useEffect(() => {
-    if (!window.tronWeb.defaultAddress) {
-      disconnectTron();
-    }
-  }, [window.tronWeb, window.tronWeb.defaultAddress])
+  // useEffect(() => {
+  //   if (!window.tronWeb.defaultAddress) {
+  //     disconnectTron();
+  //   }
+  // }, [window.tronWeb, window.tronWeb.defaultAddress])
 
   return (
     <>
