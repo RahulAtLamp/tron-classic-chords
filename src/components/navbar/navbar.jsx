@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+// import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 import MenuIcon from "./MenuIcon";
@@ -21,6 +21,8 @@ const Navbar = () => {
   const { disconnect } = useDisconnect();
   const walletOptions = useRef();
 
+
+
   // const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
   const [connected, setConnection] = useState(false);
@@ -35,14 +37,15 @@ const Navbar = () => {
 
   const connectTron = async () => {
     if (window.tronWeb) {
-      const address = await window.tronWeb.request({ method: 'tron_requestAccounts' })
+      const address = await window.tronWeb.request({ method: 'tron_requestAccounts' });
+      console.log(address);
       if (address.code === 200) {
         console.log(window.tronWeb.defaultAddress.base58);
         setShowOptions(false);
         setConnection(true);
         setAccount(window.tronWeb.defaultAddress.base58);
       } else {
-        alert("Something went wrong");
+        // alert("Something went wrong");
       }
     } else {
       alert("please install a tronlink wallet to proceed.")
@@ -52,11 +55,13 @@ const Navbar = () => {
   const disconnectTron = () => {
     disconnect();
     if (window.tronWeb) {
-      window.tronWeb.disconnect();
+      // window.tronWeb.disconnect();
+      setConnection(false);
     }
   }
 
   useEffect(() => {
+    console.log(isConnected);
     if (isConnected) {
       setConnection(true);
     } else {
@@ -101,7 +106,7 @@ const Navbar = () => {
     if (!window.tronWeb.defaultAddress) {
       disconnectTron();
     }
-  }, [window.tronWeb.defaultAddress])
+  }, [window.tronWeb, window.tronWeb.defaultAddress])
 
   return (
     <>
@@ -130,7 +135,7 @@ const Navbar = () => {
             </Link>
           </li>
           {
-            connected
+            connected || isConnected
               ?
               <>
                 <li className="nav-item">
@@ -144,7 +149,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-disconnect" onClick={() => { disconnectTron() }}>disconnect</button>
+                  <button className="nav-disconnect" onClick={() => { disconnect(); disconnectTron() }}>disconnect</button>
                 </li>
               </>
               :

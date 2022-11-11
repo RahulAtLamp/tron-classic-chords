@@ -9,7 +9,7 @@
 
 .outerbg::after {
   content: "";
-  background-color: blue;
+  /* background-color: blue; */
   position: absolute;
   top: 0;
   z-index: 155;

@@ -1,0 +1,34 @@
+.profile-main {
+    min-height: 250vh;
+    background: linear-gradient(130deg, #251b43 55%, #746cfe);
+
+    .profile-images {
+        width: 100%;
+        height: 300px;
+        background-color: blue;
+        flex-direction: column;
+
+        .profile-background-holder {
+            height: 300px;
+            background-color: green;
+            width: 100%;
+        }
+
+        .profile-pic-move-up {
+            margin-top: -50px;
+
+            .profile-pic-holder {
+                height: 100px;
+                width: 100px;
+                margin: 0 auto;
+                background-color: yellow;
+                border-radius: 50px;
+    
+                .profile-pic {
+                    max-width: 100%;
+                    border-radius: 50px;
+                }
+            }
+        }
+    }
+}
