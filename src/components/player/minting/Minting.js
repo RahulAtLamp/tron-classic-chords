@@ -3,14 +3,26 @@ import "./styles.scss";
 import { IoCloseOutline } from "react-icons/io5";
 import { BiLoaderAlt } from "react-icons/bi";
 import { Web3Storage } from 'web3.storage';
-import { async } from "q";
+import { useContract } from 'wagmi'
+import classicChords from "../../../contract/artifacts/classicChords.json"
+import market from "../../../contract/artifacts/market.json"
 
 
 
 export default function Minting(props) {
+  const market_address = "0x381b7683D0ce531EE79b8F91446C1342B3c9ddeD";
+  const classicChords_address = "0xc7178F50e5367eC28F0595691d413F36EE43a256";
   console.log(props);
   const [modal, setModal] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
+
+
+  const contract = useContract({
+    address: classicChords_address,
+    abi: classicChords,
+  })
+  console.log(contract);
+
 
   useEffect(() => {
     setModal(props.opened);
@@ -31,6 +43,8 @@ export default function Minting(props) {
       name: 'Test',
       maxRetries: 3,
     }));
+
+  
   }
 
 

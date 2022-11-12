@@ -25,6 +25,6 @@ code {
     monospace;
 }
 
-.dg.a{
- opacity: 0;
+#gui{
+ display: none;
 }
