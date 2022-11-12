@@ -6,7 +6,7 @@ import { Collections } from './collection_dummy';
 import { getRoles } from '@testing-library/react';
 
 function ArtistSingle() {
-  const singleArtist = Artists[10];
+  const singleArtist = Artists[5];
   console.log(singleArtist);
   const [showPopup, setShowPopup] = useState(false);
 

@@ -30,7 +30,11 @@
   opacity: 1;
 }
 
-.dg {
-  /*background-color: magenta;*/
-  /*background-color: #f0f;*/
+/* .dg {
+  background-color: magenta;
+  background-color: #f0f;
+} */
+
+#pianoCanvas {
+  max-width: 100% !important;
 }
