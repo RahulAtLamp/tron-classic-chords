@@ -12,9 +12,56 @@ import "./explore.scss";
 import { Link } from "react-router-dom";
 import { Artists } from "./artist-dummy";
 import { GUI } from 'dat.gui';
+import { ethers } from "ethers";
+import market from "../../contract/artifacts/market.json";
+import { async } from "q";
+const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+
 
 const Explore = ({temp}) => {
+
+  const [loading, setLoading] = React.useState(false)
+  const [Artists, setArtist] = React.useState([])
+
+  const getContract = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(market_address, market, signer);
+          return contract
+        } else {
+          alert("Please connect to the bitTorent Network!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }    
+
+  const getArtists = async() =>{
+    const contract = await getContract()
+    const artists = await contract.getAllArtists()
+    setArtist(artists);
+    setLoading(true)
+    console.log(artists);
+    }
+
+  useEffect(() => {
+      getArtists()
+  },[])
+
+
   return (
+    <>
+    {loading ? (
     <div className="exp">
       <div className="exp-header">All Artists</div>
       <div className="exp-main">
@@ -34,7 +81,7 @@ const Explore = ({temp}) => {
               <div className="exp-pa">
                 <div className="exp-bg">
                   <div className="exp-img">
-                    <img className="exp-nft" src={artist.image} />
+                    <img className="exp-nft" src={artist.profileImage} />
                   </div>
                   <div className="exp-name" title={artist.name}>{artist.name}</div>
                   <p className="exp-description">{artist.description}</p>
@@ -116,6 +163,8 @@ const Explore = ({temp}) => {
       </div>
       <br />
     </div>
+    ) : null}
+  </>
   );
 };
 
