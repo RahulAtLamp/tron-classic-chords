@@ -5,12 +5,13 @@ import classicChords from "../../contract/artifacts/classicChords.json"
 import market from "../../contract/artifacts/market.json"
 import { ethers } from "ethers";
 import { Web3Storage } from 'web3.storage';
-
+import CollectionSingle from "./sell/collection-single"
+import {Link, useNavigate} from 'react-router-dom';
 
 
 function MintNft(props) {
     const market_address = "0x381b7683D0ce531EE79b8F91446C1342B3c9ddeD";
-    const classicChords_address = "0xc7178F50e5367eC28F0595691d413F36EE43a256";
+    const classicChords_address = "0xed01Ed9D4dfa9BCb6540F71539c3D52EB3598212";
   
     const [isExploding, setIsExploding] = React.useState(false);
     const [open, setOpen] = React.useState(false);
