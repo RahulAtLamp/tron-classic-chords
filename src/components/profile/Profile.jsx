@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "./profile.scss";
 import { Collections } from "../explore/artist-single/collection_dummy";
 import { Link } from "react-router-dom";
+import { ethers } from "ethers";
+import classicChords from "../../contract/artifacts/classicChords.json"
+import market from "../../contract/artifacts/market.json"
+
 
 const Profile = () => {
     const { isConnected, address } = useAccount();
@@ -12,13 +16,42 @@ const Profile = () => {
     const editUserPopup = useRef(null);
     const navigate = useNavigate();
 
+    const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+    const classicChords_address = "0xed01Ed9D4dfa9BCb6540F71539c3D52EB3598212";
+
     const firstFive = Collections.slice(0, 5);
     const lastFive = Collections.slice(-5);
+
+    const getProfile = async() => {
+        try {
+            const { ethereum } = window;
+            if (ethereum) {
+              const provider = new ethers.providers.Web3Provider(ethereum);
+              const signer = provider.getSigner();
+              if (!provider) {
+                console.log("Metamask is not installed, please install!");
+              }
+              const { chainId } = await provider.getNetwork();
+              console.log("switch case for this case is: " + chainId);
+              if (chainId === 1029) {
+                const contract = new ethers.Contract(market_address, market, signer);
+                const tx = await contract.userMapping(address);
+                console.log(tx);
+                } else {
+                alert("Please connect to the bitTorent Network!");
+              }
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }     
+
 
     useEffect(() => {
         if (!isConnected) {
             navigate("/");
         }
+        getProfile()
     }, []);
 
     useEffect(() => {

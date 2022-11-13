@@ -3,7 +3,8 @@ import butterchurnPresets from "butterchurn-presets";
 import Selection from "./songselection";
 import recorder from '../react-canvas-recorder';
 import React, { useCallback } from 'react'
-import Minting from "../minting/Minting"
+// import Minting from "../minting/Minting"
+import MintNft from "../MintNft";
 
 export default class Visualizer extends React.Component {
   state = {
@@ -213,7 +214,7 @@ export default class Visualizer extends React.Component {
           <button onClick={this.stopRecording} id="stopR">Stop Recording</button>
 
         </div>
-        <Minting opened={this.state.open} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
+        <MintNft opened={this.state.open} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
 
         {/* {recordV} */}
       </>
