@@ -5,8 +5,9 @@ import "./profile.scss";
 import { Collections } from "../explore/artist-single/collection_dummy";
 import { Link } from "react-router-dom";
 import { ethers } from "ethers";
-import classicChords from "../../contract/artifacts/classicChords.json"
-import market from "../../contract/artifacts/market.json"
+import classicChords from "../../contract/artifacts/classicChords.json";
+import market from "../../contract/artifacts/market.json";
+import { Web3Storage } from 'web3.storage'
 
 
 const Profile = () => {
@@ -88,9 +89,45 @@ const Profile = () => {
             alert("Please install a wallet.")
         }
     }
+    const getContract = async () => {
+        try {
+          const { ethereum } = window;
+          if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            if (!provider) {
+              console.log("Metamask is not installed, please install!");
+            }
+            const { chainId } = await provider.getNetwork();
+            console.log("switch case for this case is: " + chainId);
+            if (chainId === 1029) {
+              const contract = new ethers.Contract(market_address, market, signer);
+              return contract
+            } else {
+              alert("Please connect to the bitTorent Network!");
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }    
+    
+    const addUserData = async () => {
+        try {
+            const { ethereum } = window;
 
-    const addUserData = () => {
-        
+            const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
+            const upload = await client.put([profileImage], {
+                name: profileImage.name,
+                maxRetries: 3,
+            });
+
+            // console.log(upload);
+            const contract = await getContract();
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
