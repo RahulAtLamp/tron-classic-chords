@@ -174,7 +174,7 @@ const Home = () => {
                   </div>
                 </ParallaxHover>
               </section>
-              <section>
+              {/* <section>
                 <ParallaxHover
                   borderRadius={20}
                   scale={5}
@@ -187,7 +187,7 @@ const Home = () => {
                     </div>
                   </div>
                 </ParallaxHover>
-              </section>
+              </section> */}
             </div>
             <div className="imgseperator-down">
               <section>
