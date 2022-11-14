@@ -20,6 +20,7 @@ const Navbar = () => {
 
   const { disconnect } = useDisconnect();
   const walletOptions = useRef();
+  const menuRef = useRef();
 
 
 
@@ -28,6 +29,7 @@ const Navbar = () => {
   const [connected, setConnection] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [account, setAccount] = useState(null);
+  const [showMenu, setShowMenu] = useState(null);
 
   const connectMeta = () => {
     connect();
@@ -102,6 +104,23 @@ const Navbar = () => {
     };
   }, [walletOptions]);
 
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
+
   // useEffect(() => {
   //   if (!window.tronWeb.defaultAddress) {
   //     disconnectTron();
@@ -139,17 +158,26 @@ const Navbar = () => {
               ?
               <>
                 <li className="nav-item">
-                  <Link to="/streaming" className="nav-link">
+                  <span className="nav-link" onClick={() => { setShowMenu(!showMenu) }}>
                     <div className="navtextstyle">Stream</div>
-                  </Link>
-                  <ul className="nav-sub-menu">
-                    <li>
-                      <Link to="/streaming" className="nav-sub-menu-link">Go Live</Link>
-                    </li>
-                    <li>
-                      <Link to="/" className="nav-sub-menu-link">All Streams</Link>
-                      </li>
-                  </ul>
+                  </span>
+                  {
+                    showMenu
+                      ?
+                      <div className="nav-sub-menu" ref={menuRef}>
+                        <ul className="nav-sub-menu">
+                          <li>
+                            <Link to="/streaming" onClick={() => { setShowMenu(false) }} className="nav-sub-menu-link">Go Live</Link>
+                          </li>
+                          <li>
+                            <Link to="/all-stream" onClick={() => { setShowMenu(false) }} className="nav-sub-menu-link">All Streams</Link>
+                          </li>
+                        </ul>
+                      </div>
+                      :
+                      null
+                  }
+
                 </li>
                 <li className="nav-item">
                   <Link to="/profile" className="nav-link">

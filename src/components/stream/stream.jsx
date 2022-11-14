@@ -62,7 +62,7 @@ function Streaming({ account }) {
     } catch (error) {
       console.log(error);
     }
-  }    
+  }
 
   const onButtonClick = async () => {
 
@@ -168,91 +168,95 @@ function Streaming({ account }) {
 
   return (
     <>
-      <section className="cs">
-        <div className="cs-left-container">
-          <video className="cs-video" ref={videoEl} controls />
-          <div className="cs-btns">
-            <button className="cs-button" onClick={() => onButtonClick()}>
-              Start
-            </button>
-            <button className="cs-button" onClick={closeStream}>
-              Stop
-            </button>
+      <section className="cs-main">
+        <h1 className="stream-header">Go Live</h1>
+        <div className="cs">
+          <div className="cs-left-container">
+            <video className="cs-video" ref={videoEl} controls />
+            <div className="cs-btns">
+              <button className="cs-button" onClick={() => onButtonClick()}>
+                Start
+              </button>
+              <button className="cs-button" onClick={closeStream}>
+                Stop
+              </button>
+            </div>
+          </div>
+          <div className="cs-right-container">
+            <form>
+              <formfield className="cs-formfield">
+                <input
+                  className="cs-input"
+                  type="text"
+                  placeholder="Stream Title"
+                  onChange={(event) => setTitle(event.target.value)}
+                  required
+                />
+              </formfield>
+              <formfield className="cs-formfield">
+                <textarea
+                  className="cs-textarea"
+                  type="text"
+                  placeholder="Stream Description"
+                  rows="6"
+                  cols="50"
+                  onChange={(event) => setDes(event.target.value)}
+                />
+              </formfield>
+              <formfield className="cs-formfield">
+                <label>Do you want to make strem premium?</label>
+                <label>
+                  <input
+                    className="cs-input-radio"
+                    type="radio"
+                    name="streamSelector"
+                    onChange={(event) => setPremium(event.target.value)}
+                    value="true"
+                    checked
+                  ></input>
+                  Yes
+                </label>
+                <label>
+                  <input
+                    className="cs-input-radio"
+                    type="radio"
+                    name="streamSelector"
+                    onChange={(event) => setPremium(event.target.value)}
+                    value="false"
+                  ></input>
+                  No
+                </label>
+              </formfield>
+
+
+              <formfield className="cs-formfield">
+                <label>Do you want to save this Stream?</label>
+                <label>
+                  <input
+                    className="cs-input-radio"
+                    type="radio"
+                    name="radiobutton"
+                    value="true"
+                    onChange={(event) => setRecord(event.target.value)}
+                    checked
+                  ></input>
+                  Yes
+                </label>
+                <label>
+                  <input
+                    className="cs-input-radio"
+                    type="radio"
+                    name="radiobutton"
+                    value="false"
+                    onChange={(event) => setRecord(event.target.value)}
+                  ></input>
+                  No
+                </label>
+              </formfield>
+            </form>
           </div>
         </div>
-        <div className="cs-right-container">
-          <form>
-            <formfield className="cs-formfield">
-              <input
-                className="cs-input"
-                type="text"
-                placeholder="Stream Title"
-                onChange={(event) => setTitle(event.target.value)}
-                required
-              />
-            </formfield>
-            <formfield className="cs-formfield">
-              <textarea
-                className="cs-textarea"
-                type="text"
-                placeholder="Stream Description"
-                rows="6"
-                cols="50"
-                onChange={(event) => setDes(event.target.value)}
-              />
-            </formfield>
-            <formfield className="cs-formfield">
-              <label>Do you want to make strem premium?</label>
-              <label>
-                <input
-                  className="cs-input-radio"
-                  type="radio"
-                  name="streamSelector"
-                  onChange={(event) => setPremium(event.target.value)}
-                  value="true"
-                  checked
-                ></input>
-                Yes
-              </label>
-              <label>
-                <input
-                  className="cs-input-radio"
-                  type="radio"
-                  name="streamSelector"
-                  onChange={(event) => setPremium(event.target.value)}
-                  value="false"
-                ></input>
-                No
-              </label>
-            </formfield>
 
-
-            <formfield className="cs-formfield">
-              <label>Do you want to save this Stream?</label>
-              <label>
-                <input
-                  className="cs-input-radio"
-                  type="radio"
-                  name="radiobutton"
-                  value="true"
-                  onChange={(event) => setRecord(event.target.value)}
-                  checked
-                ></input>
-                Yes
-              </label>
-              <label>
-                <input
-                  className="cs-input-radio"
-                  type="radio"
-                  name="radiobutton"
-                  value="false"
-                  onChange={(event) => setRecord(event.target.value)}
-                ></input>
-                No
-              </label>
-            </formfield>
-          </form>
-        </div>
       </section>
     </>
   );

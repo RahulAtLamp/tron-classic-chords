@@ -67,6 +67,7 @@ ul.nav-links {
   font-weight: 900;
   color: #fefcff;
   padding: 5px 10px;
+  cursor: pointer;
   // -webkit-animation: glow 1s ease-in-out infinite alternate;
   // -moz-animation: glow 1s ease-in-out infinite alternate;
   // animation: glow 1s ease-in-out infinite alternate;
@@ -196,7 +197,6 @@ ul.nav-sub-menu {
   padding: 20px !important;
   background-color: #251843;
   border-radius: 20px;
-  display: none;
 
   li{
     padding: 20px !important;
