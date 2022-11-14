@@ -6,9 +6,9 @@ import { create, CID } from "ipfs-http-client";
 import "./stream.scss";
 import { useAccount } from "wagmi";
 import { useNavigate } from "react-router-dom";
-import market from "../../contract/artifacts/market.json"
+import market from "../../contract/artifacts/userStream.json"
 import { ethers } from "ethers";
-const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const market_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
 
 function Streaming({ account }) {
   const { isConnected } = useAccount();
@@ -21,9 +21,7 @@ function Streaming({ account }) {
   const [url, setUrl] = useState("");
   const livepeerObject = new Livepeer("d72d5808-9b46-4bdf-9cb6-d703ca3e0acc");
   const getStreams = async () => {
-    const streams = await livepeerObject.Stream.get(
-      "00bf97a4-5264-4505-9fe5-469ca7686e53"
-    );
+    const streams = await livepeerObject.Stream.getAll({ isActive: false });
     console.log(streams);
   };
 
@@ -184,75 +182,69 @@ function Streaming({ account }) {
           </div>
           <div className="cs-right-container">
             <form>
-              <formfield className="cs-formfield">
+              <input
+                className="cs-input"
+                type="text"
+                placeholder="Stream Title"
+                onChange={(event) => setTitle(event.target.value)}
+                required
+              />
+              <textarea
+                className="cs-textarea"
+                type="text"
+                placeholder="Stream Description"
+                rows="6"
+                cols="50"
+                onChange={(event) => setDes(event.target.value)}
+              />
+              <div>
+                <label className="premium-label">Do you want to make strem premium?</label>
+              </div>
+              <label>
                 <input
-                  className="cs-input"
-                  type="text"
-                  placeholder="Stream Title"
-                  onChange={(event) => setTitle(event.target.value)}
-                  required
-                />
-              </formfield>
-              <formfield className="cs-formfield">
-                <textarea
-                  className="cs-textarea"
-                  type="text"
-                  placeholder="Stream Description"
-                  rows="6"
-                  cols="50"
-                  onChange={(event) => setDes(event.target.value)}
-                />
-              </formfield>
-              <formfield className="cs-formfield">
-                <label>Do you want to make strem premium?</label>
-                <label>
-                  <input
-                    className="cs-input-radio"
-                    type="radio"
-                    name="streamSelector"
-                    onChange={(event) => setPremium(event.target.value)}
-                    value="true"
-                    checked
-                  ></input>
-                  Yes
-                </label>
-                <label>
-                  <input
-                    className="cs-input-radio"
-                    type="radio"
-                    name="streamSelector"
-                    onChange={(event) => setPremium(event.target.value)}
-                    value="false"
-                  ></input>
-                  No
-                </label>
-              </formfield>
-
-
-              <formfield className="cs-formfield">
-                <label>Do you want to save this Stream?</label>
-                <label>
-                  <input
-                    className="cs-input-radio"
-                    type="radio"
-                    name="radiobutton"
-                    value="true"
-                    onChange={(event) => setRecord(event.target.value)}
-                    checked
-                  ></input>
-                  Yes
-                </label>
-                <label>
-                  <input
-                    className="cs-input-radio"
-                    type="radio"
-                    name="radiobutton"
-                    value="false"
-                    onChange={(event) => setRecord(event.target.value)}
-                  ></input>
-                  No
-                </label>
-              </formfield>
+                  className="cs-input-radio"
+                  type="radio"
+                  name="streamSelector"
+                  onChange={(event) => setPremium(event.target.value)}
+                  value="true"
+                  checked
+                ></input>
+                Yes
+              </label>
+              <label>
+                <input
+                  className="cs-input-radio"
+                  type="radio"
+                  name="streamSelector"
+                  onChange={(event) => setPremium(event.target.value)}
+                  value="false"
+                ></input>
+                No
+              </label>
+              <div>
+                <label className="premium-label">Do you want to save this Stream?</label>
+              </div>
+              <label>
+                <input
+                  className="cs-input-radio"
+                  type="radio"
+                  name="radiobutton"
+                  value="true"
+                  onChange={(event) => setRecord(event.target.value)}
+                  checked
+                ></input>
+                Yes
+              </label>
+              <label>
+                <input
+                  className="cs-input-radio"
+                  type="radio"
+                  name="radiobutton"
+                  value="false"
+                  onChange={(event) => setRecord(event.target.value)}
+                ></input>
+                No
+              </label>
             </form>
           </div>
         </div>

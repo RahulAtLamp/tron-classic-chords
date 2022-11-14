@@ -5,6 +5,7 @@ $gradient-color: linear-gradient(90deg,
   background: linear-gradient(130deg, #251b43 55%, #746cfe);
   min-height: 200vh;
   display: block;
+
   .stream-header {
     margin-top: 0;
     padding: 40px;
@@ -12,6 +13,7 @@ $gradient-color: linear-gradient(90deg,
     font-family: "FontsFree";
     color: #ffffff;
   }
+
   .cs {
     margin: auto;
     min-height: 150vh;
@@ -76,28 +78,39 @@ $gradient-color: linear-gradient(90deg,
 
       input.cs-input {
         width: 100%;
-        background: #292929;
+        background: linear-gradient(-45deg, #793ad8 50%, #a886fb);
         outline: none;
-        border: 2px solid #292929;
+        border: 0;
         border-radius: 10px;
         padding: 4% 20px;
         color: #ffffff;
         box-sizing: border-box;
         margin-bottom: 10px;
-        font-size: 0.5rem;
+        font-size: 15px;
+
+        &::placeholder {
+          color: #ffffff;
+        }
       }
 
       textarea.cs-textarea {
         width: 100%;
-        background: #292929;
+        background: linear-gradient(-45deg, #793ad8 50%, #a886fb);
         outline: none;
-        border: 2px solid #292929;
+        border: 0;
         border-radius: 10px;
         padding: 4% 20px;
         color: #ffffff;
         box-sizing: border-box;
         margin-bottom: 10px;
-        font-size: 0.5rem;
+        font-size: 15px;
+        min-height: 250px;
+        height: 100%;
+        resize: none;
+
+        &::placeholder {
+          color: #ffffff;
+        }
       }
 
       .cs-label {
@@ -113,6 +126,11 @@ $gradient-color: linear-gradient(90deg,
       img.cs-uploaded-image {
         height: 10rem;
         width: 20rem;
+      }
+
+      .premium-label {
+        color: #ffffff;
+        font-size: 15px;
       }
     }
   }

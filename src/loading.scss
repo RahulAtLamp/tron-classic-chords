@@ -1,0 +1,16 @@
+.loading__ring:first-child {
+    -webkit-transform: skew(30deg, 20deg);
+    transform: skew(30deg, 20deg);
+}
+
+.loading__ring {
+    height: 50px;
+    position: absolute;
+    width: 50px;
+}
+
+.loading__ring svg {
+    fill: #ff6150;
+    -webkit-animation: rotate 1s linear infinite;
+    animation: rotate 1s linear infinite;
+}
