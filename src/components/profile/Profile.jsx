@@ -102,6 +102,7 @@ const Profile = () => {
                     blockExplorerUrls: ["https://testscan.bittorrentchain.io/"]
                 }]
             })
+            setChainStatus(false);
         } else {
             alert("Please Install a wallet to proceed.")
         }
@@ -229,12 +230,14 @@ const Profile = () => {
                 {
                     chain
                         ?
-                        <div className="add-chain-main">
-                            <div className="add-chain-box">
-                                <p className="add-chain-message">
-                                    Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
-                                </p>
-                                <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                        <div className="profile-main">
+                            <div className="add-chain-main">
+                                <div className="add-chain-box">
+                                    <p className="add-chain-message">
+                                        Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                    </p>
+                                    <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                                </div>
                             </div>
                         </div>
                         :
