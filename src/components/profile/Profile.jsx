@@ -16,12 +16,13 @@ const Profile = () => {
     const fileRef = useRef(null);
     const editUserPopup = useRef(null);
     const navigate = useNavigate();
+    const [userDefault, setUserDefault] = useState({ name: null, bio: null, profile_pic: null, userId: null })
     const [userData, setUserData] = useState({ name: "", bio: "", profile_pic: null })
     const [chain, setChainStatus] = useState(false);
-    const [profileImage, setprofileImage] = useState(null);
+    const [ProfileImage, setprofileImage] = useState(null);
 
-    const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
-    const classicChords_address = "0xed01Ed9D4dfa9BCb6540F71539c3D52EB3598212";
+    const market_address = "0x375E20fC79b8d22Bb3aE81cc8d98eF88E97A1d15";
+    const classicChords_address = "0xC87abfc6d320E61C31F35D48fBA3E2E0c0308Bf3";
 
     const firstFive = Collections.slice(0, 5);
     const lastFive = Collections.slice(-5);
@@ -39,8 +40,18 @@ const Profile = () => {
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
                     const contract = new ethers.Contract(market_address, market, signer);
+                    const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
                     const tx = await contract.userMapping(address);
+                    const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
+                    const profilePic = await client.get(tx.profileImage);
+                    console.log(await contract.getUserNfts(address));
+                    console.log(await tokenContract.userMintedNFTs());
+                    console.log(profilePic);
                     console.log(tx);
+                    setUserDefault({ name: tx.name, bio: tx.description, profile_pic: tx.profileImage, userId: tx.userId });
+                    // setUserDefault({ ...userDefault, name: tx.name });
+                    // setUserDefault({ ...userDefault, bio: tx.description });
+                    // setUserDefault({ ...userDefault, profile_pic: tx.profileImage })
                 } else {
                     // alert("Please connect to the bitTorent Network!");
                     setChainStatus(true);
@@ -91,39 +102,48 @@ const Profile = () => {
     }
     const getContract = async () => {
         try {
-          const { ethereum } = window;
-          if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-              console.log("Metamask is not installed, please install!");
+            const { ethereum } = window;
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                if (!provider) {
+                    console.log("Metamask is not installed, please install!");
+                }
+                const { chainId } = await provider.getNetwork();
+                console.log("switch case for this case is: " + chainId);
+                if (chainId === 1029) {
+                    const contract = new ethers.Contract(market_address, market, signer);
+                    return contract
+                } else {
+                    alert("Please connect to the bitTorent Network!");
+                }
             }
-            const { chainId } = await provider.getNetwork();
-            console.log("switch case for this case is: " + chainId);
-            if (chainId === 1029) {
-              const contract = new ethers.Contract(market_address, market, signer);
-              return contract
-            } else {
-              alert("Please connect to the bitTorent Network!");
-            }
-          }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }    
-    
+    }
+
     const addUserData = async () => {
         try {
-            const { ethereum } = window;
-
             const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
-            const upload = await client.put([profileImage], {
-                name: profileImage.name,
+            const upload = await client.put([ProfileImage], {
+                name: ProfileImage.name,
                 maxRetries: 3,
             });
 
             // console.log(upload);
             const contract = await getContract();
+            if (!userDefault.name) {
+                const something = await contract.registerUser(userData.name, userData.bio, upload + "/" + ProfileImage.name);
+                console.log(something);
+                getProfile();
+                showProfileWindow(false);
+            } else {
+                const something = await contract.updateUser(userDefault.userId, userData.name, userData.bio, upload + "/" + ProfileImage.name);
+                console.log(something);
+                getProfile();
+                showProfileWindow(false);
+            }
 
         } catch (error) {
             console.log(error);
@@ -166,13 +186,17 @@ const Profile = () => {
     }, [userData])
 
     useEffect(() => {
-        console.log(profileImage);
-        if (profileImage) {
-            const image = URL.createObjectURL(profileImage);
+        console.log(userDefault);
+    }, [userDefault])
+
+    useEffect(() => {
+        console.log(ProfileImage);
+        if (ProfileImage) {
+            const image = URL.createObjectURL(ProfileImage);
             console.log(image);
             setUserData({ ...userData, profile_pic: image });
         }
-    }, [profileImage])
+    }, [ProfileImage])
 
     return (
         <div className="profile-main">
@@ -182,7 +206,7 @@ const Profile = () => {
                 </div>
                 <div className="profile-pic-move-up">
                     <div className="profile-pic-holder">
-                        <img className="profile-pic" src="images/profile.svg" alt="profile image" />
+                        <img className="profile-pic" src={userDefault.profile_pic ? `https://ipfs.io/ipfs/` + userDefault.profile_pic : "images/profile.svg"} alt="profile image" />
                     </div>
                 </div>
             </div>
@@ -191,11 +215,17 @@ const Profile = () => {
             </div>
             <div className="profile-user-details">
                 <div className="profile-details-holder">
-                    <h2 className="profile-username">Unknown</h2>
+                    <h2 className="profile-username">{userDefault.name ? userDefault.name : "Unknown"}</h2>
                     <h3 className="profile-address">{address ? address.slice(0, 4) + "...." + address.slice(-5) : null} </h3>
                     <div className="profile-bio-holder">
                         <p className="profile-bio">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias officiis non quod illum suscipit aspernatur fugit expedita, sunt eligendi, nisi dicta quae veniam consequuntur quos repellat molestiae recusandae explicabo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus assumenda ut et suscipit quaerat, nihil est deleniti enim officia modi itaque a atque ex doloribus aliquam reprehenderit saepe sequi placeat!
+                            {
+                                userDefault.bio
+                                    ?
+                                    userDefault.bio
+                                    :
+                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias officiis non quod illum suscipit aspernatur fugit expedita, sunt eligendi, nisi dicta quae veniam consequuntur quos repellat molestiae recusandae explicabo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus assumenda ut et suscipit quaerat, nihil est deleniti enim officia modi itaque a atque ex doloribus aliquam reprehenderit saepe sequi placeat!"
+                            }
                         </p>
                     </div>
                 </div>
@@ -217,7 +247,9 @@ const Profile = () => {
                                             <div className="nfts-name" title={collection.name}>{collection.name}</div>
                                             <p className="nfts-description">{collection.description}</p>
                                             <div className="buy-button-holder">
-                                                <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>BUY</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span></button>
+                                                <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>Put on sale </span> 
+                                                {/*&nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span> */}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -239,6 +271,7 @@ const Profile = () => {
                                     <div className="nfts-collection-pa">
                                         <div className="nfts-bg">
                                             <div className="nfts-img">
+                                                {/* <img className="nfts-nft" src={collection.image} /> */}
                                                 <img className="nfts-nft" src={collection.image} />
                                             </div>
                                             <div className="nfts-name" title={collection.name}>{collection.name}</div>
@@ -263,7 +296,7 @@ const Profile = () => {
                                 Edit Profile
                             </div>
                             <div className="profile-information">
-                                <input type="file" ref={fileRef} onChange={(e) => { setprofileImage(e.target.files[0]) }} hidden />
+                                <input type="file" ref={fileRef} onChange={(e) => { setprofileImage(e.target.files[0]); }} hidden />
                                 <div className="update-profile-pic" onClick={() => { fileRef.current.click() }}>
                                     <img src={userData.profile_pic ? userData.profile_pic : "images/man.png"} alt="profile pic preview" className="profile-pic-preview" />
                                 </div>
