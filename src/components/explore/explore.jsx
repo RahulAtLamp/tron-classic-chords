@@ -13,15 +13,18 @@ import { Link } from "react-router-dom";
 import { Artists } from "./artist-dummy";
 import { GUI } from 'dat.gui';
 import { ethers } from "ethers";
-import market from "../../contract/artifacts/market.json";
+import market from "../../contract/artifacts/userStream.json";
 import { async } from "q";
-const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const market_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
 
 
 const Explore = ({temp}) => {
 
   const [loading, setLoading] = React.useState(false)
   const [Artists, setArtist] = React.useState([])
+
+  // const gui = new GUI();
+  // gui.destroy()
 
   const getContract = async () => {
     try {
@@ -55,6 +58,12 @@ const Explore = ({temp}) => {
     }
 
   useEffect(() => {
+    try{
+      document.getElementById('gui').style.display = "none";
+    }catch(error){
+      console.log(error);
+    }
+
       getArtists()
   },[])
 
@@ -69,11 +78,11 @@ const Explore = ({temp}) => {
       <div className="exp-main">
         {
           Artists.map((artist, i) => (
-            <Link key={artist.userId} to="/artist/1">
+            <Link key={artist.userId} to={"/artist/"+ artist.userAddress}>
               <div className="exp-pa">
                 <div className="exp-bg">
                   <div className="exp-img">
-                    <img className="exp-nft" src={artist.profileImage} />
+                    <img className="exp-nft" src={"https://ipfs.io/ipfs/" + artist.profileImage} />
                   </div>
                   <div className="exp-name" title={artist.name}>{artist.name}</div>
                   <p className="exp-description">{artist.description}</p>

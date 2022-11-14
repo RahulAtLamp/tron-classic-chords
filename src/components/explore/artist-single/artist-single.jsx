@@ -4,17 +4,87 @@ import { Link } from 'react-router-dom';
 import { Artists } from '../artist-dummy';
 import { Collections } from './collection_dummy';
 import { getRoles } from '@testing-library/react';
+import { useParams } from 'react-router-dom';
+import { ethers } from "ethers";
+import market from "../../../contract/artifacts/market.json"
+import user from  "../../../contract/artifacts/userStream.json"
+import { useAccount } from "wagmi";
+import classicChords from "../../../contract/artifacts/classicChords.json"
+import axios from "axios"; 
+
+const user_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
+const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
+const market_address = "0x3C39548531bb3c9276E1e40046F64CB709aee9cb"
 
 function ArtistSingle() {
-  const singleArtist = Artists[5];
-  console.log(singleArtist);
-  const [showPopup, setShowPopup] = useState(false);
+  // const singleArtist = Artists[5];
+  // console.log(singleArtist);
+  const [isLoading, setIsLoading] = useState(false);
+  const [singleArtist, setSingleArtist] = useState({})
+  const [nfts, setNfts] = useState([]);
+  const params = useParams()
 
-  // useEffect(()=>{
+  const getProfile = async () => {
+    try {
+        const { ethereum } = window;
+        if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            if (!provider) {
+                console.log("Metamask is not installed, please install!");
+            }
+            const { chainId } = await provider.getNetwork();
+            console.log("switch case for this case is: " + chainId);
+            if (chainId === 1029) {
+                const contract = new ethers.Contract(user_address, user, signer);
+                const marketContract = new ethers.Contract(market_address, market, signer);
+                const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
+                const tx = await contract.userMapping(params.id);
+                const listed_data = await marketContract.getUserListedNfts(params.id);
+                console.log(listed_data);
+                // const ids = await marketContract.mintedNfts(params.id);
+                // console.log(ids.length);
+                let nfts = []
+                for(let i=0;i<listed_data.length;i++){
+                    const uri = await tokenContract.tokenUriMapping(listed_data[i].tokenId.toNumber());
+                    console.log(uri);
+                    try{
+                        await axios.get("https://ipfs.io/ipfs/"+uri.split("//")[1]).then((response) => {
+                            let data = response.data
+                            data.image = "https://ipfs.io/ipfs/"+data.image.split("//")[1]
+                            response.data.id = listed_data[i].tokenId.toNumber();
+                            response.data.price = listed_data[i].price.toNumber()
+                            nfts.push(response.data)
+                            console.log(response.data);
+                        });
+                    }catch(error){
+                        console.log(error);
+                    }
+                }
+                console.log(nfts);
+                // setMintedNfts(nfts)
+                // console.log(profilePic);
+                console.log(tx);
+                console.log(tx.description);
+                setNfts(nfts)
+                setSingleArtist(tx)
+                setIsLoading(true)
+            } else {
+                alert("Please connect to the bitTorent Network!");
+                // setChainStatus(true);
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-  // },[])
+  useEffect(()=>{
+      getProfile();
+  },[])
 
   return (
+    isLoading ? (
     <div className='artist-main'>
       <div className='artist-card-holder'>
         <div className='artist-card'>
@@ -23,11 +93,11 @@ function ArtistSingle() {
           </div> */}
           <div className="artist-detail">
             <h1 className="artist-name">{singleArtist.name}</h1>
-            <p className="artist-description">{singleArtist.description.toLocaleUpperCase()}</p>
-            <p className="artist-instrument">{singleArtist.instrument.toLocaleUpperCase()}</p>
+            <p className="artist-description">{singleArtist.description}</p>
+            {/* <p className="artist-instrument">{singleArtist.instrument.toLocaleUpperCase()}</p> */}
           </div>
           <div className="artist-image-container">
-            <img className='artist-image' alt="artist image" src={singleArtist.image} />
+            <img className='artist-image' alt="artist image" src={"https://ipfs.io/ipfs/"+singleArtist.profileImage} />
           </div>
         </div>
       </div>
@@ -38,17 +108,17 @@ function ArtistSingle() {
         <div className="artist-creations-list-container">
           <div className="artist-creations-list">
             {
-              Collections.map((collection, i) => (
-                <Link key={i} to="/artist/1/collections/1">
+              nfts.map((collection, i) => (
+                <Link key={i} to={"/collections/" + collection.id}>
                   <div className="artist-collection-pa">
                     <div className="exp-bg">
                       <div className="exp-img">
-                        <img className="exp-nft" src={collection.image} />
+                        <video className="exp-nft" src={collection.image} controls />
                       </div>
                       <div className="exp-name" title={collection.name}>{collection.name}</div>
                       <p className="exp-description">{collection.description}</p>
                       <div className="buy-button-holder">
-                        <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>BUY</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span></button>
+                        <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>BUY</span> &nbsp; <span>{collection.price}</span></button>
                       </div>
                     </div>
                   </div>
@@ -63,7 +133,7 @@ function ArtistSingle() {
 
         </div>
       </div> */}
-    </div>
+    </div>):null
   )
 }
 
