@@ -26,11 +26,11 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
-    const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
-    const market_address = "0x3C39548531bb3c9276E1e40046F64CB709aee9cb"
+    const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
+    const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
-    const firstFive = Collections.slice(0, 5);
-    const lastFive = Collections.slice(-5);
+    // const firstFive = Collections.slice(0, 5);
+    // const lastFive = Collections.slice(-5);
 
     const getProfile = async () => {
         try {
@@ -102,6 +102,7 @@ const Profile = () => {
                     blockExplorerUrls: ["https://testscan.bittorrentchain.io/"]
                 }]
             })
+            setChainStatus(false);
         } else {
             alert("Please Install a wallet to proceed.")
         }
@@ -222,19 +223,21 @@ const Profile = () => {
         }
     }, [ProfileImage])
 
-    if (!userDefault.profile_pic) {
+    if (!address) {
         return (
             <>
                 <Loading />
                 {
                     chain
                         ?
-                        <div className="add-chain-main">
-                            <div className="add-chain-box">
-                                <p className="add-chain-message">
-                                    Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
-                                </p>
-                                <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                        <div className="profile-main">
+                            <div className="add-chain-main">
+                                <div className="add-chain-box">
+                                    <p className="add-chain-message">
+                                        Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                    </p>
+                                    <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                                </div>
                             </div>
                         </div>
                         :
@@ -304,7 +307,7 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className="nfts-minted-holder">
+                {/* <div className="nfts-minted-holder">
                     <h2 className="nfts-minted-header">
                         NFTs Owned
                     </h2>
@@ -316,7 +319,7 @@ const Profile = () => {
                                         <div className="nfts-collection-pa">
                                             <div className="nfts-bg">
                                                 <div className="nfts-img">
-                                                    {/* <img className="nfts-nft" src={collection.image} /> */}
+                                                    <img className="nfts-nft" src={collection.image} />
                                                     <img className="nfts-nft" src={collection.image} />
                                                 </div>
                                                 <div className="nfts-name" title={collection.name}>{collection.name}</div>
@@ -331,7 +334,8 @@ const Profile = () => {
                             }
                         </div>
                     </div>
-                </div>
+                </div> */}
+
                 {
                     profileWindow
                         ?
