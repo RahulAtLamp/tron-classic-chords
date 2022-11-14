@@ -89,7 +89,6 @@ function SellCollectionSingle() {
                 isAvailableForRent = true;
             }
 
-            console.log(params.id, sellData.qty, sellData.price,isAvailableForRent,isAvailableForSell,sellData.rent_duration,sellData.royalty);
             const tx = await marketContract.createMarketItem(params.id, sellData.qty, sellData.price,isAvailableForRent,isAvailableForSell,sellData.rent_duration,sellData.royalty)
             tx.wait()
             
