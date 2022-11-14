@@ -37,7 +37,7 @@ const App = () => {
                 <Route path="/streaming" element={<Streaming />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/artist/:id" element={<ArtistSingle />} />
-                <Route path="/artist/:id/collections/:id" element={<CollectionSingle />} />
+                <Route path="/collection/:id" element={<CollectionSingle />} />
                 <Route path="/mint-nft" element={<MintNft />} />
                 <Route path="/sell-nft/:id" element={<SellCollectionSingle />} />
                 <Route path="/all-stream" element={<AllStream />} />

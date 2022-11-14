@@ -70,7 +70,19 @@
                     margin-top: 30px;
                     padding: 10px 20px;
                     border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    align-content: center;
                 }
+            }
+
+            .qty-to-p {
+                font-size: 15px;
+                width: 120px;
+                padding: 5px;
+                margin-top: 20px;
+                border-radius: 5px;
+                border: 0;
             }
 
             .collection-buy-button {
@@ -83,16 +95,17 @@
                 cursor: pointer;
                 // background: linear-gradient(120deg, #251b43 40%, #793ad8);
                 pointer-events: auto;
-                display: flex;
-                align-items: center;
-                align-content: center;
+                // display: flex;
+                // align-items: center;
+                // align-content: center;
                 margin-top: 30px;
                 animation-name: change-color;
                 animation-duration: 20s;
                 animation-iteration-count:infinite;
+                text-align: center;
 
                 .buy-button-tag {
-                    flex-grow: 1;
+                    // flex-grow: 1;
                     width: '80px';
                     text-align: left;
                 }

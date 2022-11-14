@@ -98,6 +98,49 @@
                 padding: 5px;
                 border: 1px solid transparent;
                 margin-top: 20px;
+                font-family: "Gilmer-Light";
+            }
+
+            .date-picker-title {
+                // background-color: #251b43;
+                color: #ffffff;
+                font-family: "Gilmer-Light";
+                font-size: 20px;
+                font-weight: 800;
+            }
+
+            .sell-date-picker {
+                background-color: #251b43;
+                margin-top: 20px;
+                color: #ffffff;
+                font-size: 20px;
+                width: 200px;
+                border-radius: 10px;
+                border: 0px !important;
+                padding: 10px;
+
+                // .react-date-picker__wrapper{
+                //     border: 0;
+                //     padding: 10px;
+                // }
+
+                // .react-date-picker__inputGroup {
+                //     color: #ffffff !important;
+                //     text-overflow: ellipsis;
+
+                //     .react-date-picker__inputGroup__input.react-date-picker__inputGroup__day {
+                //         color: #ffffff !important;
+                //     }
+
+                //     .react-date-picker__inputGroup__input.react-date-picker__inputGroup__month {
+                //         color: #ffffff !important;
+                //     }
+
+                //     .react-date-picker__inputGroup__input.react-date-picker__inputGroup__year {
+                //         color: #ffffff;
+                //     }
+                // }
+
             }
 
             .sell-buy-button {
