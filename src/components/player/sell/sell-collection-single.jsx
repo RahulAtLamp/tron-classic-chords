@@ -24,7 +24,6 @@ function SellCollectionSingle() {
     const [loading, setIsLoading] = useState(false)
 
     
-    console.log(params);
     const getData = async () => {
         try {
             const { ethereum } = window;
@@ -39,19 +38,20 @@ function SellCollectionSingle() {
                 if (chainId === 1029) {
                     const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
                     const marketContract = new ethers.Contract(market_address, market, signer);
-                    let data = {
+                    let result = {
                     }
 
                     try{
                             const uri = await tokenContract.tokenUriMapping(params.id);
                             await axios.get("https://ipfs.io/ipfs/"+uri.split("//")[1]).then((response) => {
-                            let res = response.data
+                            let data = response.data
                             data.image = "https://ipfs.io/ipfs/"+data.image.split("//")[1]
                             console.log(response.data);
-                            setCollections(response.data)
+                            result = response.data;
                             });
-                            data.total_minted = await tokenContract.balanceOf(address,params.id)
-
+                            const balance = await tokenContract.balanceOf(address,params.id)
+                            result.total_minted = balance.toNumber()
+                            setCollections(result)
                         }catch(error){
                             console.log(error);
                         }
@@ -63,6 +63,19 @@ function SellCollectionSingle() {
                     // setChainStatus(true);
                 }
             
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const sell = async () =>{
+        try {
+            const { ethereum } = window;
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const marketContract = new ethers.Contract(market_address, market, signer);
+            const tx = marketContract.createMarketItem(params.id,sellData.qty,sellData.price,)
+
         } catch (error) {
             console.log(error);
         }
@@ -86,7 +99,7 @@ function SellCollectionSingle() {
                         {collection.description}
                     </p>
                     <p className="total-minted">
-                        Total Minted
+                        Balance
                     </p>
 
                     <p className="total-minted">
@@ -103,7 +116,7 @@ function SellCollectionSingle() {
                         <option valu="sell">Sell</option>
                     </select>
 
-                    <button className="sell-buy-button">
+                    <button className="sell-buy-button" onClick={()=>{sell()}}>
                         proceed
                     </button>
                 </div>
