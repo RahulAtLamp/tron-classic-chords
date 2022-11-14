@@ -97,10 +97,12 @@ function CollectionSingle() {
 
                         if (forRent) {
                             const rent = await marketContract.rentNft(params.id, tokenId, userQty);
-                            console.log(rent)
+                            console.log(rent);
+                            getNftData();
                         } else {
                             const buy = await marketContract.buyNft(params.id, tokenId, userQty);
                             console.log(buy);
+                            getNftData();
                         }
 
                     } catch (error) {
