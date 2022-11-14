@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 import classicChords from "../../contract/artifacts/classicChords.json"
 import market from "../../contract/artifacts/market.json"
-import user from  "../../contract/artifacts/userStream.json"
+import user from "../../contract/artifacts/userStream.json"
 import { Web3Storage } from 'web3.storage'
 import axios from "axios";
+import Loading from "../../loading";
 
 const Profile = () => {
     const { isConnected, address } = useAccount();
@@ -54,18 +55,18 @@ const Profile = () => {
                     const ids = await tokenContract.mintedNfts(address);
                     console.log(ids.length);
                     let nfts = []
-                    for(let i=0;i<ids.length;i++){
+                    for (let i = 0; i < ids.length; i++) {
                         const uri = await tokenContract.tokenUriMapping(ids[i].toNumber());
                         console.log(uri);
-                        try{
-                            await axios.get("https://ipfs.io/ipfs/"+uri.split("//")[1]).then((response) => {
+                        try {
+                            await axios.get("https://ipfs.io/ipfs/" + uri.split("//")[1]).then((response) => {
                                 let data = response.data
-                                data.image = "https://ipfs.io/ipfs/"+data.image.split("//")[1]
+                                data.image = "https://ipfs.io/ipfs/" + data.image.split("//")[1]
                                 response.data.id = ids[i].toNumber();
                                 nfts.push(response.data)
                                 console.log(response.data);
                             });
-                        }catch(error){
+                        } catch (error) {
                             console.log(error);
                         }
                     }
@@ -221,133 +222,137 @@ const Profile = () => {
         }
     }, [ProfileImage])
 
-    return (
-        <div className="profile-main">
-            <div className="profile-images">
-                <div className="profile-background-holder">
-                    <img className="profile-background" src="images/default-background.jpg" />
-                </div>
-                <div className="profile-pic-move-up">
-                    <div className="profile-pic-holder">
-                        <img className="profile-pic" src={userDefault.profile_pic ? `https://ipfs.io/ipfs/` + userDefault.profile_pic : "images/profile.svg"} alt="profile image" />
+    if (!userDefault.profile_pic) {
+    return <Loading />
+    } else {
+        return (
+            <div className="profile-main">
+                <div className="profile-images">
+                    <div className="profile-background-holder">
+                        <img className="profile-background" src="images/default-background.jpg" />
+                    </div>
+                    <div className="profile-pic-move-up">
+                        <div className="profile-pic-holder">
+                            <img className="profile-pic" src={userDefault.profile_pic ? `https://ipfs.io/ipfs/` + userDefault.profile_pic : "images/profile.svg"} alt="profile image" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="edit-profile">
-                <img className="edit-profile-button" src="images/edit-btn.svg" onClick={() => { showProfileWindow(true) }} />
-            </div>
-            <div className="profile-user-details">
-                <div className="profile-details-holder">
-                    <h2 className="profile-username">{userDefault.name ? userDefault.name : "Unknown"}</h2>
-                    <h3 className="profile-address">{address ? address.slice(0, 4) + "...." + address.slice(-5) : null} </h3>
-                    <div className="profile-bio-holder">
-                        <p className="profile-bio">
-                            {
-                                userDefault.bio
-                                    ?
+                <div className="edit-profile">
+                    <img className="edit-profile-button" src="images/edit-btn.svg" onClick={() => { showProfileWindow(true) }} />
+                </div>
+                <div className="profile-user-details">
+                    <div className="profile-details-holder">
+                        <h2 className="profile-username">{userDefault.name ? userDefault.name : "Unknown"}</h2>
+                        <h3 className="profile-address">{address ? address.slice(0, 4) + "...." + address.slice(-5) : null} </h3>
+                        <div className="profile-bio-holder">
+                            <p className="profile-bio">
+                                {
                                     userDefault.bio
-                                    :
-                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias officiis non quod illum suscipit aspernatur fugit expedita, sunt eligendi, nisi dicta quae veniam consequuntur quos repellat molestiae recusandae explicabo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus assumenda ut et suscipit quaerat, nihil est deleniti enim officia modi itaque a atque ex doloribus aliquam reprehenderit saepe sequi placeat!"
-                            }
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div className="nfts-minted-holder">
-                <h2 className="nfts-minted-header">
-                    NFTs Minted
-                </h2>
-                <div className="nfts-minted-container">
-                    <div className="nfts-creations-list">
-                        {
-                            isLoading ? (  mintedNfts.map((collection, i) => (
-                                <Link key={i} to={"/sell-nft/" + collection.id}>
-                                    <div className="nfts-collection-pa">
-                                        <div className="nfts-bg">
-                                            <div className="nfts-img">
-                                                <video className="nfts-nft" src={collection.image} controls />
-                                            </div>
-                                            <div className="nfts-name" title={collection.name}>{collection.name}</div>
-                                            <p className="nfts-description">{collection.description}</p>
-                                            <div className="buy-button-holder">
-                                                <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>Put on sale </span> 
-                                                {/*&nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span> */}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))):null
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className="nfts-minted-holder">
-                <h2 className="nfts-minted-header">
-                    NFTs Owned
-                </h2>
-                <div className="nfts-minted-container">
-                    <div className="nfts-creations-list">
-                        {
-                            lastFive.map((collection, i) => (
-                                <Link key={i} to="/artist/1/collections/1">
-                                    <div className="nfts-collection-pa">
-                                        <div className="nfts-bg">
-                                            <div className="nfts-img">
-                                                {/* <img className="nfts-nft" src={collection.image} /> */}
-                                                <img className="nfts-nft" src={collection.image} />
-                                            </div>
-                                            <div className="nfts-name" title={collection.name}>{collection.name}</div>
-                                            <p className="nfts-description">{collection.description}</p>
-                                            <div className="buy-button-holder">
-                                                <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>RENT</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))
-                        }
-                    </div>
-                </div>
-            </div>
-            {
-                profileWindow
-                    ?
-                    <div className="edit-user-popup-main">
-                        <div className="edit-user-popup" ref={editUserPopup}>
-                            <div className="edit-user-p-header">
-                                Edit Profile
-                            </div>
-                            <div className="profile-information">
-                                <input type="file" ref={fileRef} onChange={(e) => { setprofileImage(e.target.files[0]); }} hidden />
-                                <div className="update-profile-pic" onClick={() => { fileRef.current.click() }}>
-                                    <img src={userData.profile_pic ? userData.profile_pic : "images/man.png"} alt="profile pic preview" className="profile-pic-preview" />
-                                </div>
-                                <input className="profile-username" type="text" placeholder="Username" onChange={(e) => { setUserData({ ...userData, name: e.target.value }) }} />
-                                <textarea className="profile-bio" placeholder="Add your bio here..." onChange={(e) => { setUserData({ ...userData, bio: e.target.value }) }} />
-                                <button className="user-update-btn" onClick={() => { addUserData() }}>Update Details</button>
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    null
-            }
-            {
-                chain
-                    ?
-                    <div className="add-chain-main">
-                        <div className="add-chain-box">
-                            <p className="add-chain-message">
-                                Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                        ?
+                                        userDefault.bio
+                                        :
+                                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias officiis non quod illum suscipit aspernatur fugit expedita, sunt eligendi, nisi dicta quae veniam consequuntur quos repellat molestiae recusandae explicabo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus assumenda ut et suscipit quaerat, nihil est deleniti enim officia modi itaque a atque ex doloribus aliquam reprehenderit saepe sequi placeat!"
+                                }
                             </p>
-                            <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
                         </div>
                     </div>
-                    :
-                    null
-            }
-        </div>
-    )
+                </div>
+                <div className="nfts-minted-holder">
+                    <h2 className="nfts-minted-header">
+                        NFTs Minted
+                    </h2>
+                    <div className="nfts-minted-container">
+                        <div className="nfts-creations-list">
+                            {
+                                isLoading ? (mintedNfts.map((collection, i) => (
+                                    <Link key={i} to={"/sell-nft/" + collection.id}>
+                                        <div className="nfts-collection-pa">
+                                            <div className="nfts-bg">
+                                                <div className="nfts-img">
+                                                    <video className="nfts-nft" src={collection.image} controls />
+                                                </div>
+                                                <div className="nfts-name" title={collection.name}>{collection.name}</div>
+                                                <p className="nfts-description">{collection.description}</p>
+                                                <div className="buy-button-holder">
+                                                    <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>Put on sale </span>
+                                                        {/*&nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span> */}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))) : null
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="nfts-minted-holder">
+                    <h2 className="nfts-minted-header">
+                        NFTs Owned
+                    </h2>
+                    <div className="nfts-minted-container">
+                        <div className="nfts-creations-list">
+                            {
+                                lastFive.map((collection, i) => (
+                                    <Link key={i} to="/artist/1/collections/1">
+                                        <div className="nfts-collection-pa">
+                                            <div className="nfts-bg">
+                                                <div className="nfts-img">
+                                                    {/* <img className="nfts-nft" src={collection.image} /> */}
+                                                    <img className="nfts-nft" src={collection.image} />
+                                                </div>
+                                                <div className="nfts-name" title={collection.name}>{collection.name}</div>
+                                                <p className="nfts-description">{collection.description}</p>
+                                                <div className="buy-button-holder">
+                                                    <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>RENT</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+                {
+                    profileWindow
+                        ?
+                        <div className="edit-user-popup-main">
+                            <div className="edit-user-popup" ref={editUserPopup}>
+                                <div className="edit-user-p-header">
+                                    Edit Profile
+                                </div>
+                                <div className="profile-information">
+                                    <input type="file" ref={fileRef} onChange={(e) => { setprofileImage(e.target.files[0]); }} hidden />
+                                    <div className="update-profile-pic" onClick={() => { fileRef.current.click() }}>
+                                        <img src={userData.profile_pic ? userData.profile_pic : "images/man.png"} alt="profile pic preview" className="profile-pic-preview" />
+                                    </div>
+                                    <input className="profile-username" type="text" placeholder="Username" onChange={(e) => { setUserData({ ...userData, name: e.target.value }) }} />
+                                    <textarea className="profile-bio" placeholder="Add your bio here..." onChange={(e) => { setUserData({ ...userData, bio: e.target.value }) }} />
+                                    <button className="user-update-btn" onClick={() => { addUserData() }}>Update Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        :
+                        null
+                }
+                {
+                    chain
+                        ?
+                        <div className="add-chain-main">
+                            <div className="add-chain-box">
+                                <p className="add-chain-message">
+                                    Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                </p>
+                                <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                            </div>
+                        </div>
+                        :
+                        null
+                }
+            </div>
+        )
+    }
 }
 
 export default Profile;
