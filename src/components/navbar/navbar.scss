@@ -104,6 +104,9 @@ ul.nav-links {
   border: 0px;
   font-weight: 800;
   animation: login-color-changer 10s ease infinite;
+  display: flex;
+  align-items: center;
+  align-content: center;
 }
 
 .nav-disconnect {
@@ -116,6 +119,9 @@ ul.nav-links {
   border: 0px;
   font-weight: 800;
   background-color: #a886fb;
+  display: flex;
+  align-items: center;
+  align-content: center;
   // animation: logout-color-changer 10s ease infinite;
 }
 
@@ -275,6 +281,9 @@ ul.nav-sub-menu {
 
   .nav-item {
     padding: 10px 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
   }
 
   .nav-icon {

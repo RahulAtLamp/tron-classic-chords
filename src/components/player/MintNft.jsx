@@ -4,6 +4,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 import classicChords from "../../contract/artifacts/classicChords.json"
 import { ethers } from "ethers";
 import { Web3Storage } from 'web3.storage';
+import { NFTStorage, File } from 'nft.storage'
 
 
 function MintNft(props) {
@@ -14,24 +15,26 @@ function MintNft(props) {
 
 
     const getTokeUri = async() =>{
-        const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
+        // const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
+        const nft_client = new NFTStorage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDczMzU1RDY0Njc1YTlEODA0MzA2ODIyMzkzRjRGQzkyRmNBQjg5QzkiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2ODQxOTEyODc3MSwibmFtZSI6Ik11c2ljIE5GVHMifQ.G2tcD1_VJCUF0eiSQSDIn05ei9NY5EN1klNqJJrjoh4" })
+
         const name = document.getElementById("name").value;
         const description = document.getElementById("description").value;
         const video = new File([props.file], name+'.webm', {
           type: props.file.type,
         });
-        const video_file_url = await client.put([video],'classic_chords_nft.webm')
-        console.log("vide---"+video_file_url);
+        // const video_file_url = await client.put([video],'classic_chords_nft.webm')
+        // console.log("vide---"+video_file_url);
 
         const metadata = {   
             "description": description,      
-            "image": "https://ipfs.io/ipfs/" + video_file_url + "/classic_chords_nft.webm",  
+            "image": video,  
             "name": name,   
         }
-        const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' })
-        const metadata_cid = await client.put([blob], 'metadata.json')
+        // const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' })
+        const metadata_cid = await nft_client.store(metadata, 'metadata.json')
         console.log(metadata_cid);
-        return metadata_cid
+        return metadata_cid.url
     } 
   
     console.log(props);

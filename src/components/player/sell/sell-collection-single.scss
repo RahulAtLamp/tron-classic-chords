@@ -67,13 +67,40 @@
                     background-color: #251b43;
                     display: inline-flex;
                     font-size: 25px;
-                    margin-top: 30px;
+                    margin-top: 20px;
                     padding: 10px 20px;
                     border-radius: 10px;
                 }
             }
 
-            .collection-buy-button {
+            .total-qty {
+                width: 200px;
+                font-size: 20px;
+                border-radius: 10px;
+                padding: 5px;
+                border: 1px solid transparent;
+                margin-top: 20px;
+            }
+
+            .total-price {
+                width: 200px;
+                font-size: 20px;
+                border-radius: 10px;
+                padding: 5px;
+                border: 1px solid transparent;
+                margin-top: 20px;
+            }
+
+            .sell-options {
+                width: 200px;
+                font-size: 20px;
+                border-radius: 10px;
+                padding: 5px;
+                border: 1px solid transparent;
+                margin-top: 20px;
+            }
+
+            .sell-buy-button {
                 width: 200px;
                 margin: 0 auto;
                 padding: 10px;
@@ -81,21 +108,12 @@
                 border: 0;
                 font-family: "FontsFree";
                 cursor: pointer;
-                // background: linear-gradient(120deg, #251b43 40%, #793ad8);
                 pointer-events: auto;
-                display: flex;
-                align-items: center;
-                align-content: center;
                 margin-top: 30px;
                 animation-name: change-color;
                 animation-duration: 20s;
-                animation-iteration-count:infinite;
-
-                .buy-button-tag {
-                    flex-grow: 1;
-                    width: '80px';
-                    text-align: left;
-                }
+                animation-iteration-count: infinite;
+                text-align: center;
 
                 &:hover {
                     transform: scale(1.2);

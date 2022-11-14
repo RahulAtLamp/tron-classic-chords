@@ -13,6 +13,7 @@ import ArtistSingle from "./components/explore/artist-single/artist-single";
 import Error404 from "./components/error404/error404";
 import CollectionSingle from "./components/explore/artist-single/collections/collection-single";
 import MintNft from "./components/player/MintNft";
+import SellCollectionSingle from "./components/player/sell/sell-collection-single";
 
 const client = createClient({
   autoConnect: true,
@@ -37,6 +38,7 @@ const App = () => {
                 <Route path="/artist/:id" element={<ArtistSingle />} />
                 <Route path="/artist/:id/collections/:id" element={<CollectionSingle />} />
                 <Route path="/mint-nft" element={<MintNft />} />
+                <Route path="/sell-nft/:id" element={<SellCollectionSingle />} />
                 <Route path="/*" element={<Error404 />} />
               </Routes>
             </div>
