@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 import classicChords from "../../contract/artifacts/classicChords.json"
 import market from "../../contract/artifacts/market.json"
-
+import user from  "../../contract/artifacts/market.json"
 
 const Profile = () => {
     const { isConnected, address } = useAccount();
@@ -19,7 +19,7 @@ const Profile = () => {
     const [chain, setChainStatus] = useState(false);
     const [profileImage, setprofileImage] = useState(null);
 
-    const market_address = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+    const user_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
     const classicChords_address = "0xed01Ed9D4dfa9BCb6540F71539c3D52EB3598212";
 
     const firstFive = Collections.slice(0, 5);
@@ -37,7 +37,7 @@ const Profile = () => {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const contract = new ethers.Contract(market_address, market, signer);
+                    const contract = new ethers.Contract(user_address, user, signer);
                     const tx = await contract.userMapping(address);
                     console.log(tx);
                 } else {

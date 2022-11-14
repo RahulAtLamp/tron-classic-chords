@@ -2,22 +2,15 @@ import React, { useEffect } from 'react';
 import "./MintNft.scss";
 import ConfettiExplosion from 'react-confetti-explosion';
 import classicChords from "../../contract/artifacts/classicChords.json"
-import market from "../../contract/artifacts/market.json"
 import { ethers } from "ethers";
 import { Web3Storage } from 'web3.storage';
-import CollectionSingle from "./sell/collection-single"
-import {Link, useNavigate} from 'react-router-dom';
 
 
 function MintNft(props) {
-    const market_address = "0x381b7683D0ce531EE79b8F91446C1342B3c9ddeD";
-    const classicChords_address = "0xed01Ed9D4dfa9BCb6540F71539c3D52EB3598212";
+    const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
   
     const [isExploding, setIsExploding] = React.useState(false);
     const [open, setOpen] = React.useState(false);
-    // const [numToken, setNumToken] = React.useState(true);
-    // const [name, setName] = React.useState(true);
-    // const [description, setDescription] = React.useState(true);
 
 
     const getTokeUri = async() =>{
@@ -27,20 +20,17 @@ function MintNft(props) {
         const video = new File([props.file], name+'.webm', {
           type: props.file.type,
         });
-        const video_file_url = await client.put([video], {
-            name: name,
-            maxRetries: 3,
-        })
+        const video_file_url = await client.put([video],'classic_chords_nft.webm')
+        console.log("vide---"+video_file_url);
+
         const metadata = {   
             "description": description,      
-            "image": "https://ipfs.io/ipfs/" + video_file_url,  
+            "image": "https://ipfs.io/ipfs/" + video_file_url + "/classic_chords_nft.webm",  
             "name": name,   
         }
         const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' })
-        const metadata_cid = await client.put([blob], {
-            name: name+"_metadata",
-            maxRetries: 3,
-        })
+        const metadata_cid = await client.put([blob], 'metadata.json')
+        console.log(metadata_cid);
         return metadata_cid
     } 
   
@@ -48,7 +38,22 @@ function MintNft(props) {
     useEffect(() => {
         console.log(open);
         setOpen(props.opened);
-    },[])
+    },[props])
+
+    // useEffect(() => {
+    //     function handleClickOutside(event) {
+    //         if (props.current && !props.current.contains(event.target)) {
+    //             setOpen(true);
+    //         }
+    //     }
+    //     // Bind the event listener
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         // Unbind the event listener on clean up
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, [props])
+
 
     const mint = async() => {
         try {

@@ -7,14 +7,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract classicChords is ERC5006, Ownable{
     
-    uint256 tokenId;    //for keeping counter of token ID
-    address approvedContractAddress;
-
     constructor(uint recordLimit_, address _contractAddress ) ERC5006 ("", recordLimit_){
         approvedContractAddress = _contractAddress;
     }
 
     ///@notice token ID to token URI mapping
+    uint256 tokenId;    //for keeping counter of token ID
+    address approvedContractAddress;
+    mapping (address => uint[]) public userMintedNFTs;
     mapping (uint256 => string) public tokenUriMapping;
     
     /// @notice function to approve marketPlace to list
@@ -27,17 +27,18 @@ contract classicChords is ERC5006, Ownable{
         setApprovalForAll(approvedContractAddress, false);
     }
 
-    // function setURI(string memory _tokenUri) private onlyOwner {
-    //     _setURI(_tokenUri);
-    // }
+
+    function mintedNfts(address _usersAddress) public view returns(uint[] memory){
+        return userMintedNFTs[_usersAddress];
+    }
+
 
     /// @notice Function to mint Token
     function mint(uint _amount, string memory _tokenUri) public {
-        // setURI(_tokenUri);
-        // _setURI(_tokenUri);
         _mint(msg.sender, tokenId, _amount, "");
         tokenUriMapping[uint256(tokenId)] = _tokenUri;
         setApprovalForAll(approvedContractAddress, true);
+        userMintedNFTs[msg.sender].push(tokenId);
         tokenId++;
     }
 

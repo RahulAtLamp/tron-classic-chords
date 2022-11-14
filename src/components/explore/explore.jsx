@@ -61,23 +61,15 @@ const Explore = ({temp}) => {
 
   return (
     <>
-    {loading ? (
-    <div className="exp">
+      <div className="exp">
       <div className="exp-header">All Artists</div>
+
+    {loading ? (
+    <div className="">
       <div className="exp-main">
-        {/* <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT1} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div> */}
         {
           Artists.map((artist, i) => (
-            <Link key={i} to="/artist/1">
+            <Link key={artist.userId} to="/artist/1">
               <div className="exp-pa">
                 <div className="exp-bg">
                   <div className="exp-img">
@@ -90,80 +82,11 @@ const Explore = ({temp}) => {
             </Link>
           ))
         }
-        {/* <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT2} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT3} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT4} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT5} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT6} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT7} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div>
-        <div className="exp-pa">
-          <ParallaxHover borderRadius={20} scale={5} width={300} height={400}>
-            <div className="exp-bg">
-              <img className="exp-nft" src={NFT8} />
-              <div className="exp-txt">Name</div>
-              <div className="exp-txt">Description</div>
-              <div className="exp-txt">Price</div>
-            </div>
-          </ParallaxHover>
-        </div> */}
       </div>
       <br />
     </div>
     ) : null}
+    </div>
   </>
   );
 };
