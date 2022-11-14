@@ -169,7 +169,7 @@ const Home = () => {
                 >
                   <div className="footer-img-bg">
                     <div className="footer-img-i">
-                      <img className="polygon-img" src={Polygon} />
+                      <img className="polygon-img" src="/images/btt.svg" />
                     </div>
                   </div>
                 </ParallaxHover>
