@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { Client } from "@livepeer/webrtmp-sdk";
 import Livepeer from "livepeer-nodejs";
 import { create, CID } from "ipfs-http-client";
-import "./stream.scss";
+import "./stream.scss"; 
 import { useAccount } from "wagmi";
 import { useNavigate } from "react-router-dom";
-import market from "../../contract/artifacts/userStream.json"
+import user from "../../contract/artifacts/userStream.json"
 import { ethers } from "ethers";
-const market_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
+const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
 
 function Streaming({ account }) {
   const { isConnected } = useAccount();
@@ -51,7 +51,7 @@ function Streaming({ account }) {
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
-          const contract = new ethers.Contract(market_address, market, signer);
+          const contract = new ethers.Contract(user_address, user, signer);
           return contract
         } else {
           alert("Please connect to the bitTorent Network!");

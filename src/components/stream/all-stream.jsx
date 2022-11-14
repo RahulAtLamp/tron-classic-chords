@@ -4,6 +4,10 @@ import { Artists } from '../explore/artist-dummy';
 import { Link } from 'react-router-dom';
 import Livepeer from "livepeer-nodejs";
 import ReactPlayer from 'react-player';
+import user from "../../contract/artifacts/userStream.json"
+import { ethers } from "ethers";
+const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
+
 
 function AllStream() {
     const livepeerObject = new Livepeer("d72d5808-9b46-4bdf-9cb6-d703ca3e0acc");
@@ -11,9 +15,36 @@ function AllStream() {
 
     const getStreams = async () => {
         const streams = await livepeerObject.Stream.getAll(1, true, true);
+        const contract = await getContract;
+        for(let i=0;i<=streams.length;i++){
+          console.log(contract.streamIdToStream(streams[i].playbackId)); 
+        }
         setStreams(streams)
     };
 
+    const getContract = async () => {
+        try {
+          const { ethereum } = window;
+          if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            if (!provider) {
+              console.log("Metamask is not installed, please install!");
+            }
+            const { chainId } = await provider.getNetwork();
+            console.log("switch case for this case is: " + chainId);
+            if (chainId === 1029) {
+              const contract = new ethers.Contract(user_address, user, signer);
+              return contract
+            } else {
+              alert("Please connect to the bitTorent Network!");
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    
     useEffect(() => {
         getStreams();
     }, [])
@@ -23,8 +54,7 @@ function AllStream() {
         <div className="exp">
             <div className="exp-header">All Live Streams</div>
             <div className="exp-main">
-                {
-                    Streams.map((stream, i) => (
+                {   Streams.map((stream, i) => (
                         <a key={i} href={`https://lvpr.tv/?v=` + stream.playbackId} target="_blank">
                             <div className="exp-pa">
                                 <div className="exp-bg">
