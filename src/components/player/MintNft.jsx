@@ -8,7 +8,10 @@ import { NFTStorage, File } from 'nft.storage'
 
 
 function MintNft(props) {
-    const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
+    // const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
+    const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
+    const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
+    const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
     const [isExploding, setIsExploding] = React.useState(false);
     const [open, setOpen] = React.useState(false);

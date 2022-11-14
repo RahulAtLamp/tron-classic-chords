@@ -12,9 +12,9 @@ import { useAccount } from "wagmi";
 import classicChords from "../../../contract/artifacts/classicChords.json"
 import axios from "axios"; 
 
-const user_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
-const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
-const market_address = "0x3C39548531bb3c9276E1e40046F64CB709aee9cb"
+const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
+    const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
+    const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
 function ArtistSingle() {
   // const singleArtist = Artists[5];
