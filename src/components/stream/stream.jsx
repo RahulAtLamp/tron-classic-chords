@@ -105,6 +105,9 @@ function Streaming({ account }) {
     console.log(stream_);
     console.log(stream_.streamKey);
     const contract = await getContract();
+    console.log(premium,
+      title,
+      des);
     const tx = await contract.createStream(
       stream_.id,
       premium,

@@ -15,9 +15,10 @@ function AllStream() {
 
     const getStreams = async () => {
         const streams = await livepeerObject.Stream.getAll(1, true, true);
-        const contract = await getContract;
-        for(let i=0;i<=streams.length;i++){
-          console.log(contract.streamIdToStream(streams[i].playbackId)); 
+        const contract = await getContract();
+        console.log(streams[0].playbackId);
+        for(let i=0;i<streams.length;i++){
+          console.log(await contract.stramCodeToSteam(streams[i].playbackId)); 
         }
         setStreams(streams)
     };

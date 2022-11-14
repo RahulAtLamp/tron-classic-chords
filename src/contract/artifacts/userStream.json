@@ -147,7 +147,7 @@
 				"type": "string"
 			}
 		],
-		"name": "stramCodeToSteam",
+		"name": "streamCodeToStream",
 		"outputs": [
 			{
 				"internalType": "uint256",
