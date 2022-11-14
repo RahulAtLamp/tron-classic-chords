@@ -61,6 +61,7 @@ const Profile = () => {
                             await axios.get("https://ipfs.io/ipfs/"+uri.split("//")[1]).then((response) => {
                                 let data = response.data
                                 data.image = "https://ipfs.io/ipfs/"+data.image.split("//")[1]
+                                response.data.id = ids[i].toNumber();
                                 nfts.push(response.data)
                                 console.log(response.data);
                             });
@@ -260,7 +261,7 @@ const Profile = () => {
                     <div className="nfts-creations-list">
                         {
                             isLoading ? (  mintedNfts.map((collection, i) => (
-                                <Link key={i} to="/sell-nft/1">
+                                <Link key={i} to={"/sell-nft/" + collection.id}>
                                     <div className="nfts-collection-pa">
                                         <div className="nfts-bg">
                                             <div className="nfts-img">
