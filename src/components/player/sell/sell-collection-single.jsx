@@ -6,7 +6,6 @@ import { Collections } from '../collection_dummy';
 import { ethers } from "ethers";
 import axios from "axios";
 // import $ from "jquery";
-import DatePicker from 'react-date-picker';
 import { useAccount } from "wagmi";
 import { useParams } from 'react-router-dom';
 import classicChords from "../../../contract/artifacts/classicChords.json"

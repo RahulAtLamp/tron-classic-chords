@@ -52,7 +52,7 @@ function ArtistSingle() {
                         await axios.get("https://ipfs.io/ipfs/"+uri.split("//")[1]).then((response) => {
                             let data = response.data
                             data.image = "https://ipfs.io/ipfs/"+data.image.split("//")[1]
-                            response.data.id = listed_data[i].tokenId.toNumber();
+                            response.data.id = listed_data[i].itemId.toNumber();
                             response.data.price = listed_data[i].price.toNumber()
                             nfts.push(response.data)
                             console.log(response.data);
@@ -109,7 +109,7 @@ function ArtistSingle() {
           <div className="artist-creations-list">
             {
               nfts.map((collection, i) => (
-                <Link key={i} to={"/collections/" + collection.id}>
+                <Link key={i} to={"/collection/" + collection.id}>
                   <div className="artist-collection-pa">
                     <div className="exp-bg">
                       <div className="exp-img">

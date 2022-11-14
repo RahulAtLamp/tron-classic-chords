@@ -90,17 +90,17 @@ function CollectionSingle() {
                 if (chainId === 1029) {
                     const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
                     const marketContract = new ethers.Contract(market_address, market, signer);
-                    let result = {
-                    }
 
                     try {
 
+                        console.log(userData);
+
                         if (forRent) {
-                            const rent = await marketContract.rentNft(params.id, tokenId, userQty);
+                            const rent = await marketContract.rentNft(params.id, tokenId, userQty,{value:price*userQty});
                             console.log(rent);
                             getNftData();
                         } else {
-                            const buy = await marketContract.buyNft(params.id, tokenId, userQty);
+                            const buy = await marketContract.buyNft(params.id, tokenId, userQty,{value:price*userQty});
                             console.log(buy);
                             getNftData();
                         }
