@@ -223,7 +223,25 @@ const Profile = () => {
     }, [ProfileImage])
 
     if (!userDefault.profile_pic) {
-    return <Loading />
+        return (
+            <>
+                <Loading />
+                {
+                    chain
+                        ?
+                        <div className="add-chain-main">
+                            <div className="add-chain-box">
+                                <p className="add-chain-message">
+                                    Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                </p>
+                                <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                            </div>
+                        </div>
+                        :
+                        null
+                }
+            </>
+        )
     } else {
         return (
             <div className="profile-main">
