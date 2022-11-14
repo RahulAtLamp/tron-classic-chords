@@ -1,80 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
-import "./classicChords.sol";
-// import "./ERC5006.sol";
 
-contract Market is Ownable,ReentrancyGuard, ERC1155Holder{
-
-    uint256 rentCounter;
-    uint256 listingPrice = 0 ether;
-    address addressNft;
-    classicChords nft;
+contract userStream{
 
     using Counters for Counters.Counter;
-    Counters.Counter private _itemIds;
-    Counters.Counter private _itemsSold;
-    Counters.Counter private _itemsDeleted;
-    Counters.Counter private _itemsRent;
 
-
-    struct MarketItem{
-        uint itemId;
-        uint256 tokenId;
-        uint quantity;
-        uint256 price;
-        address payable creator;
-        address payable seller;
-        address payable owner;
-        uint64 expiry;
-        uint recordId;
-        bool isAvailableOnRent;
-        bool isAvailableOnSell; 
-        uint32 royaltyPr;        
+    Counters.Counter private _usersCount;
+    Counters.Counter private _streamCount;
+    struct User{
+      uint userId;
+      address userAddress;
+      string name;
+      string description;  
+      string profileImage;
     }
 
+    struct Stream{
+      uint stremId;
+      string stramCode;
+      string title;
+      string description;
+      bool premium;
+      bool isLive;
+    }
 
-    mapping (uint256 => MarketItem) public marketItemsMapping;
-
-  event MarketItemCreated (
-    uint indexed itemId,
-    uint256 indexed tokenId,
-    uint32 quantity,
-    address creator,
-    address seller,
-    address owner,
-    uint256 price,
-    uint64 expiry,
-    uint recordId,
-    bool isAvailableOnRent,
-    bool isAvailableOnSell,                
-    uint32 royaltyPr
-  );
-
-  event NFTSold(
-    uint256 tokenId,
-    address seller,
-    address owner,
-    uint256 price,
-    uint256 quantity
-  );
-
-  event NFTRented(
-    uint256 tokenId,
-    address seller,
-    address owner,
-    uint256 price,
-    uint256 quantity
-  );
-
-
-  event ProductListed(
-    uint256 indexed itemId
-  );
+    mapping (address => User) public userMapping;
+    mapping (uint => User) public userIdToUser;
+    mapping (uint => address) public streamIdToUser;
+    mapping (uint => Stream) public streamIdToStream;
+    mapping (string => Stream) public stramCodeToSteam;
 
   event StreamCreated(
       uint indexed stremId,
@@ -86,255 +41,82 @@ contract Market is Ownable,ReentrancyGuard, ERC1155Holder{
   );
 
 
-    /* Returns the listing price of the contract */
-    function getListingPrice() public view returns (uint256) {
-        return listingPrice;
-    }
-
-    function setListingPrice(uint _listingPrice) public onlyOwner {
-        listingPrice = _listingPrice;
-    }
-    
-    /* Returns the token Contract Address of the contract */
-    function getTokenContract() public view returns (address) {
-        return addressNft;
-    }
-
-    function setTokenContract(address _tokenAddress) public onlyOwner {
-        addressNft = _tokenAddress;
-        nft = classicChords(addressNft);
-    } 
-
-
-    /* Places an item for sale or rent on the marketplace */
-    function createMarketItem(
-        uint256 _tokenId,
-        uint32 _quantity,
-        uint256 _price,
-        bool _isAvailableOnRent,
-        bool _isAvailableOnSell,
-        uint64 _expiry,
-        uint32 _royaltyPr
-    ) public payable nonReentrant {
-    require(_price > 0, "Price must be at least 1 wei");
-    require(msg.value == listingPrice, "Price must be equal to listing price");
-
-    _itemIds.increment();
-    uint256 itemId = _itemIds.current();
-    uint recordId;
-    
-    nft.transferFrom(msg.sender, address(this), _tokenId, _quantity);
-    recordId = 0; 
-
-    marketItemsMapping[itemId] =  MarketItem(
-      itemId,
-      _tokenId,
-      _quantity,
-      _price,
-      payable(msg.sender),
-      payable(msg.sender),
-      payable(address(0)),
-      _expiry,
-      recordId,
-      _isAvailableOnRent,
-      _isAvailableOnSell,
-      _royaltyPr
+  function registerUser(string memory _name, string memory _description, string memory _profileImage) public returns(uint256) {
+    _usersCount.increment();
+    uint256 userId = _usersCount.current();
+    userIdToUser[userId] = User(
+      userId,
+      msg.sender,
+      _name,
+      _description,
+      _profileImage
+    );
+    userMapping[msg.sender] = User(
+      userId,
+      msg.sender,
+      _name,
+      _description,
+      _profileImage
     );
 
-    emit MarketItemCreated(
-      itemId,
-      _tokenId,
-      _quantity,
-      payable(msg.sender),
-      payable(msg.sender),
-      payable(address(0)),
-      _price,
-      _expiry,
-      recordId,
-      _isAvailableOnRent,
-      _isAvailableOnSell,
-      _royaltyPr
+    return userId;
+  }
+
+
+  function updateUser(uint userId,string memory _name, string memory _description, string memory _profileImage) public view {
+    User memory user = userIdToUser[userId];
+    if(bytes(_name).length >= 0){
+      user.name = _name;
+    }
+    if(bytes(_description).length >= 0){
+      user.description = _description;
+    }
+    if(bytes(_profileImage).length >= 0){
+      user.profileImage = _profileImage;
+    }
+  }
+
+
+
+  function createStream(string memory _streamCode, bool _premium, string memory _title, string memory _description) public {
+    _streamCount.increment();
+    uint256 streamId = _streamCount.current();
+    streamIdToStream[streamId] = Stream(
+      streamId,
+      _streamCode,
+      _title,
+      _description,
+      _premium,
+      true
+    );
+    streamIdToUser[streamId] = msg.sender;
+    streamIdToStream[streamId] = Stream(
+      streamId,
+      _streamCode,
+      _title,
+      _description,
+      _premium,
+      true
+    );
+    emit StreamCreated(
+      streamId,
+      msg.sender,
+      _streamCode,
+      _title,
+      _description,
+      _premium
     );
   }
 
-
-  function buyNft(uint _itemId,uint256 _tokenId, uint32 _quantity) public payable nonReentrant {
-    MarketItem memory item = marketItemsMapping[_itemId];
-    require(msg.value == _quantity*item.price, "Not enough balance to cover asking price");
-    require(item.isAvailableOnSell, "Item is not available for Sell");
-    require(item.quantity >= _quantity, "Quentity is not available");
-    uint royalty = (item.royaltyPr * msg.value) / 100; 
-    item.seller.transfer(msg.value-royalty);
-    item.creator.transfer(royalty);
-    nft.transferFrom(address(this), payable(msg.sender), _tokenId, _quantity);
-    if(item.quantity == _quantity){
-      item.owner = payable(msg.sender);
-      item.isAvailableOnSell = false;
+  function getAllArtists() public view returns (User[] memory){
+    User[] memory users = new User[](_usersCount.current());
+    uint userIndex = 0;
+    for (uint i = 0; i < _usersCount.current(); i++) {
+        users[userIndex] = userIdToUser[i + 1];
+        userIndex++;
     }
-    else{
-      _itemIds.increment();
-      uint256 newItemId = _itemIds.current();
-      item.quantity = item.quantity - _quantity;
-      marketItemsMapping[newItemId] =  MarketItem(
-            newItemId,
-            _tokenId,
-            item.quantity,
-            msg.value,
-            item.creator,
-            payable(address(0)),
-            payable(msg.sender),
-            0,
-            0,
-            false,
-            false,
-            0
-          );
-          emit MarketItemCreated(
-              newItemId,
-              _tokenId,
-              uint32(item.quantity),
-              item.creator,
-              payable(address(0)),
-              payable(msg.sender),
-              msg.value,
-              0,
-              0,
-              false,
-              false,
-              0
-            );
-    }
-    _itemsSold.increment();
-    emit NFTSold(_tokenId, item.seller, payable(msg.sender), msg.value,_quantity);
+    return users;
   }
 
 
-    function rentNft(uint _itemId,uint256 _tokenId, uint32 _quantity) public payable nonReentrant {
-        MarketItem memory item = marketItemsMapping[_itemId];
-        require(msg.value == _quantity*item.price, "Not enough balance to cover asking price");
-        require(item.isAvailableOnRent, "Item is not available for Rent");
-        require(item.quantity >= _quantity, "Quentity is not available");
-        // address payable buyer = payable(msg.sender);
-        item.seller.transfer(msg.value);
-        uint royalty = (item.royaltyPr * msg.value) / 100; 
-        item.seller.transfer(msg.value-royalty);
-        item.creator.transfer(royalty);
-
-        uint recordId = nft.createUserRecord(address(this), msg.sender, _tokenId, _quantity, item.expiry);
-        item.recordId = recordId;
-        _itemsRent.increment();
-        if(item.quantity == _quantity){
-          item.owner = payable(msg.sender);
-          item.isAvailableOnRent = false;
-         }
-      else{
-        _itemIds.increment();
-        uint256 newItemId = _itemIds.current();
-        item.quantity = item.quantity - _quantity;
-        marketItemsMapping[newItemId] =  MarketItem(
-              newItemId,
-              _tokenId,
-              uint32(item.quantity),
-              msg.value,
-              item.creator,
-              payable(address(0)),
-              payable(msg.sender),
-              item.expiry,
-              recordId,
-              false,
-              false,
-              0
-            );
-            emit MarketItemCreated(
-                newItemId,
-                _tokenId,
-                uint32(item.quantity),
-                item.creator,
-                payable(address(0)),
-                payable(msg.sender),
-                msg.value,
-                item.expiry,
-                recordId,
-                false,
-                false,
-                0
-              );
-        }
-        _itemsSold.increment();
-        emit NFTSold(_tokenId, item.seller, payable(msg.sender), msg.value,_quantity);
-  }
-
-    function revokeRent(uint256 _recordId) public {
-        nft.deleteUserRecord(_recordId);
-    }
-    
-    function balanceOf(address _userAddress, uint256 _recordId) public view returns(uint256){
-        return nft.balanceOf(_userAddress, _recordId);
-    }
-
-    function frozenBalanceOf(address _userAddress, uint256 _tokenId) public view returns(uint256){
-        return nft.frozenBalanceOf(_userAddress, _tokenId);
-    }
-
-    function usableBalanceOf(address _userAddress, uint256 _tokenId) public view returns(uint256){
-        return nft.usableBalanceOf(_userAddress, _tokenId);
-    }
-
-    function getListedNfts() public view returns (MarketItem[] memory) {
-    
-    uint256 nftCount = _itemIds.current();
-    uint256 unsoldNftsCount = nftCount - _itemsSold.current();
-
-    MarketItem[] memory nfts = new MarketItem[](unsoldNftsCount);
-    uint nftsIndex = 0;
-    for (uint i = 0; i < nftCount; i++) {
-      if (marketItemsMapping[i + 1].isAvailableOnRent || marketItemsMapping[i + 1].isAvailableOnSell) {
-        nfts[nftsIndex] = marketItemsMapping[i + 1];
-        nftsIndex++;
-      }
-    }
-    return nfts;
-  }
-
-
-  function getUserNfts(address _userAddress) public view returns (MarketItem[] memory) {
-    uint nftCount = _itemIds.current();
-    uint myNftCount = 0;
-    for (uint i = 0; i < nftCount; i++) {
-      if (marketItemsMapping[i + 1].owner == _userAddress) {
-        myNftCount++;
-      }
-    }
-
-    MarketItem[] memory nfts = new MarketItem[](myNftCount);
-    uint nftsIndex = 0;
-    for (uint i = 0; i < nftCount; i++) {
-      if (marketItemsMapping[i + 1].owner == _userAddress) {
-        nfts[nftsIndex] = marketItemsMapping[i + 1];
-        nftsIndex++;
-      }
-    }
-    return nfts;
-  }
-
-
-  function getUserListedNfts(address _userAddress) public view returns (MarketItem[] memory) {
-    uint nftCount = _itemIds.current();
-    uint myListedNftCount = 0;
-    for (uint i = 0; i < nftCount; i++) {
-      if (marketItemsMapping[i + 1].seller == _userAddress && (marketItemsMapping[i + 1].isAvailableOnRent || marketItemsMapping[i + 1].isAvailableOnSell)) {
-        myListedNftCount++;
-      }
-    }
-
-    MarketItem[] memory nfts = new MarketItem[](myListedNftCount);
-    uint nftsIndex = 0;
-    for (uint i = 0; i < nftCount; i++) {
-      if (marketItemsMapping[i + 1].seller == _userAddress && (marketItemsMapping[i + 1].isAvailableOnRent || marketItemsMapping[i + 1].isAvailableOnSell)) {
-        nfts[nftsIndex] = marketItemsMapping[i + 1];
-        nftsIndex++;
-      }
-    }
-    return nfts;
-  }
 }
