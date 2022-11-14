@@ -25,12 +25,12 @@ const Profile = () => {
     const [mintedNfts, setMintedNfts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const user_address = "0x30967c83b2b0f747737b40b048C025AF4462741C";
-    const classicChords_address = "0xA85cFB46795e47bB6D6C727964f668A0AE38935f";
-    const market_address = "0x3C39548531bb3c9276E1e40046F64CB709aee9cb"
+    const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
+    const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
+    const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
-    const firstFive = Collections.slice(0, 5);
-    const lastFive = Collections.slice(-5);
+    // const firstFive = Collections.slice(0, 5);
+    // const lastFive = Collections.slice(-5);
 
     const getProfile = async () => {
         try {
@@ -307,7 +307,7 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className="nfts-minted-holder">
+                {/* <div className="nfts-minted-holder">
                     <h2 className="nfts-minted-header">
                         NFTs Owned
                     </h2>
@@ -319,7 +319,7 @@ const Profile = () => {
                                         <div className="nfts-collection-pa">
                                             <div className="nfts-bg">
                                                 <div className="nfts-img">
-                                                    {/* <img className="nfts-nft" src={collection.image} /> */}
+                                                    <img className="nfts-nft" src={collection.image} />
                                                     <img className="nfts-nft" src={collection.image} />
                                                 </div>
                                                 <div className="nfts-name" title={collection.name}>{collection.name}</div>
@@ -334,7 +334,8 @@ const Profile = () => {
                             }
                         </div>
                     </div>
-                </div>
+                </div> */}
+
                 {
                     profileWindow
                         ?
