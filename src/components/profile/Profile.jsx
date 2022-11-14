@@ -223,7 +223,7 @@ const Profile = () => {
         }
     }, [ProfileImage])
 
-    if (!userDefault.profile_pic) {
+    if (!address) {
         return (
             <>
                 <Loading />
