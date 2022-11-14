@@ -55,12 +55,8 @@ function AllStream() {
         <div className="exp">
             <div className="exp-header">All Live Streams</div>
             <div className="exp-main">
-<<<<<<< HEAD
-                {   Streams.map((stream, i) => (
-=======
                 {
                     Streams.map((stream, i) => (
->>>>>>> e95b5ab3955f6d1a4cb54014d0699efe80a83f49
                         <a key={i} href={`https://lvpr.tv/?v=` + stream.playbackId} target="_blank">
                             <div className="exp-pa">
                                 <div className="exp-bg">

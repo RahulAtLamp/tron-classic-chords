@@ -25,11 +25,7 @@ const Profile = () => {
     const [mintedNfts, setMintedNfts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-<<<<<<< HEAD
-    const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
-=======
     const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
->>>>>>> e95b5ab3955f6d1a4cb54014d0699efe80a83f49
     const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
     const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
