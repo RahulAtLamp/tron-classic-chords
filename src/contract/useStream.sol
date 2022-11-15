@@ -29,7 +29,7 @@ contract userStream{
     mapping (uint => User) public userIdToUser;
     mapping (uint => address) public streamIdToUser;
     mapping (uint => Stream) public streamIdToStream;
-    mapping (string => Stream) public stramCodeToSteam;
+    mapping (string => Stream) public streamCodeToStream;
 
   event StreamCreated(
       uint indexed stremId,
@@ -90,7 +90,7 @@ contract userStream{
       true
     );
     streamIdToUser[streamId] = msg.sender;
-    streamIdToStream[streamId] = Stream(
+    streamCodeToStream[_streamCode] = Stream(
       streamId,
       _streamCode,
       _title,
