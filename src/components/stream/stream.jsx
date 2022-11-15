@@ -19,11 +19,11 @@ function Streaming({ account }) {
   const mounted = useRef(false);
   const [session, setSession] = useState("");
   const [url, setUrl] = useState("");
-  const livepeerObject = new Livepeer("d72d5808-9b46-4bdf-9cb6-d703ca3e0acc");
-  // const getStreams = async () => {
-  //   const streams = await livepeerObject.Stream.getAll({ isActive: false });
-  //   console.log(streams);
-  // };
+  const livepeerObject = new Livepeer("f3edde15-46b8-453f-9f7f-f19f51f3863e");
+  const getStreams = async () => {
+    const streams = await livepeerObject.Stream.getAll({ isActive: false });
+    console.log(streams);
+  };
 
 
   //

@@ -5,6 +5,7 @@
   "dependencies": {
     "@iconify/icons-ion": "^1.1.0",
     "@iconify/react": "^4.0.0",
+    "@livepeer/react": "^1.5.1",
     "@livepeer/webrtmp-sdk": "^0.2.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
