@@ -20,10 +20,10 @@ function Streaming({ account }) {
   const [session, setSession] = useState("");
   const [url, setUrl] = useState("");
   const livepeerObject = new Livepeer("d72d5808-9b46-4bdf-9cb6-d703ca3e0acc");
-  const getStreams = async () => {
-    const streams = await livepeerObject.Stream.getAll({ isActive: false });
-    console.log(streams);
-  };
+  // const getStreams = async () => {
+  //   const streams = await livepeerObject.Stream.getAll({ isActive: false });
+  //   console.log(streams);
+  // };
 
 
   //
