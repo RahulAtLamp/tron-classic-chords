@@ -17,6 +17,7 @@
     "emotion": "^10.0.27",
     "ethers": "^5.7.2",
     "fs": "^0.0.1-security",
+    "gsap": "^3.11.3",
     "howler": "^2.2.3",
     "ipfs-http-client": "^57.0.3",
     "jquery": "^3.6.1",

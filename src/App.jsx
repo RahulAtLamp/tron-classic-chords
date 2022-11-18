@@ -42,6 +42,7 @@ const App = () => {
                 <Route path="/sell-nft/:id" element={<SellCollectionSingle />} />
                 <Route path="/all-stream" element={<AllStream />} />
                 <Route path="/*" element={<Error404 />} />
+                {/* <Route path="/test" element={<Loading3 />} /> */}
               </Routes>
             </div>
           </Router>

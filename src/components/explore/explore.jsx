@@ -16,6 +16,7 @@ import market from "../../contract/artifacts/userStream.json";
 // const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
 // const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
 const market_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9"
+const RPC_ENDPOINT = "https://pre-rpc.bittorrentchain.io/"
 
 const Explore = ({ temp }) => {
 
@@ -27,22 +28,26 @@ const Explore = ({ temp }) => {
 
   const getContract = async () => {
     try {
-      const { ethereum } = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        if (!provider) {
-          console.log("Metamask is not installed, please install!");
-        }
-        const { chainId } = await provider.getNetwork();
-        console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
-          const contract = new ethers.Contract(market_address, market, signer);
-          return contract
-        } else {
-          alert("Please connect to the bitTorent Network!");
-        }
-      }
+      // const { ethereum } = window;
+      // if (ethereum) {
+      //   const provider = new ethers.providers.Web3Provider(ethereum);
+      //   const signer = provider.getSigner();
+      //   if (!provider) {
+      //     console.log("Metamask is not installed, please install!");
+      //   }
+      //   const { chainId } = await provider.getNetwork();
+      //   console.log("switch case for this case is: " + chainId);
+      //   if (chainId === 1029) {
+      //     const contract = new ethers.Contract(market_address, market, signer);
+      //     return contract
+      //   } else {
+      //     alert("Please connect to the bitTorent Network!");
+      //   }
+      // }
+
+      const provider = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
+      const contract = new ethers.Contract(market_address, market, provider);
+      return contract
     } catch (error) {
       console.log(error);
     }
