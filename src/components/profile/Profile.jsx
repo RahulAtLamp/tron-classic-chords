@@ -11,6 +11,7 @@ import user from "../../contract/artifacts/userStream.json"
 import { Web3Storage } from 'web3.storage'
 import axios from "axios";
 import Loading from "../../loading";
+import Loading3 from "../../loading3";
 
 const Profile = () => {
     const { isConnected, address } = useAccount();
@@ -272,7 +273,7 @@ const Profile = () => {
                                         ?
                                         userDefault.bio
                                         :
-                                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias officiis non quod illum suscipit aspernatur fugit expedita, sunt eligendi, nisi dicta quae veniam consequuntur quos repellat molestiae recusandae explicabo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus assumenda ut et suscipit quaerat, nihil est deleniti enim officia modi itaque a atque ex doloribus aliquam reprehenderit saepe sequi placeat!"
+                                        "No Bio added... Please add it using the edit button provided beside."
                                 }
                             </p>
                         </div>
@@ -302,7 +303,7 @@ const Profile = () => {
                                             </div>
                                         </div>
                                     </Link>
-                                ))) : null
+                                ))) : <h4 className="profile-title">Loading</h4>
                             }
                         </div>
                     </div>

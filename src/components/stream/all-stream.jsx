@@ -55,29 +55,32 @@ function AllStream() {
         <div className="exp">
             <div className="exp-header">All Live Streams</div>
             <div className="exp-main">
-                {
-                    Streams.map((stream, i) => (
-                        <a key={i} href={`https://lvpr.tv/?v=` + stream.playbackId} target="_blank">
-                            <div className="exp-pa">
-                                <div className="exp-bg">
-                                    <div className="exp-img">
-                                        {/* <img src="https://picsum.photos/200" alt="" /> */}
-                                        <ReactPlayer
-                                            url={
-                                                "https://livepeercdn.com/hls/" +
-                                                stream.playbackId +
-                                                "/index.m3u8"
-                                            }
-                                            controls={true}
-                                            style={{ width: "100%" }}
-                                        />
-                                    </div>
-                                    {/* <div className="exp-name" title={artist.name}>{artist.name}</div>
-                                    <p className="exp-description">{artist.description}</p> */}
-                                </div>
-                            </div>
-                        </a>
-                    ))
+                { Streams.length > 0 
+                ?
+                Streams.map((stream, i) => (
+                  <a key={i} href={`https://lvpr.tv/?v=` + stream.playbackId} target="_blank">
+                      <div className="exp-pa">
+                          <div className="exp-bg">
+                              <div className="exp-img">
+                                  {/* <img src="https://picsum.photos/200" alt="" /> */}
+                                  <ReactPlayer
+                                      url={
+                                          "https://livepeercdn.com/hls/" +
+                                          stream.playbackId +
+                                          "/index.m3u8"
+                                      }
+                                      controls={true}
+                                      style={{ width: "100%" }}
+                                  />
+                              </div>
+                              {/* <div className="exp-name" title={artist.name}>{artist.name}</div>
+                              <p className="exp-description">{artist.description}</p> */}
+                          </div>
+                      </div>
+                  </a>
+              ))
+                :
+                <h3 className='artist-streams'>No live streams available</h3>    
                 }
             </div>
             <br />

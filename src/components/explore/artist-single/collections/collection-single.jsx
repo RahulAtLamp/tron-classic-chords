@@ -14,6 +14,7 @@ const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 function CollectionSingle() {
     const collection = Collections[3];
     const params = useParams();
+    const [username, setUsername] = useState(""); 
     const [userData, setUserData] = useState({ name: null, description: null, image: null, totalQty: null, price: null });
     const [nftQty, setNftQty] = useState(null);
     const [price, setPrice] = useState(null);
@@ -52,6 +53,7 @@ function CollectionSingle() {
                             result = response.data;
                         });
                         console.log(result);
+                        setUsername(result.name);
                         setUserData({ ...userData, name: result.name });
                         setUserData({ ...userData, description: result.description });
                         setUserData({ ...userData, image: result.image });
@@ -128,7 +130,7 @@ function CollectionSingle() {
 
     return (
         <div className='collection-main'>
-            <h2 className="collection-name">{userData.name}</h2>
+            <h2 className="collection-name">{username}</h2>
             <div className="collection-detail-holder">
                 <div className="collection-image-holder">
                     <video className='collection-image' src={userData.image} alt={userData.image} controls />

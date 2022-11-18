@@ -11,11 +11,12 @@ import user from "../../../contract/artifacts/userStream.json"
 import { useAccount } from "wagmi";
 import classicChords from "../../../contract/artifacts/classicChords.json"
 import axios from "axios";
+import Loading3 from '../../../loading3';
 
 const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
 const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
 const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
-const RPC_ENDPOINT = "https://pre-rpc.bittorrentchain.io/"
+const RPC_ENDPOINT = "https://pre-rpc.bittorrentchain.io/";
 
 function ArtistSingle() {
   // const singleArtist = Artists[5];
@@ -110,6 +111,8 @@ function ArtistSingle() {
           <div className="artist-creations-list-container">
             <div className="artist-creations-list">
               {
+                nfts.length > 0 
+                ?
                 nfts.map((collection, i) => (
                   <Link key={i} to={"/collection/" + collection.id}>
                     <div className="artist-collection-pa">
@@ -126,6 +129,8 @@ function ArtistSingle() {
                     </div>
                   </Link>
                 ))
+                :
+                <h4>No Creations of this artist</h4>
               }
             </div>
           </div>
@@ -135,7 +140,7 @@ function ArtistSingle() {
 
         </div>
       </div> */}
-      </div>) : null
+      </div>) : <Loading3 />
   )
 }
 

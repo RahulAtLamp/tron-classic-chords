@@ -12,6 +12,7 @@ import "./explore.scss";
 import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 import market from "../../contract/artifacts/userStream.json";
+import Loading3 from "../../loading3";
 
 // const user_address = "0x036E73d74e86cC50930d78f26cf97d603c40088f";
 // const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
@@ -72,7 +73,7 @@ const Explore = ({ temp }) => {
   }, [])
 
 
-  return (
+return (
     <>
       <div className="exp">
         <div className="exp-header">All Artists</div>
@@ -98,7 +99,7 @@ const Explore = ({ temp }) => {
             </div>
             <br />
           </div>
-        ) : null}
+        ) : <Loading3 />}
       </div>
     </>
   );
