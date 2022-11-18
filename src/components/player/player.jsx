@@ -15,7 +15,7 @@ function Player() {
   const p = new Piano();
   const gui = new GUI();
 
-
+ 
   let items = null;
   const midiSounds = useRef(null);
   useEffect(() => {

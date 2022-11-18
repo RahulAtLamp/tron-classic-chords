@@ -48,7 +48,7 @@ export default class Visualizer extends React.Component {
   //     );
   // }
 
-  componentDidMount = () => {
+  init = () => {
 
     this.setState({ presets: butterchurnPresets.getPresets() });
     //get width of screen we will make this auto adjust later.
@@ -63,8 +63,8 @@ export default class Visualizer extends React.Component {
     canvas = document.getElementById("canvas");
 
     //set width and height of canvas
-    canvas.width = 200;
-    canvas.height = 300;
+    canvas.width = 700;
+    canvas.height = 400;
 
     //create a new audio context
     audioContext = new AudioContext();
@@ -84,12 +84,16 @@ export default class Visualizer extends React.Component {
 
 
   startRecording = () => {
+    this.init()
     recorder.createStream(this.selectorRef.current);
     recorder.start();
   }
 
   stopRecording = () => {
     recorder.stop();
+    delete this.canvas;
+    // this.state.visualizer;
+    // this.state.audioContext;
     const file = recorder.save();
 
     const link = document.createElement("a");
@@ -207,7 +211,6 @@ export default class Visualizer extends React.Component {
             />
           ) : null}
 
-``
           <canvas id="canvas" ref={this.selectorRef} />
           <video src={this.file} controls />
           <button onClick={this.startRecording} id="startR">Start Recording</button>
