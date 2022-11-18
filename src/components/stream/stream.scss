@@ -8,10 +8,13 @@ $gradient-color: linear-gradient(90deg,
 
   .stream-header {
     margin-top: 0;
-    padding: 40px;
     text-align: center;
+    font-size: xx-large;
     font-family: "FontsFree";
     color: #ffffff;
+    padding-top: 100px;
+    text-shadow: 0 0 2px #ffff, 0 0 10px #a886fb, 0 0 2px #fff,
+      0 0 10px #a886fb, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
   }
 
   .cs {
