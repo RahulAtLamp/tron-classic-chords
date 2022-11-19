@@ -140,7 +140,7 @@ function ArtistSingle() {
 
         </div>
       </div> */}
-      </div>) : <Loading3 />
+      </div>) : <div className='loading-main'><Loading3 /></div>
   )
 }
 
