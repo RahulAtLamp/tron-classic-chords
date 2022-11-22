@@ -15,6 +15,7 @@ function MintNft(props) {
 
     const [isExploding, setIsExploding] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const [onMint, setOnMint] = React.useState(false);
     const mintBox = React.useRef();
 
 
@@ -80,6 +81,7 @@ function MintNft(props) {
 
 
     const mint = async () => {
+        setOnMint(true);
         try {
             const { ethereum } = window;
             if (ethereum) {
@@ -96,12 +98,17 @@ function MintNft(props) {
                     const uri = await getTokeUri();
                     const tx = await contract.mint(numToken, uri);
                     tx.wait();
+                    setOnMint(false);
                     setIsExploding(true);
+                    setTimeout(()=>{
+                        setOpen(false);
+                    },3000)
                 } else {
                     alert("Please connect to the bitTorent Network!");
                 }
             }
         } catch (error) {
+            setOnMint(false);
             console.log(error);
         }
     }
@@ -132,7 +139,14 @@ function MintNft(props) {
                         <input type="number" placeholder='Price in TRX' className='mint-nft-p' />
                     </div> */}
                         <div className="mint-nft-btn">
-                            <button className="mint-nft-b" onClick={() => { mint(); }}>Mint{isExploding ? <ConfettiExplosion particleCount={300} height={1080} width={1080} /> : null}</button>
+                            {
+                                onMint 
+                                ?
+                                <button className="mint-nft-b disabled" disabled="disabled" onClick={() => { mint(); }}><span>Minting</span><span className="dot1">.</span><span className="dot2">.</span><span className="dot3">.</span></button>
+                                :
+
+                                <button className="mint-nft-b" onClick={() => { mint(); }}>Mint{isExploding ? <ConfettiExplosion particleCount={300} height={1080} width={1080} /> : null}</button>
+                            }
                         </div>
                     </div>
                 </div>
