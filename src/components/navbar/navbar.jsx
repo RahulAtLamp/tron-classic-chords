@@ -5,6 +5,7 @@ import logo from "../../images/logo.png";
 import MenuIcon from "./MenuIcon";
 import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
 
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -30,6 +31,7 @@ const Navbar = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [account, setAccount] = useState(null);
   const [showMenu, setShowMenu] = useState(null);
+  const [chain, setChainStatus] = useState(false);
 
   const connectMeta = () => {
     connect();
@@ -62,6 +64,46 @@ const Navbar = () => {
     }
   }
 
+  const addChain = () => {
+    if (window.ethereum) {
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: "0x405",
+          rpcUrls: ["https://pre-rpc.bittorrentchain.io/"],
+          chainName: "BitTorrent Chain Donau",
+          // nativeCurrency: {
+          //     name: "BitTorrent",
+          //     symbol: "BTT",
+          //     decimals: 18
+          // },
+          blockExplorerUrls: ["https://testscan.bittorrentchain.io/"]
+        }]
+      })
+      setChainStatus(false);
+    } else {
+      alert("Please Install a wallet to proceed.")
+    }
+  }
+
+  const checkChain = async () => {
+    if (window.ethereum) {
+      const { ethereum } = window;
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const { chainId } = await provider.getNetwork();
+      if (chainId !== 1029) {
+        setChainStatus(true);
+        return true;
+      } else {
+        setChainStatus(false);
+        return false;
+      }
+
+    } else {
+      alert("Please install a wallet.")
+    }
+  }
+
   useEffect(() => {
     console.log(isConnected);
     if (isConnected) {
@@ -73,6 +115,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isConnected) {
+      checkChain();
       setConnection(true);
     } else {
       setConnection(false);
@@ -187,6 +230,22 @@ const Navbar = () => {
                 <li className="nav-item">
                   <button className="nav-disconnect" onClick={() => { disconnect(); disconnectTron() }}>disconnect</button>
                 </li>
+                {/* {
+                  chain
+                    ?
+                    <div className="main">
+                      <div className="add-chain-main">
+                        <div className="add-chain-box">
+                          <p className="add-chain-message">
+                            Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                          </p>
+                          <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
+                        </div>
+                      </div>
+                    </div>
+                    :
+                    null
+                } */}
               </>
               :
               <li className="nav-item">

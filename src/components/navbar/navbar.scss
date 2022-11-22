@@ -59,6 +59,65 @@ ul.nav-links {
     padding: 0 10px;
     border-right: none;
   }
+
+  .main {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    margin-left: -40px;
+    margin-top: -54px;
+    z-index: 300;
+
+    .add-chain-main {
+      position: fixed;
+      padding: 0;
+      z-index: inherit;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      align-content: center;
+      z-index: 200;
+
+      .add-chain-box {
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        height: 180px;
+        background: linear-gradient(180deg, #8359be 20%, #793ad8 50%, #a886fb);
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        padding: 20px;
+        border-radius: 20px;
+
+        .add-chain-message {
+          padding: 10px;
+          flex-grow: 1;
+          font-family: "Gilmer-Light";
+          font-weight: 700;
+          color: #ffffff;
+          font-size: 20px;
+          overflow: hidden;
+          height: 300px;
+        }
+
+        .add-chain-btn {
+          padding-top: 5px;
+          width: 200px;
+          font-family: "FontsFree";
+          background: #251b43;
+          color: #ffffff;
+          border: 1px solid transparent;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
 }
 
 .navtextstyle {
@@ -198,7 +257,7 @@ ul.nav-sub-menu {
   background-color: #251843;
   border-radius: 20px;
 
-  li{
+  li {
     padding: 20px !important;
     border-right: none;
     font-family: "FontsFree";
@@ -207,7 +266,7 @@ ul.nav-sub-menu {
     font-weight: 700;
     margin: 10px 10px;
 
-    a{
+    a {
       color: #ffffff;
     }
   }
