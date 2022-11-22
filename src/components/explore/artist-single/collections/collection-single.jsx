@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./collection-single.scss";
 import { Collections } from '../collection_dummy';
 import market from "../../../../contract/artifacts/market.json"
@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 import classicChords from "../../../../contract/artifacts/classicChords.json"
 import axios from "axios";
 import { useParams } from 'react-router-dom';
+import Loading3 from '../../../../loading3';
 
 const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
 const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
@@ -14,13 +15,15 @@ const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 function CollectionSingle() {
     const collection = Collections[3];
     const params = useParams();
-    const [username, setUsername] = useState(""); 
+    const [username, setUsername] = useState("");
     const [userData, setUserData] = useState({ name: null, description: null, image: null, totalQty: null, price: null });
     const [nftQty, setNftQty] = useState(null);
     const [price, setPrice] = useState(null);
     const [forRent, setForRent] = useState(false);
     const [tokenId, setTokenId] = useState(null);
     const [userQty, setUserQty] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const qtyRef = useRef(null);
 
     const getNftData = async () => {
         try {
@@ -80,6 +83,7 @@ function CollectionSingle() {
     }
 
     const buyOrRent = async () => {
+        setIsLoading(true);
         try {
             const { ethereum } = window;
             if (ethereum) {
@@ -101,10 +105,12 @@ function CollectionSingle() {
                         if (forRent) {
                             const rent = await marketContract.rentNft(params.id, tokenId, userQty, { value: price * userQty });
                             console.log(rent);
+                            qtyRef.current.value="";
                             getNftData();
                         } else {
                             const buy = await marketContract.buyNft(params.id, tokenId, userQty, { value: price * userQty });
                             console.log(buy);
+                            qtyRef.current.value="";
                             getNftData();
                         }
 
@@ -113,14 +119,16 @@ function CollectionSingle() {
                     }
                 }
                 // console.log();
-                // setIsLoading(true)
+                setIsLoading(false)
             } else {
                 alert("Please connect to the bitTorent Network!");
                 // setChainStatus(true);
+                setIsLoading(false);
             }
 
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     }
 
@@ -145,13 +153,20 @@ function CollectionSingle() {
                     <p className="total-minted">
                         Price Per Unit : &nbsp; {price} <img src="/images/btt.svg" height="28px" width="28px" />
                     </p>
-                    <input type="number" placeholder='Qty to purchase/rent' onChange={(e) => { setUserQty(e.target.value) }} title="Qty to purchase/rent" className='qty-to-p' />
+                    <input type="number" ref={qtyRef} placeholder='Qty to purchase/rent' onChange={(e) => { setUserQty(e.target.value) }} title="Qty to purchase/rent" className='qty-to-p' />
                     <button className="collection-buy-button" onClick={() => { buyOrRent() }}>
                         <span className='buy-button-tag'>{forRent ? "Rent It" : "Buy"}</span>
                         {/* &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span> */}
                     </button>
                 </div>
             </div>
+            {
+                isLoading
+                    ?
+                    <div className='loading-main'><Loading3 /></div>
+                    :
+                    null
+            }
         </div>
     )
 }

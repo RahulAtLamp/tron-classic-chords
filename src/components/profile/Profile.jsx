@@ -23,8 +23,9 @@ const Profile = () => {
     const [userData, setUserData] = useState({ name: "", bio: "", profile_pic: null })
     const [chain, setChainStatus] = useState(false);
     const [ProfileImage, setprofileImage] = useState(null);
-    const [mintedNfts, setMintedNfts] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [mintedNfts, setMintedNfts] = useState([]);
+    const [userNfts, setUserNfts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
     const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
@@ -54,6 +55,7 @@ const Profile = () => {
                     console.log(await marketContract.getUserNfts(address));
                     console.log(await tokenContract.mintedNfts(address));
                     const ids = await tokenContract.mintedNfts(address);
+                    const ids2 = await marketContract.getUserNfts(address);
                     console.log(ids.length);
                     let nfts = []
                     for (let i = 0; i < ids.length; i++) {
@@ -71,9 +73,29 @@ const Profile = () => {
                             console.log(error);
                         }
                     }
+
+                    let nfts2 = []
+                    for (let i = 0; i < ids2.length; i++) {
+                        const uri = await tokenContract.tokenUriMapping(ids2[i].tokenId.toNumber());
+                        console.log(uri);
+                        try {
+                            await axios.get("https://ipfs.io/ipfs/" + uri.split("//")[1]).then((response) => {
+                                let data = response.data
+                                data.image = "https://ipfs.io/ipfs/" + data.image.split("//")[1]
+                                response.data.id = ids2[i].tokenId.toNumber();
+                                nfts2.push(response.data)
+                                console.log(response.data);
+                            });
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+
                     console.log(nfts);
-                    setMintedNfts(nfts)
-                    console.log(profilePic);
+                    setMintedNfts(nfts);
+                    console.log(nfts2);
+                    setUserNfts(nfts2);
+                    // console.log(profilePic);
                     console.log(tx);
                     setUserDefault({ name: tx.name, bio: tx.description, profile_pic: tx.profileImage, userId: tx.userId });
                     setIsLoading(true)
@@ -208,14 +230,6 @@ const Profile = () => {
     }, [isConnected]);
 
     useEffect(() => {
-        console.log(userData);
-    }, [userData])
-
-    useEffect(() => {
-        console.log(userDefault);
-    }, [userDefault])
-
-    useEffect(() => {
         console.log(ProfileImage);
         if (ProfileImage) {
             const image = URL.createObjectURL(ProfileImage);
@@ -295,11 +309,11 @@ const Profile = () => {
                                                 </div>
                                                 <div className="nfts-name" title={collection.name}>{collection.name}</div>
                                                 <p className="nfts-description">{collection.description}</p>
-                                                <div className="buy-button-holder">
+                                                {/* <div className="buy-button-holder">
                                                     <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>Put on sale </span>
-                                                        {/*&nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span> */}
+                                                        &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span>
                                                     </button>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </Link>
@@ -308,34 +322,35 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="nfts-minted-holder">
+                <div className="nfts-minted-holder">
                     <h2 className="nfts-minted-header">
                         NFTs Owned
                     </h2>
                     <div className="nfts-minted-container">
                         <div className="nfts-creations-list">
                             {
-                                lastFive.map((collection, i) => (
-                                    <Link key={i} to="/artist/1/collections/1">
+                                isLoading ? (userNfts.map((collection, i) => (
+                                    <Link key={i} to={"/sell-nft/" + collection.id}>
                                         <div className="nfts-collection-pa">
                                             <div className="nfts-bg">
                                                 <div className="nfts-img">
-                                                    <img className="nfts-nft" src={collection.image} />
-                                                    <img className="nfts-nft" src={collection.image} />
+                                                    <video className="nfts-nft" src={collection.image} controls />
                                                 </div>
                                                 <div className="nfts-name" title={collection.name}>{collection.name}</div>
                                                 <p className="nfts-description">{collection.description}</p>
-                                                <div className="buy-button-holder">
-                                                    <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>RENT</span> &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span></button>
-                                                </div>
+                                                {/* <div className="buy-button-holder">
+                                                    <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>Put on sale </span>
+                                                        &nbsp; <img src="/images/tl.svg" width="15px" height="15px" /><span>{collection.price}</span>
+                                                    </button>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </Link>
-                                ))
+                                ))) : <h4 className="profile-title">Loading</h4>
                             }
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 {
                     profileWindow

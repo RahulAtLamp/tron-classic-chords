@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import "./loading3.scss"
 
-function Loading3() {
-
+function Loading3({message}) {
     return (
         <div className='data-loading'>
             <div className='loading-inner'>
@@ -85,7 +84,7 @@ function Loading3() {
                     <g>
                     </g>
                 </svg>
-                <div className='message'>Loading</div>
+                <div className='message'>{ message ? message :'Loading'}</div>
             </div>
         </div>
     )

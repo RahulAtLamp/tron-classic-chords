@@ -164,6 +164,13 @@
             }
         }
     }
+
+    .loading-main {
+        position: fixed;
+        height: 100vh;
+        top: 0px;
+        background: #ffffff20 !important;
+    }
 }
 
 

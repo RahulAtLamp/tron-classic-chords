@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./sell-collection-single.scss";
 // import classicChords from "../../contract/artifacts/classicChords.json"
 // import market from "../../contract/artifacts/market.json"
@@ -10,7 +10,7 @@ import { useAccount } from "wagmi";
 import { useParams } from 'react-router-dom';
 import classicChords from "../../../contract/artifacts/classicChords.json"
 import market from "../../../contract/artifacts/market.json"
-
+import Loading3 from '../../../loading3';
 
 const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
 const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
@@ -23,6 +23,12 @@ function SellCollectionSingle() {
     const [sellData, setSellData] = useState({ qty: null, price: null, option: null, rent_duration: null, royalty: null });
     const [collection, setCollections] = useState({})
     const [loading, setIsLoading] = useState(false)
+    const [showLoading, setShowLoading] = useState(false);
+
+    const qtyRef = useRef(null);
+    const priceRef = useRef(null);
+    const optionRef = useRef(null);
+    const royaltyRef = useRef(null);
 
 
     const getData = async () => {
@@ -70,6 +76,7 @@ function SellCollectionSingle() {
     }
 
     const sell = async () => {
+        setShowLoading(true);
         try {
             const { ethereum } = window;
             const provider = new ethers.providers.Web3Provider(ethereum);
@@ -77,23 +84,30 @@ function SellCollectionSingle() {
             const marketContract = new ethers.Contract(market_address, market, signer);
             let isAvailableForSell = null;
             let isAvailableForRent = null;
-        
 
-            if(sellData.option === "Sell"){
+
+            if (sellData.option === "Sell") {
                 isAvailableForSell = true;
                 isAvailableForRent = false;
                 sellData.rent_duration = 0;
-            }            
-            if(sellData.option === "rent"){
+            }
+            if (sellData.option === "rent") {
                 isAvailableForSell = false;
                 isAvailableForRent = true;
             }
 
-            const tx = await marketContract.createMarketItem(params.id, sellData.qty, sellData.price,isAvailableForRent,isAvailableForSell,sellData.rent_duration,sellData.royalty)
+            const tx = await marketContract.createMarketItem(params.id, sellData.qty, sellData.price, isAvailableForRent, isAvailableForSell, sellData.rent_duration, sellData.royalty)
             tx.wait()
-            
+            qtyRef.current.value = "";
+            priceRef.current.value = "";
+            optionRef.current.value = "";
+            royaltyRef.current.value = "";
+
+            setShowLoading(false);
+
         } catch (error) {
             console.log(error);
+            setShowLoading(false)
         }
     }
 
@@ -101,9 +115,9 @@ function SellCollectionSingle() {
         getData();
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(sellData);
-    },[sellData])
+    }, [sellData])
 
     return (
         <>
@@ -126,11 +140,11 @@ function SellCollectionSingle() {
                                 {collection.total_minted}
                             </p>
 
-                            <input className='total-qty' type="number" placeholder='Quantity to sell' onChange={(e) => { setSellData({ ...sellData, qty: e.target.value }) }} />
+                            <input className='total-qty' type="number" ref={qtyRef} placeholder='Quantity to sell' onChange={(e) => { setSellData({ ...sellData, qty: e.target.value }) }} />
 
-                            <input className='total-price' type="number" placeholder='Price' onChange={(e) => { setSellData({ ...sellData, price: e.target.value }) }} />
+                            <input className='total-price' type="number" ref={priceRef} placeholder='Price' onChange={(e) => { setSellData({ ...sellData, price: e.target.value }) }} />
 
-                            <select className='sell-options' defaultValue={""} onChange={(e) => { setSellData({ ...sellData, option: e.target.value }) }}>
+                            <select className='sell-options' defaultValue={""} ref={optionRef} onChange={(e) => { setSellData({ ...sellData, option: e.target.value }) }}>
                                 <option value="">--select--</option>
                                 <option value="rent">Rent</option>
                                 <option valu="sell">Sell</option>
@@ -141,19 +155,26 @@ function SellCollectionSingle() {
                                     ?
                                     <div>
                                         {/* <DatePicker className="sell-date-picker" minDate={new Date()} /> */}
-                                        <span className='date-picker-title'>Rent till:</span> <input type="date" onChange={(e)=>{setSellData({...sellData, rent_duration: new Date(e.target.value).getTime()/1000});}} className="sell-date-picker" />
+                                        <span className='date-picker-title'>Rent till:</span> <input type="date" onChange={(e) => { setSellData({ ...sellData, rent_duration: new Date(e.target.value).getTime() / 1000 }); }} className="sell-date-picker" />
                                     </div>
                                     :
                                     null
                             }
-                            <input className='total-price' type="number" placeholder='Royalty' onChange={(e) => { setSellData({ ...sellData, royalty: e.target.value }) }} />
+                            <input className='total-price' type="number" placeholder='Royalty' ref={royaltyRef} onChange={(e) => { setSellData({ ...sellData, royalty: e.target.value }) }} />
 
                             <button className="sell-buy-button" onClick={() => { sell() }}>
                                 proceed
                             </button>
                         </div>
+                        {
+                            showLoading
+                                ?
+                                <div className='loading-main'><Loading3 message={"Processing"} /></div>
+                                :
+                                null
+                        }
                     </div>
-                </div>) : null}
+                </div>) : <div className='loading-main'><Loading3 /></div>}
         </>
     )
 }

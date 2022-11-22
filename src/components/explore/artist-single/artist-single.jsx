@@ -122,9 +122,9 @@ function ArtistSingle() {
                         </div>
                         <div className="exp-name" title={collection.name}>{collection.name}</div>
                         <p className="exp-description">{collection.description}</p>
-                        <div className="buy-button-holder">
+                        {/* <div className="buy-button-holder">
                           <button className="buy-button" onClick={(e) => { e.preventDefault(); }}> <span className='buy-button-tag'>BUY</span> &nbsp; <span>{collection.price}</span></button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </Link>
