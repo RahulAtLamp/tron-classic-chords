@@ -12,11 +12,9 @@ import Navbar from "../navbar/navbar";
 // import Lit from "../../images/lit.svg";
 
 const Home = () => {
-  const [newButton, setNewButton] = useState({ hidden: false });
   const navigate = new useNavigate();
   const takeToPlayer = () => {
-    setNewButton({ hidden: true });
-    setTimeout(navigate("/player"), 3000);
+    navigate("/player")
   };
   return (
     <>

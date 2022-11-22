@@ -119,6 +119,7 @@
   cursor: pointer;
   white-space: nowrap;
   padding: 5px 10px;
+  pointer-events: all;
 }
 
 .home-right {
