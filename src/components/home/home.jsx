@@ -13,13 +13,13 @@ import Navbar from "../navbar/navbar";
 
 const Home = () => {
 
-  useEffect (() =>{
-    try{
-      document.getElementById("gui").outerHTML = "";
-    }catch(error){
-      console.log(error);
-    }
-  })
+  // useEffect (() =>{
+  //   try{
+  //     document.getElementById("gui").outerHTML = "";
+  //   }catch(error){
+  //     console.log(error);
+  //   }
+  // })
   
   const navigate = new useNavigate();
   const takeToPlayer = () => {
