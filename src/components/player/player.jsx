@@ -119,7 +119,7 @@ function Player() {
   },[]);
 
   useEffect(() => {
-    document.getElementById("gui").outerHTML = "";
+    // document.getElementById("gui").outerHTML = "";
 
     const test = new SceneInit('pianoHolder','pianoCanvas');
     test.initScene();
