@@ -93,35 +93,6 @@ function Player() {
 
     pianoFolder.open();
 
-
-  },[]);
-
-  useEffect(() => {
-    const test = new SceneInit('pianoHolder','pianoCanvas');
-    test.initScene();
-    test.animate();
-    // midiSounds.cacheInstrument(selectedInstrument);
-
-    test.scene.add(p.getPianoGroup());
-
-
-    const fontLoader = new FontLoader();
-    fontLoader.load('./fonts/Helvetica-Bold.typeface.json', (font) => {
-      console.log(font);
-      p.renderText(font);
-    });
-
-
-    test.camera.position.z = 226;
-    test.camera.position.x = -40;
-    test.camera.position.y = 30;
-
-
-    if (selectedInstrument) {
-      midiSounds.current.selectedInstrument = selectedInstrument;
-      midiSounds.current.cacheInstrument(selectedInstrument);
-    }
-
     const onKeyDown = (event) => {
       if(event.key === 'h' || event.key === 'H'){
         gui.__proto__.constructor.toggleHide();
@@ -143,6 +114,38 @@ function Player() {
       window.removeEventListener('keyup', onKeyUp);
       window.removeEventListener('keydown', onKeyDown);
     };
+
+
+  },[]);
+
+  useEffect(() => {
+    document.getElementById("gui").outerHTML = "";
+
+    const test = new SceneInit('pianoHolder','pianoCanvas');
+    test.initScene();
+    test.animate();
+    // midiSounds.cacheInstrument(selectedInstrument);
+
+    test.scene.add(p.getPianoGroup());
+
+
+    const fontLoader = new FontLoader();
+    fontLoader.load('./fonts/Helvetica-Bold.typeface.json', (font) => {
+      console.log(font); 
+      p.renderText(font);
+    });
+
+
+    test.camera.position.z = 226;
+    test.camera.position.x = -40;
+    test.camera.position.y = 30;
+
+
+    if (selectedInstrument) {
+      midiSounds.current.selectedInstrument = selectedInstrument;
+      midiSounds.current.cacheInstrument(selectedInstrument);
+    }
+
 
   }, [selectedInstrument])
 

@@ -26,6 +26,28 @@
   opacity: 1;
 }
 
+.dg .cr.function .property-name{
+  background-color: #1A1a1a;
+  color: #61dbdb;
+  /* border: 1px solid blue; */
+}
+/* .dg .cr.function .property-name {
+  color: red;
+} */
+.dg .cr.function{
+  background :none;
+  background-color: #1A1a1a;
+
+}
+
+.dg li.title  {
+  background-color: #251843;
+}
+
+.dg .property-name {
+  color: #A886Fb;
+  /* color: black; */
+}
 
 
 /* .dg {

@@ -55,6 +55,7 @@ function MintNft(props) {
         function handleClickOutside(event) {
           if (mintBox.current && !mintBox.current.contains(event.target)) {
             setOpen(false);
+            props.opened(false);
           }
         }
         // Bind the event listener

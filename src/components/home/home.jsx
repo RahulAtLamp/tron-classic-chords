@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./home.css";
 import { ParallaxHover } from "react-parallax-hover";
@@ -12,6 +12,15 @@ import Navbar from "../navbar/navbar";
 // import Lit from "../../images/lit.svg";
 
 const Home = () => {
+
+  useEffect (() =>{
+    try{
+      document.getElementById("gui").outerHTML = "";
+    }catch(error){
+      console.log(error);
+    }
+  })
+  
   const navigate = new useNavigate();
   const takeToPlayer = () => {
     navigate("/player")
