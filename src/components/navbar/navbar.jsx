@@ -35,6 +35,7 @@ const Navbar = () => {
 
   const connectMeta = () => {
     connect();
+    checkChain();
     setAccount(address);
     setShowOptions(false);
   };
@@ -92,10 +93,11 @@ const Navbar = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const { chainId } = await provider.getNetwork();
       if (chainId !== 1029) {
-        setChainStatus(true);
+        // setChainStatus(true);
+        addChain();
         return true;
       } else {
-        setChainStatus(false);
+        // setChainStatus(false);
         return false;
       }
 

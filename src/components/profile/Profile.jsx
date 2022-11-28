@@ -147,7 +147,8 @@ const Profile = () => {
         } else {
             alert("Please install a wallet.")
         }
-    }
+    };
+    
     const getContract = async () => {
         try {
             const { ethereum } = window;

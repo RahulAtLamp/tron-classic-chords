@@ -34,6 +34,12 @@
                 .profile-pic {
                     max-width: 100%;
                     border-radius: 50px;
+                    
+
+                    &::before {
+                        content: "";
+                        animation: profile-loader 3s linear 1s 10 slidein fill-mode;
+                    }
                 }
             }
         }
@@ -369,4 +375,10 @@
     padding-top: 100px;
     color: #ffffff;
     padding-top: 100px;
+}
+
+@keyframes profile-loader {
+    0%{
+        // background-color: #ffffff;
+    }
 }
