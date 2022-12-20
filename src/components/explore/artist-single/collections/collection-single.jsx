@@ -153,7 +153,7 @@ function CollectionSingle() {
                         Total Quantity : {nftQty}
                     </p>
                     <p className="total-minted">
-                        Price Per Unit : &nbsp; {price} &nbsp; <img src="/images/pml.png" height="28px" width="28px" />
+                        Price Per Unit : &nbsp; {price} &nbsp; <img src="/images/btt.svg" height="28px" width="28px" />
                     </p>
                     <input type="number" ref={qtyRef} placeholder='Qty to purchase/rent' onChange={(e) => { setUserQty(e.target.value) }} title="Qty to purchase/rent" className='qty-to-p' />
                     <button className="collection-buy-button" onClick={() => { buyOrRent() }}>
