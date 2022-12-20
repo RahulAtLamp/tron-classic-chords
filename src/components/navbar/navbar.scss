@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
-  z-index: 0;
+  z-index: 20;
   transition: top 0.6s;
   // background: rgb(116,108,254);
   // background: linear-gradient(120deg, #251843 99%, #746cfe);
@@ -254,7 +254,7 @@ ul.nav-links {
 ul.nav-sub-menu {
   position: absolute;
   padding: 20px !important;
-  background-color: #251843;
+  background-color: transparent;
   border-radius: 20px;
 
   li {

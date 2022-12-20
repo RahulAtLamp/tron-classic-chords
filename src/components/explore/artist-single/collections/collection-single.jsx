@@ -8,9 +8,9 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import Loading3 from '../../../../loading3';
 
-const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
-const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
-const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
+// const user_address = "0xb14bd4448Db2fe9b4DBb1D7b8097D28cA57A8DE9";
+// const classicChords_address = "0x01daa94030dBd0a666066483D89E7927BE0904Ed";
+// const market_address = "0x086E4fDFb8CEb2c21bD1491a6B86Ce8eB4C01970"
 
 function CollectionSingle() {
     const collection = Collections[3];
@@ -25,6 +25,8 @@ function CollectionSingle() {
     const [isLoading, setIsLoading] = useState(false);
     const qtyRef = useRef(null);
 
+    console.log(process.env.REACT_APP_CLASSIC_CHORDS);
+
     const getNftData = async () => {
         try {
             const { ethereum } = window;
@@ -37,8 +39,8 @@ function CollectionSingle() {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
-                    const marketContract = new ethers.Contract(market_address, market, signer);
+                    const tokenContract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
+                    const marketContract = new ethers.Contract(process.env.REACT_APP_MARKET_ADDRESS, market, signer);
                     let result = {
                     }
 
@@ -95,8 +97,8 @@ function CollectionSingle() {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
-                    const marketContract = new ethers.Contract(market_address, market, signer);
+                    const tokenContract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
+                    const marketContract = new ethers.Contract(process.env.REACT_APP_MARKET_ADDRESS, market, signer);
 
                     try {
 
@@ -151,7 +153,7 @@ function CollectionSingle() {
                         Total Quantity : {nftQty}
                     </p>
                     <p className="total-minted">
-                        Price Per Unit : &nbsp; {price} <img src="/images/btt.svg" height="28px" width="28px" />
+                        Price Per Unit : &nbsp; {price} &nbsp; <img src="/images/pml.png" height="28px" width="28px" />
                     </p>
                     <input type="number" ref={qtyRef} placeholder='Qty to purchase/rent' onChange={(e) => { setUserQty(e.target.value) }} title="Qty to purchase/rent" className='qty-to-p' />
                     <button className="collection-buy-button" onClick={() => { buyOrRent() }}>

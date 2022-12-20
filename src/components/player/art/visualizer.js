@@ -126,8 +126,8 @@ export default class Visualizer extends React.Component {
     if (total !== oldTotal) {
       if (!fullscreen) {
         canvas = document.getElementById("canvas");
-        console.log(canvas);
-        //set width and height of canvas
+        // console.log(canvas);
+        // set width and height of canvas
         canvas.width = newwidth;
         canvas.height = newheight;
         //resize visualizer
@@ -157,7 +157,7 @@ export default class Visualizer extends React.Component {
       height
     });
     this.renderFrames();
-    await setTimeout(() => { }, 500000000);
+    await setTimeout(() => { }, 5000);
 
     this.randomPresets(visualizer);
   };
@@ -169,7 +169,7 @@ export default class Visualizer extends React.Component {
     setTimeout(() => {
       this.renderFrames(visualizer);
       this.resize();
-    }, 1000000000 / 120);
+    }, 1000 / 120);
   };
   randomPresets = (visualizer) => {
     let { presets } = this.state;
@@ -190,7 +190,7 @@ export default class Visualizer extends React.Component {
     }
     setTimeout(() => {
       return this.randomPresets(visualizer);
-    }, 5000000000);
+    }, 50000);
   };
   randomProperty = (obj) => {
     const key = Object.keys(obj);
@@ -220,7 +220,7 @@ export default class Visualizer extends React.Component {
         <MintNft opened={this.state.open} file={this.state.file} file_url={this.state.file_url} url={this.state.link} />
 
         {/* {recordV} */}
-      </> 
+      </>
     );
 
   }

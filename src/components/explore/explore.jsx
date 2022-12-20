@@ -26,6 +26,7 @@ const Explore = ({ temp }) => {
 
   // const gui = new GUI();
   // gui.destroy()
+  console.log(process.env.REACT_APP_MARKET_ADDRESS)
 
   const getContract = async () => {
     try {
@@ -47,7 +48,7 @@ const Explore = ({ temp }) => {
       // }
 
       const provider = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
-      const contract = new ethers.Contract(market_address, market, provider);
+      const contract = new ethers.Contract(process.env.REACT_APP_USER_ADDRESS, market, provider);
       return contract
     } catch (error) {
       console.log(error);

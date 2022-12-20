@@ -51,7 +51,7 @@ function Streaming({ account }) {
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
-          const contract = new ethers.Contract(user_address, user, signer);
+          const contract = new ethers.Contract(process.env.REACT_USER_ADDRESS, user, signer);
           return contract
         } else {
           alert("Please connect to the bitTorent Network!");

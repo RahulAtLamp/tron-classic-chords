@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/navbar/navbar";
 import Home from "./components/home/home";
 import Player from "./components/player/player";
+import AllNfts from "./components/explore/allNfts";
 import Explore from "./components/explore/explore";
 import Streaming from "./components/stream/stream";
 import Profile from "./components/profile/Profile";
@@ -33,7 +34,8 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/player" element={<Player />} />
-                <Route path="/explore" element={<Explore />} />
+                <Route path="/all-nfts" element={<AllNfts/>} />
+                <Route path="/all-artists" element={<Explore />} />
                 <Route path="/streaming" element={<Streaming />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/artist/:id" element={<ArtistSingle />} />

@@ -39,9 +39,9 @@ function ArtistSingle() {
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
-          const contract = new ethers.Contract(user_address, user, signer);
-          const marketContract = new ethers.Contract(market_address, market, signer);
-          const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
+          const contract = new ethers.Contract(process.env.REACT_APP_USER_ADDRESS, user, signer);
+          const marketContract = new ethers.Contract(process.env.REACT_APP_MARKET_ADDRESS, market, signer);
+          const tokenContract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
           const tx = await contract.userMapping(params.id);
           const listed_data = await marketContract.getUserListedNfts(params.id);
           console.log(listed_data);

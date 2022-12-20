@@ -43,8 +43,7 @@ function SellCollectionSingle() {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
-                    const marketContract = new ethers.Contract(market_address, market, signer);
+                    const tokenContract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
                     let result = {
                     }
 
@@ -81,7 +80,7 @@ function SellCollectionSingle() {
             const { ethereum } = window;
             const provider = new ethers.providers.Web3Provider(ethereum);
             const signer = provider.getSigner();
-            const marketContract = new ethers.Contract(market_address, market, signer);
+            const marketContract = new ethers.Contract(process.env.REACT_APP_MARKET_ADDRESS, market, signer);
             let isAvailableForSell = null;
             let isAvailableForRent = null;
 
@@ -96,6 +95,7 @@ function SellCollectionSingle() {
                 isAvailableForRent = true;
             }
 
+            console.log(params.id, sellData.qty, sellData.price, isAvailableForRent, isAvailableForSell, sellData.rent_duration, sellData.royalty);
             const tx = await marketContract.createMarketItem(params.id, sellData.qty, sellData.price, isAvailableForRent, isAvailableForSell, sellData.rent_duration, sellData.royalty)
             tx.wait()
             qtyRef.current.value = "";

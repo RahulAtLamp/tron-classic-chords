@@ -22,6 +22,7 @@ const Navbar = () => {
   const { disconnect } = useDisconnect();
   const walletOptions = useRef();
   const menuRef = useRef();
+  const exploreMenuRef = useRef();
 
 
 
@@ -30,7 +31,8 @@ const Navbar = () => {
   const [connected, setConnection] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [account, setAccount] = useState(null);
-  const [showMenu, setShowMenu] = useState(null);
+  const [showExploreMenu, setShowExploreMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [chain, setChainStatus] = useState(false);
 
   const connectMeta = () => {
@@ -166,6 +168,23 @@ const Navbar = () => {
     };
   }, [menuRef]);
 
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+     function handleClickOutside(event) {
+      if (exploreMenuRef.current && !exploreMenuRef.current.contains(event.target)) {
+        setShowExploreMenu(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [exploreMenuRef])
+
   // useEffect(() => {
   //   if (!window.tronWeb.defaultAddress) {
   //     disconnectTron();
@@ -194,10 +213,33 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
+            {/* <span className="nav-link" onClick={() => { setShowExploreMenu(!showMenu) }}> */}
+            <span>
+              <Link className="navtextstyle" to="/all-artists">Explore</Link>
+            </span>
+            {/* {
+              showExploreMenu
+                ?
+                <div className="nav-sub-menu" ref={exploreMenuRef}>
+                  <ul className="nav-sub-menu">
+                    <li>
+                      <Link to="/all-nfts" onClick={() => { setShowExploreMenu(false) }} className="nav-sub-menu-link">All NFTs</Link>
+                    </li>
+                    <li>
+                      <Link to="/all-artists" onClick={() => { setShowExploreMenu(false) }} className="nav-sub-menu-link">All Artists</Link>
+                    </li>
+                  </ul>
+                </div>
+                :
+                null
+            } */}
+
+          </li>
+          {/* <li className="nav-item">
             <Link to="/explore" className="nav-link">
               <div className="navtextstyle">Explore</div>
             </Link>
-          </li>
+          </li> */}
           {
             connected || isConnected
               ?
@@ -217,6 +259,9 @@ const Navbar = () => {
                           <li>
                             <Link to="/all-stream" onClick={() => { setShowMenu(false) }} className="nav-sub-menu-link">All Streams</Link>
                           </li>
+                          {/* <li>
+                            <Link to="/all-live-stream" onClick={() => { setShowMenu(false) }} className="nav-sub-menu-link">Live Streams</Link>
+                          </li> */}
                         </ul>
                       </div>
                       :
@@ -270,7 +315,7 @@ const Navbar = () => {
                   <span onClick={() => { navigate("/player") }}>Player</span>
                 </li>
                 <li>
-                  <span onClick={() => { navigate("/explore") }}>Explore</span>
+                  <span onClick={() => { navigate("/all-artists") }}>Explore</span>
                 </li>
                 {
                   connected

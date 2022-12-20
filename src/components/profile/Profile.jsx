@@ -46,9 +46,9 @@ const Profile = () => {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const contract = new ethers.Contract(user_address, user, signer);
-                    const tokenContract = new ethers.Contract(classicChords_address, classicChords, signer);
-                    const marketContract = new ethers.Contract(market_address, market, signer);
+                    const contract = new ethers.Contract(process.env.REACT_APP_USER_ADDRESS, user, signer);
+                    const tokenContract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
+                    const marketContract = new ethers.Contract(process.env.REACT_APP_MARKET_ADDRESS, market, signer);
                     const tx = await contract.userMapping(address);
                     const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDllOTgwOTYxRDc1M0QwNUEzODlDZUU1RThCRjA5NjI3QzkwYzQ2RTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjgxOTEzODY1MzksIm5hbWUiOiJjbGFzc2ljX2Nob3JkcyJ9.TKUEsNlcVJQvImOVlnZqCYEQPsjZb3RmXgSAR5D9vng" })
                     const profilePic = await client.get(tx.profileImage);
@@ -148,7 +148,7 @@ const Profile = () => {
             alert("Please install a wallet.")
         }
     };
-    
+
     const getContract = async () => {
         try {
             const { ethereum } = window;
@@ -161,7 +161,7 @@ const Profile = () => {
                 const { chainId } = await provider.getNetwork();
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
-                    const contract = new ethers.Contract(user_address, user, signer);
+                    const contract = new ethers.Contract(process.env.REACT_APP_USER_ADDRESS, user, signer);
                     return contract
                 } else {
                     alert("Please connect to the bitTorent Network!");
@@ -381,7 +381,7 @@ const Profile = () => {
                         <div className="add-chain-main">
                             <div className="add-chain-box">
                                 <p className="add-chain-message">
-                                    Currently our application only supports bittorrent testnet. Please add the BTT chain. If you have already added please switch to BTT.
+                                    Currently our application only supports polygon MUMBAI testnet. Please add the MUMBAI testnet. If you have already added please switch to MUMBAI testnet.
                                 </p>
                                 <button className="add-chain-btn" onClick={() => { addChain() }}>add chain</button>
                             </div>

@@ -65,7 +65,7 @@ const Home = () => {
             {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
             <div className="inst-bg">
               <div className="inst-content">
-                <ul>
+                <ul className="inst-list">
                   <li>
                     As soon as you enter the homepage, you can find the PLAY
                     NOW.
@@ -93,7 +93,7 @@ const Home = () => {
             {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
             <div className="inst-bg">
               <div className="inst-content">
-                <ul>
+                <ul className="inst-list">
                   <li>Go to the STREAM option from the homepage.</li>
                   <br />
                   <li>
@@ -124,7 +124,7 @@ const Home = () => {
             {/* <ParallaxHover borderRadius={50} scale={5} width={400} height={600}> */}
             <div className="inst-bg">
               <div className="inst-content">
-                <ul>
+                <ul className="inst-list">
                   <li>
                     Only when you start playing your music, your Generate Art
                     button will be available.
@@ -153,7 +153,7 @@ const Home = () => {
               <div>Powered By</div>
             </section>
             <div className="imgseperator-top">
-              <section>
+              {/* <section>
                 <ParallaxHover
                   borderRadius={20}
                   scale={5}
@@ -180,7 +180,7 @@ const Home = () => {
                     </div>
                   </div>
                 </ParallaxHover>
-              </section>
+              </section> */}
               {/* <section>
                 <ParallaxHover
                   borderRadius={20}
@@ -196,7 +196,7 @@ const Home = () => {
                 </ParallaxHover>
               </section> */}
             </div>
-            <div className="imgseperator-down">
+            {/* <div className="imgseperator-down">
               <section>
                 <ParallaxHover
                   borderRadius={20}
@@ -211,7 +211,7 @@ const Home = () => {
                   </div>
                 </ParallaxHover>
               </section>
-            </div>
+            </div> */}
 
             {/* <div><p className="col-sm">
             &copy;{new Date().getFullYear()} Biscuit | All rights reserved |

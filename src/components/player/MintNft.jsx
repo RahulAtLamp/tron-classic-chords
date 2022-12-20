@@ -42,7 +42,8 @@ function MintNft(props) {
         return metadata_cid.url
     }
 
-    console.log(props);
+    // console.log(props);
+    
     useEffect(() => {
         console.log(open);
         setOpen(props.opened);
@@ -95,7 +96,7 @@ function MintNft(props) {
                 console.log("switch case for this case is: " + chainId);
                 if (chainId === 1029) {
                     const numToken = document.getElementById("num_token").value;
-                    const contract = new ethers.Contract(classicChords_address, classicChords, signer);
+                    const contract = new ethers.Contract(process.env.REACT_APP_CLASSIC_CHORDS, classicChords, signer);
                     const uri = await getTokeUri();
                     const tx = await contract.mint(numToken, uri);
                     tx.wait();
